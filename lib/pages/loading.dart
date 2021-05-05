@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flaevr/pages/main_page.dart';
 
 class LoadingPage extends StatefulWidget {
   LoadingPage({Key key}) : super(key: key);
@@ -9,6 +10,19 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
+  bool checkLogin() {
+    return false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (!checkLogin()) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MainPage()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
