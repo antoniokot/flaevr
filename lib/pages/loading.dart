@@ -18,8 +18,10 @@ class _LoadingPageState extends State<LoadingPage> {
   void initState() {
     super.initState();
     if (!checkLogin()) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MainPage()));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainPage()));
+      });
     }
   }
 
