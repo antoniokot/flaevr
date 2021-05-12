@@ -1,3 +1,4 @@
+import 'package:flaevr/components/button.dart';
 import 'package:flaevr/pages/login.dart';
 import 'package:flaevr/pages/signup.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,11 @@ import 'package:flutter/material.dart';
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void _redirectRegister() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Signup()));
+    }
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(children: [
@@ -13,7 +19,7 @@ class MainPage extends StatelessWidget {
               children: [
                 Image(image: AssetImage('lib/assets/images/main_page_gif.gif')),
                 Positioned(
-                    top: 250,
+                    top: MediaQuery.of(context).size.height / 3,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
@@ -47,63 +53,36 @@ class MainPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 40, right: 40, bottom: 11, top: 30),
+                        Button(
+                          padding: EdgeInsets.only(
+                              left: 40, right: 40, bottom: 11, top: 20),
                           constraints:
                               BoxConstraints(minWidth: 100, maxWidth: 300),
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 42,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                  backgroundColor:
-                                      Color.fromRGBO(255, 70, 70, 1),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  )),
-                              child: Text("Registrar-se com o email",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14)),
-                              onPressed: () => {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Signup()))
-                              },
-                            ),
-                          ),
+                          width: double.infinity,
+                          height: 42,
+                          text: "Registrar-se com o Email",
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
+                          backgroundColor: Color.fromRGBO(255, 70, 70, 1),
+                          onPressed: _redirectRegister,
                         ),
-                        Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 11),
-                            constraints:
-                                BoxConstraints(minWidth: 100, maxWidth: 300),
-                            child: SizedBox(
-                              height: 42,
-                              width: double.infinity,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                    backgroundColor:
-                                        Color.fromRGBO(24, 119, 242, 1),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    )),
-                                child: Text(
-                                  "Entrar com o Facebook",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
-                                ),
-                                onPressed: () => {
-                                  //Navigator.push(
-                                  //context, MaterialPageRoute(builder: (context) => MainPage()));
-                                },
-                              ),
-                            )),
+                        Button(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 11),
+                          constraints:
+                              BoxConstraints(minWidth: 100, maxWidth: 300),
+                          width: double.infinity,
+                          height: 42,
+                          text: "Entrar com o Facebook",
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
+                          backgroundColor: Color.fromRGBO(24, 119, 242, 1),
+                          onPressed: _redirectRegister,
+                        ),
                       ]),
                     ))
               ],
