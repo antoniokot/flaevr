@@ -66,27 +66,38 @@ class OriginState extends State<Origin> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined),
                   label: 'Home',
-                  activeIcon: Icon(Icons.home)),
+                  activeIcon: Icon(
+                    Icons.home,
+                    color: Color(0xFF3d3d4e),
+                  )),
               BottomNavigationBarItem(
                   icon: Icon(Icons.search_outlined),
                   label: 'Search',
-                  backgroundColor: Color(0xFF3d3d4e),
                   activeIcon: Icon(
                     Icons.search,
                     color: Color(0xFF3d3d4e),
                   )),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
+                icon: Icon(
+                  Icons.search,
+                  color: Color(0xFF3d3d4e),
+                ),
                 label: '',
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.favorite_border),
                   label: 'Favoritos',
-                  activeIcon: Icon(Icons.favorite)),
+                  activeIcon: Icon(
+                    Icons.favorite,
+                    color: Color(0xFF3d3d4e),
+                  )),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline),
                   label: 'Perfil',
-                  activeIcon: Icon(Icons.person))
+                  activeIcon: Icon(
+                    Icons.person,
+                    color: Color(0xFF3d3d4e),
+                  ))
             ],
           ),
         ));
