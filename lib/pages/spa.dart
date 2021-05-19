@@ -57,6 +57,8 @@ class OriginState extends State<Origin> {
             primaryColor: Color(0xFF3d3d4e),
           ),
           child: BottomNavigationBar(
+            selectedFontSize: 12,
+            unselectedFontSize: 12,
             onTap: onTabTapped,
             currentIndex: _currentIndex,
             type: BottomNavigationBarType.fixed,
