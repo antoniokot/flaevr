@@ -14,6 +14,8 @@ class LoginState extends State<Login> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Signup()));
   }
 
+  bool _obscureText = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,24 +38,38 @@ class LoginState extends State<Login> {
                   }(),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
+                    height: () {
+                      double size;
+                      if (MediaQuery.of(context).viewInsets.bottom > 0)
+                        size = MediaQuery.of(context).size.height -
+                            (MediaQuery.of(context).size.height / 12 +
+                                MediaQuery.of(context).viewInsets.bottom);
+                      else
+                        size = MediaQuery.of(context).size.height -
+                            MediaQuery.of(context).size.height / 3;
+
+                      return size;
+                    }(),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20)),
                         color: Colors.white),
-                    child: Column(
+                    child: ListView(
+                      physics: new BouncingScrollPhysics(),
                       children: [
                         Container(
-                          margin: EdgeInsets.only(
-                              left: 40, right: 40, bottom: 50, top: 30),
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Color.fromRGBO(61, 61, 78, 1),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24),
-                          ),
-                        ),
+                            margin: EdgeInsets.only(
+                                left: 40, right: 40, bottom: 50, top: 30),
+                            child: Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Color.fromRGBO(61, 61, 78, 1),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24),
+                              ),
+                            )),
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 26),
                             child: Column(
@@ -112,10 +128,25 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
                                 TextField(
+                                  obscureText: !_obscureText,
                                   autofocus: false,
                                   style: TextStyle(
                                       fontSize: 15.0, color: Color(0xFF3d3d4e)),
                                   decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          _obscureText
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Color(0xFFbdbdbf),
+                                        ),
+                                        onPressed: () {
+                                          // Update the state i.e. toogle the state of passwordVisible variable
+                                          setState(() {
+                                            _obscureText = !_obscureText;
+                                          });
+                                        },
+                                      ),
                                       filled: true,
                                       fillColor:
                                           Color.fromRGBO(241, 241, 242, 1),
