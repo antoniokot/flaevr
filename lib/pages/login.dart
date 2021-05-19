@@ -1,5 +1,6 @@
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/pages/signup.dart';
+import 'package:flaevr/pages/spa.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -11,7 +12,7 @@ class Login extends StatefulWidget {
 
 class LoginState extends State<Login> {
   void _login() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Signup()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
   }
 
   bool _obscureText = false;
