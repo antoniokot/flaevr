@@ -24,6 +24,7 @@ class LoginState extends State<Login> {
       body: Column(children: [
         Expanded(
           child: Stack(
+            fit: StackFit.expand,
             children: [
               Container(
                   width: MediaQuery.of(context).size.width,

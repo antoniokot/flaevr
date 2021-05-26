@@ -31,6 +31,7 @@ class SignupState extends State<Signup> {
       body: Column(children: [
         Expanded(
           child: Stack(
+            fit: StackFit.expand,
             children: [
               Container(
                   width: MediaQuery.of(context).size.width,

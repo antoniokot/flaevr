@@ -1,6 +1,5 @@
 import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/pages/profile.dart';
-import 'package:flaevr/pages/signup.dart';
 import 'package:flutter/material.dart';
 
 class Origin extends StatefulWidget {
@@ -13,7 +12,7 @@ class Origin extends StatefulWidget {
 class OriginState extends State<Origin> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Signup(),
+    Profile(),
     Product(),
     Product(),
     Product(),
