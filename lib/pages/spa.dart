@@ -1,4 +1,5 @@
 import 'package:flaevr/pages/product.dart';
+import 'package:flaevr/pages/profile.dart';
 import 'package:flaevr/pages/signup.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class OriginState extends State<Origin> {
     Product(),
     Product(),
     Product(),
-    Product()
+    Profile()
   ];
 
   void onTabTapped(int index) {

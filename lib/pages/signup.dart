@@ -32,8 +32,14 @@ class SignupState extends State<Signup> {
         Expanded(
           child: Stack(
             children: [
-              Image(
-                  image: AssetImage('lib/assets/images/top_register_img.png')),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: FittedBox(
+                    child: Image(
+                        image: AssetImage(
+                            'lib/assets/images/top_register_img.png')),
+                    fit: BoxFit.fill,
+                  )),
               Positioned(
                   top: MediaQuery.of(context).size.height / 9,
                   child: Container(

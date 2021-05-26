@@ -25,8 +25,14 @@ class LoginState extends State<Login> {
         Expanded(
           child: Stack(
             children: [
-              Image(
-                  image: AssetImage('lib/assets/images/top_content_login.png')),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: FittedBox(
+                    child: Image(
+                        image: AssetImage(
+                            'lib/assets/images/top_content_login.png')),
+                    fit: BoxFit.fill,
+                  )),
               Positioned(
                   top: () {
                     double size;
