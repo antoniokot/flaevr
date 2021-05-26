@@ -20,6 +20,12 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
+        elevation: 0.0,
+      ),
       backgroundColor: Colors.white,
       body: Column(children: [
         Expanded(

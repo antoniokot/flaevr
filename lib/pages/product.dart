@@ -1,4 +1,3 @@
-import 'package:flaevr/pages/signup.dart';
 import 'package:flutter/material.dart';
 
 class Product extends StatefulWidget {
