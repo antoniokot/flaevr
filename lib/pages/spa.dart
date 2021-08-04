@@ -1,5 +1,7 @@
+import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/pages/profile.dart';
+import 'package:flaevr/pages/search.dart';
 import 'package:flutter/material.dart';
 
 class Origin extends StatefulWidget {
@@ -12,8 +14,8 @@ class Origin extends StatefulWidget {
 class OriginState extends State<Origin> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Profile(),
-    Product(),
+    Home(),
+    Search(),
     Product(),
     Product(),
     Profile()
@@ -72,44 +74,68 @@ class OriginState extends State<Origin> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                        icon: Icon(
+                    IconButton(icon: () {
+                      if (_currentIndex != 0)
+                        return Icon(
+                          Icons.home,
+                          color: Color(0xFFAEAEB2),
+                        );
+                      else
+                        return Icon(
                           Icons.home,
                           color: Color(0xFF3d3d4e),
-                        ),
-                        onPressed: () {
-                          onTabTapped(0);
-                        }),
-                    IconButton(
-                        icon: Icon(
-                          Icons.search_outlined,
+                        );
+                    }(), onPressed: () {
+                      onTabTapped(0);
+                    }),
+                    IconButton(icon: () {
+                      if (_currentIndex != 1)
+                        return Icon(
+                          Icons.search,
+                          color: Color(0xFFAEAEB2),
+                        );
+                      else
+                        return Icon(
+                          Icons.search,
                           color: Color(0xFF3d3d4e),
-                        ),
-                        onPressed: () {
-                          onTabTapped(1);
-                        }),
+                        );
+                    }(), onPressed: () {
+                      onTabTapped(1);
+                    }),
                     IconButton(
                         icon: Icon(
                           Icons.home,
                           color: Color(0xFF3d3d4e),
                         ),
                         onPressed: () {}),
-                    IconButton(
-                        icon: Icon(
-                          Icons.favorite_border,
+                    IconButton(icon: () {
+                      if (_currentIndex != 3)
+                        return Icon(
+                          Icons.favorite,
+                          color: Color(0xFFAEAEB2),
+                        );
+                      else
+                        return Icon(
+                          Icons.favorite,
                           color: Color(0xFF3d3d4e),
-                        ),
-                        onPressed: () {
-                          onTabTapped(3);
-                        }),
-                    IconButton(
-                        icon: Icon(
-                          Icons.person_outline,
+                        );
+                    }(), onPressed: () {
+                      onTabTapped(3);
+                    }),
+                    IconButton(icon: () {
+                      if (_currentIndex != 4)
+                        return Icon(
+                          Icons.person,
+                          color: Color(0xFFAEAEB2),
+                        );
+                      else
+                        return Icon(
+                          Icons.person,
                           color: Color(0xFF3d3d4e),
-                        ),
-                        onPressed: () {
-                          onTabTapped(4);
-                        }),
+                        );
+                    }(), onPressed: () {
+                      onTabTapped(4);
+                    }),
                   ],
                 )))
       ]),

@@ -99,7 +99,8 @@ class ProfileState extends State<Profile> {
                                 ),
                               ),
                               Text('Mariana Melo'),
-                              Icon(Icons.settings)
+                              IconButton(
+                                  icon: Icon(Icons.settings), onPressed: () {})
                             ]))),
               ),
             ],
