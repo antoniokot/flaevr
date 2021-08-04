@@ -70,7 +70,7 @@ class SearchState extends State<Search> {
                   height: 200, // card height
                   child: PageView.builder(
                     itemCount: 10,
-                    controller: PageController(viewportFraction: 0.7),
+                    controller: PageController(viewportFraction: 0.92),
                     onPageChanged: (int index) =>
                         setState(() => _index = index),
                     itemBuilder: (_, i) {

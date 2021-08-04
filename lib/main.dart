@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/loading.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primaryColor: Color(0xff3d3d4e)),
+      theme: ThemeData(primaryColor: Color(0xff3d3d4e)).copyWith(
+          textTheme:
+              GoogleFonts.sourceSansProTextTheme(Theme.of(context).textTheme)),
       home: LoadingPage(),
     );
   }
