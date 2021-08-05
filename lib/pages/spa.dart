@@ -1,6 +1,8 @@
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/product.dart';
+import 'package:flaevr/pages/products.dart';
 import 'package:flaevr/pages/profile.dart';
+import 'package:flaevr/pages/results.dart';
 import 'package:flaevr/pages/search.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,7 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
-    Product(),
+    Results(),
     Profile()
   ];
 
