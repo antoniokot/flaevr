@@ -52,7 +52,6 @@ class SearchState extends State<Search> {
   int _index = 0;
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
