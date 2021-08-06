@@ -21,6 +21,7 @@ class ProfileState extends State<Profile> {
           body: Stack(
             children: <Widget>[
               SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -30,7 +31,7 @@ class ProfileState extends State<Profile> {
                     SizedBox(
                       height: 200,
                       child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: 15,

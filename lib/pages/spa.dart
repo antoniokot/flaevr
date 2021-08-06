@@ -19,7 +19,7 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
-    Results(),
+    Product(),
     Profile()
   ];
 
@@ -52,14 +52,17 @@ class OriginState extends State<Origin> {
           ),
         ),
       ),
-      body: Stack(children: [
+      body: Stack(alignment: Alignment.center, children: [
         _children[_currentIndex],
         Positioned(
-            left: 30.0,
-            right: 30.0,
+            width: () {
+              if (MediaQuery.of(context).size.width < 500)
+                return MediaQuery.of(context).size.width - 60;
+              else
+                return 400.0;
+            }(),
             bottom: 20.0,
             child: new Container(
-                width: MediaQuery.of(context).size.width - 60,
                 height: 50.0,
                 decoration: new BoxDecoration(
                   color: Colors.white,
