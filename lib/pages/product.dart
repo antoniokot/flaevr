@@ -1,4 +1,6 @@
+import 'package:flaevr/utils/colorGenerator.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class Product extends StatefulWidget {
   Product({Key key}) : super(key: key);
@@ -9,6 +11,21 @@ class Product extends StatefulWidget {
 
 class ProductState extends State<Product> {
   var top = 0.0;
+  var _mainColors;
+
+  @override
+  void initState() {
+    super.initState();
+    getMainColors(
+        new NetworkImage(
+            "https://images.pexels.com/photos/7319324/pexels-photo-7319324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"),
+        new Size(1000, 200));
+  }
+
+  Future<void> getMainColors(NetworkImage img, Size size) async {
+    await ColorGenerator.getMainColors(img, size, 4).then(
+        (value) => {_mainColors = value.colors.toList(), setState(() {})});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +55,12 @@ class ProductState extends State<Product> {
               floating: false,
               pinned: true,
               brightness: Brightness.light,
-              backgroundColor: Colors.pinkAccent,
+              backgroundColor: () {
+                if (_mainColors == null)
+                  return Colors.blue;
+                else
+                  return _mainColors[0];
+              }(),
               flexibleSpace: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                 top = constraints.biggest.height;
@@ -52,7 +74,7 @@ class ProductState extends State<Product> {
                           style: TextStyle(fontSize: 14.0),
                         )),
                     background: Image.network(
-                      "https://mir-s3-cdn-cf.behance.net/project_modules/1400/1f3fed76498107.5c6bdacdc92ec.jpg",
+                      "https://images.pexels.com/photos/7319324/pexels-photo-7319324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
                       fit: BoxFit.cover,
                     ));
               })),
