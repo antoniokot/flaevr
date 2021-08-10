@@ -1,3 +1,4 @@
+import 'package:flaevr/components/productCard.dart';
 import 'package:flutter/material.dart';
 
 class ProductGrid extends StatelessWidget {
@@ -27,52 +28,7 @@ class ProductGrid extends StatelessWidget {
             crossAxisCount: getGridCount(size), childAspectRatio: 1 / 1.35),
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            margin: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.23),
-                  spreadRadius: 2,
-                  blurRadius: 3,
-                  offset: Offset(0, 2), // changes position of shadow
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    width: double.infinity,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)),
-                      child: Image.network(
-                        "https://m.media-amazon.com/images/I/81szW4cEfZL._SL1500_.jpg",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                      color: Color(0xaa0000ff)),
-                  width: double.infinity,
-                  height: 50,
-                  child: Row(
-                    children: [Text("Almond Milk")],
-                  ),
-                )
-              ],
-            ),
-          );
+          return ProductCard();
         });
   }
 }
