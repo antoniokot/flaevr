@@ -34,7 +34,43 @@ class ConfigState extends State<Config> {
                     color: Color(0xFF3D3D4E)),
               ),
               Container(
-                child: ListView(),
+                child: ListView(
+                  children: [
+                    SizedBox(height: 20),
+                    GestureDetector(
+                      child: Row(
+                        children: [
+                          Icon(Icons.person),
+                          Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text("Minha conta"))
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 7),
+                    GestureDetector(
+                      child: Row(
+                        children: [
+                          Icon(Icons.person),
+                          Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text("Minha conta"))
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 7),
+                    GestureDetector(
+                      child: Row(
+                        children: [
+                          Icon(Icons.person),
+                          Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text("Minha conta"))
+                        ],
+                      ),
+                    )
+                  ],
+                ),
                 height: 400,
               ),
               Expanded(

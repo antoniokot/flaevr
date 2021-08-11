@@ -1,3 +1,4 @@
+import 'package:flaevr/pages/config.dart';
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/pages/products.dart';
@@ -19,7 +20,7 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
-    Product(),
+    Config(),
     Profile()
   ];
 

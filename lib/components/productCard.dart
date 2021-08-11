@@ -4,7 +4,14 @@ import 'dart:async';
 
 class ProductCard extends StatefulWidget {
   @override
-  ProductCard();
+  ProductCard({this.heightAspectRatio, this.width})
+      : assert(heightAspectRatio != null &&
+            heightAspectRatio.aspectRatio > 0 &&
+            width > 0 &&
+            width != null);
+
+  final AspectRatio heightAspectRatio;
+  final double width;
   @override
   ProductCardState createState() => ProductCardState();
 }
@@ -29,8 +36,8 @@ class ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 220,
-      width: 130,
+      height: (widget.heightAspectRatio.aspectRatio * widget.width),
+      width: widget.width,
       margin: EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -61,17 +68,34 @@ class ProductCardState extends State<ProductCard> {
             ),
           ),
           Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20)),
-                color: _mainColor),
-            width: double.infinity,
-            height: 50,
-            child: Row(
-              children: [Text("Almond Milk")],
-            ),
-          )
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
+                  color: _mainColor),
+              width: double.infinity,
+              height: (widget.heightAspectRatio.aspectRatio * 16),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Almond Milk",
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xff3d3d4e),
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Color(0xff3d3d4e),
+                      size: 13,
+                    )
+                  ],
+                ),
+              ))
         ],
       ),
     );
