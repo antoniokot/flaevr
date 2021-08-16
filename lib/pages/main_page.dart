@@ -4,7 +4,6 @@ import 'package:flaevr/pages/login.dart';
 import 'package:flaevr/pages/signup.dart';
 import 'package:flutter/material.dart';
 
-
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -107,7 +106,7 @@ class MainPage extends StatelessWidget {
               },
             ),
           ),
-          FavFolder()
+          //FavFolder()
         ]));
   }
 }

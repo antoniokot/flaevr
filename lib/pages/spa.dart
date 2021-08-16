@@ -20,7 +20,7 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
-    Config(),
+    Product(),
     Profile()
   ];
 
