@@ -20,7 +20,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   final List<Widget> myTabs = [
     Tab(text: 'Resumo'),
     Tab(text: 'Composição'),
-    Tab(text: 'Sla'),
+    Tab(text: 'Sustentabilidade'),
   ];
   TabController _tabController;
 
@@ -79,6 +79,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       IconButton(
                         icon: Icon(
                           Icons.favorite,
+                          color: Color(0xFF3d3d4e),
                         ),
                         tooltip: 'Add to favorites',
                         onPressed: () {
@@ -88,6 +89,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       IconButton(
                         icon: Icon(
                           Icons.share,
+                          color: Color(0xFF3d3d4e),
                         ),
                         tooltip: 'Share',
                         onPressed: () {
@@ -155,7 +157,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: [
-                          ProductOverview(),
+                          ProductOverview.withSampleData(),
                           Column(
                             children: [
                               Text('second tab'),

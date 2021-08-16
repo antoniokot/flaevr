@@ -6,8 +6,14 @@ class Badges extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> badges = ["a", "b", "c"];
 
-    return Wrap(
-      children: badges.map((item) => Badge()).toList().cast<Widget>(),
-    );
+    return Container(
+        height: 85,
+        margin: EdgeInsets.symmetric(horizontal: 19),
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          children: badges.map((item) => Badge()).toList().cast<Widget>(),
+        ));
   }
 }
