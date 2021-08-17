@@ -1,4 +1,5 @@
 import 'package:flaevr/components/searchBar.dart';
+import 'package:flaevr/components/slider.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
@@ -49,7 +50,6 @@ List<Widget> getTrending() {
 }
 
 class SearchState extends State<Search> {
-  int _index = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,30 +66,14 @@ class SearchState extends State<Search> {
                     child: SearchBar(tipText: "Pesquise algo")),
                 SizedBox(height: 20),
                 SizedBox(
-                  height: 200, // card height
-                  child: PageView.builder(
-                    itemCount: 10,
-                    controller: PageController(viewportFraction: 0.92),
-                    onPageChanged: (int index) =>
-                        setState(() => _index = index),
-                    itemBuilder: (_, i) {
-                      return Transform.scale(
-                        scale: i == _index ? 1 : 0.9,
-                        child: Card(
-                          elevation: 6,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Text(
-                              "Card ${i + 1}",
-                              style: TextStyle(fontSize: 32),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                    height: 200, // card height
+                    child: SliderCustom(
+                      borderRadius: 20,
+                      children: [Text("1"), Text("2"), Text("3")],
+                      overlap: true,
+                      activeColor: Color(0xFFFF4646),
+                      inactiveColor: Color(0XFFFF9D9D),
+                    )),
                 Padding(
                     padding: EdgeInsets.only(top: 10, left: 19, right: 19),
                     child: Text("Trending")),

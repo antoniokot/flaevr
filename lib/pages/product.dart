@@ -1,5 +1,6 @@
 import 'package:flaevr/components/badge.dart';
 import 'package:flaevr/components/badges.dart';
+import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
@@ -158,13 +159,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                         alignment: Alignment.centerLeft,
                         child: [
                           ProductOverview.withSampleData(),
-                          Column(
-                            children: [
-                              Text('second tab'),
-                              ...List.generate(
-                                  10, (index) => Text('line: $index'))
-                            ],
-                          ),
+                          ProductComposition(),
                           Column(
                             children: [
                               Text('third tab'),
