@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flaevr/components/folder.dart';
+import 'package:flaevr/components/folder_item.dart';
 
-class Favorites extends StatefulWidget {
-  const Favorites({ Key key }) : super(key: key);
+class FolderPage extends StatefulWidget {
+  const FolderPage ({ Key key }) : super(key: key);
 
   @override
-  _FavoritesState createState() => _FavoritesState();
+  FolderPage_State createState() => FolderPage_State();
 }
 
-class _FavoritesState extends State<Favorites> {
-  int listLenght = 12;
+class FolderPage_State extends State<FolderPage> {
+  int listLenght = 5;
+
   @override
   Widget build(BuildContext context) {
-    // TextStyle dangerText = TextStyle(
-    //     fontWeight: FontWeight.w500, 
-    //     fontSize: 14, 
-    //     color: Color(0xFFFF4646)
-    // );
     return Scaffold(
-        extendBodyBehindAppBar: false,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Color(0xFF3d3d4e)),
-          elevation: 0.0,
-        ),
-        body: Padding(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Color(0xFF3d3d4e)),
+        elevation: 0.0,
+      ),
+      body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 29.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -40,7 +35,7 @@ class _FavoritesState extends State<Favorites> {
               ),
               Expanded(
                 child: SizedBox(
-                  height: 250.0,
+                  height: 200.0,
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: (MediaQuery.of(context).size.width / 2) - 5,
@@ -50,7 +45,7 @@ class _FavoritesState extends State<Favorites> {
                     itemCount: listLenght,
                     itemBuilder: (context, index){
                       return Container(
-                        child: FavFolder(),
+                        child: FolderCard(),
                         //height: 50,
                       );
                     } 
@@ -59,6 +54,7 @@ class _FavoritesState extends State<Favorites> {
               )
             ],
           ),
-        ));
+        )
+    );
   }
 }
