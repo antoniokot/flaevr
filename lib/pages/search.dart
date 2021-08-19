@@ -1,6 +1,7 @@
 import 'package:flaevr/components/searchBar.dart';
 import 'package:flaevr/components/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flaevr/utils/styles.dart';
 
 class Search extends StatefulWidget {
   Search({Key key}) : super(key: key);
@@ -13,7 +14,7 @@ List<Widget> getHistoryChips() {
   return [
     Container(
       decoration: BoxDecoration(
-        color: Color(0xffEFF3F5),
+        color: Styles.ultraLightMutedGrey,
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -62,7 +63,7 @@ class SearchState extends State<Search> {
               children: [
                 SizedBox(height: 20),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 19),
+                    padding: Styles.sidePadding,
                     child: SearchBar(tipText: "Pesquise algo")),
                 SizedBox(height: 20),
                 SizedBox(
@@ -78,7 +79,7 @@ class SearchState extends State<Search> {
                     padding: EdgeInsets.only(top: 10, left: 19, right: 19),
                     child: Text("Trending")),
                 Container(
-                    margin: EdgeInsets.symmetric(horizontal: 19, vertical: 10),
+                    margin: Styles.sidePaddingWithVerticalSpace,
                     child: Column(
                       children: getTrending(),
                     )),
@@ -86,7 +87,7 @@ class SearchState extends State<Search> {
                     padding: EdgeInsets.only(top: 20, left: 19, right: 19),
                     child: Text("Buscas recentes")),
                 Container(
-                    margin: EdgeInsets.symmetric(horizontal: 19, vertical: 10),
+                    margin: Styles.sidePaddingWithVerticalSpace,
                     child: Wrap(
                       children: () {
                         return getHistoryChips();

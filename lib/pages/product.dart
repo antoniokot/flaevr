@@ -1,5 +1,3 @@
-import 'package:flaevr/components/badge.dart';
-import 'package:flaevr/components/badges.dart';
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
@@ -137,7 +135,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   padding: () {
                                     if (top < 120)
                                       return EdgeInsets.only(bottom: 45);
-                                    if (top > 120 && top < 160)
+                                    if (top >= 120 && top <= 160)
                                       return EdgeInsets.only(bottom: 35);
                                     else
                                       return EdgeInsets.only(bottom: 25);

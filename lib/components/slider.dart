@@ -63,6 +63,7 @@ class SliderState extends State<SliderCustom> {
                     ),
                   ]),
               child: Stack(
+                fit: StackFit.expand,
                 children: [
                   Positioned(
                     top: 14.0,
