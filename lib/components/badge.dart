@@ -37,7 +37,7 @@ class Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    /*return Container(
         height: 85,
         width: 85,
         decoration: BoxDecoration(
@@ -62,6 +62,17 @@ class Badge extends StatelessWidget {
               child: Stack(children: getCustomCurvedText("Orgânicoooo")),
             )
           ],
+        ));*/
+    return Container(
+        height: 85,
+        width: 85,
+        decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.all(Radius.circular(50))),
+        child: Image(
+          image: NetworkImage(
+              "https://i.pinimg.com/originals/a9/d9/52/a9d952b64210ae40937fd430695cfffd.png"),
+          fit: BoxFit.contain,
         ));
   }
 }

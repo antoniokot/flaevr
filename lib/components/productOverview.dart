@@ -1,5 +1,6 @@
 import 'package:flaevr/components/alergenics.dart';
 import 'package:flaevr/components/badges.dart';
+import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -120,7 +121,8 @@ class ProductOverview extends StatelessWidget {
   static List<charts.Series<LinearScores, int>> _createSampleData() {
     final data = [
       new LinearScores(80, charts.ColorUtil.fromDartColor(Colors.blue)),
-      new LinearScores(20, charts.ColorUtil.fromDartColor(Colors.grey)),
+      new LinearScores(
+          20, charts.ColorUtil.fromDartColor(Styles.lightMutedGrey)),
     ];
 
     return [

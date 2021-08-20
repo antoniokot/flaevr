@@ -13,26 +13,31 @@ class Alergenic extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-                color: Color(0xFFE6353B), // verde: 3DE639
+                color: Color(0xFFD5242A).withOpacity(0.8), // verde: 3DE639
                 borderRadius: BorderRadius.all(Radius.circular(50))),
             child: Icon(
               Icons.nature,
-              color: Colors.green.shade700,
+              color: Color(0xFFD5242A).withOpacity(1),
             ),
           ),
           Padding(
               padding: EdgeInsets.only(left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Nozes:", style: Styles.smallTitle),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                      "Este produto tem altas concentrações de amendoim em sua composição.")
-                ],
+              child: Container(
+                width: MediaQuery.of(context).size.width - 98,
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Nozes:", style: Styles.smallTitle),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Flexible(
+                        child: Text(
+                      "Este produto tem altas concentrações de amendoim em sua composição.",
+                      style: Styles.smallText,
+                    ))
+                  ],
+                ),
               ))
         ],
       ),

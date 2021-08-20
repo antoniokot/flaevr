@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Badges extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<String> badges = ["a", "b", "c"];
+    List<String> badges = ["a", "b", "c", "d"];
 
     return Container(
         height: 85,

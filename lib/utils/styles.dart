@@ -6,6 +6,8 @@ class Styles {
       color: Color(0xFF3d3d4e), fontSize: 13, fontWeight: FontWeight.w600);
   static TextStyle noteText = TextStyle(
       color: Color(0XFFbababa), fontSize: 12, fontWeight: FontWeight.w300);
+  static TextStyle smallText = TextStyle(
+      color: Color(0xFF3d3d4e), fontSize: 12, fontWeight: FontWeight.w400);
 
   //padding
   static EdgeInsets sidePadding = EdgeInsets.symmetric(horizontal: 19);
