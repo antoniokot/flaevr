@@ -50,7 +50,6 @@ class _SliverScaffoldState extends State<SliverScaffold> {
     if (widget.controller == null) {
       ctrl.dispose();
     }
-
     super.dispose();
   }
 
@@ -63,12 +62,12 @@ class _SliverScaffoldState extends State<SliverScaffold> {
           physics: widget.physics,
           slivers: widget.slivers,
         ),
-        _buildEdge(),
+        //_buildEdge(),
       ],
     );
   }
 
-  _buildEdge() {
+  /*_buildEdge() {
     var borderRadius = widget.borderRadius;
     var edgeHeight = borderRadius;
     var paddingTop = MediaQuery.of(context).padding.top;
@@ -110,5 +109,5 @@ class _SliverScaffoldState extends State<SliverScaffold> {
         ),
       ),
     );
-  }
+  }*/
 }

@@ -21,6 +21,7 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
+    main,
     Favorites(),
     Profile()
   ];
