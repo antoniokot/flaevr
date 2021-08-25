@@ -107,6 +107,7 @@ class MainPage extends StatelessWidget {
             ),
           ),
           //FavFolder()
+          main
         ]));
   }
 }
