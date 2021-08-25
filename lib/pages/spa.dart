@@ -1,9 +1,10 @@
-import 'package:flaevr/pages/config.dart';
+import 'dart:async';
+
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/product.dart';
-import 'package:flaevr/pages/products.dart';
 import 'package:flaevr/pages/profile.dart';
-import 'package:flaevr/pages/results.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flaevr/pages/search.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,6 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
-    main,
     Favorites(),
     Profile()
   ];
@@ -30,6 +30,31 @@ class OriginState extends State<Origin> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff4646', 'Cancelar', true, ScanMode.BARCODE);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted)
+      return;
+    else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Product(barcode: barcodeScanRes)),
+      );
+    }
   }
 
   @override
@@ -44,7 +69,7 @@ class OriginState extends State<Origin> {
           child: FloatingActionButton(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            onPressed: () {},
+            onPressed: () => scanBarcodeNormal(),
             child: Container(
               height: 70,
               width: 70,
@@ -147,58 +172,6 @@ class OriginState extends State<Origin> {
                   ],
                 )))
       ]),
-      /*bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.white,
-            // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-            primaryColor: Color(0xFF3d3d4e),
-          ),
-          child: BottomNavigationBar(
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            onTap: onTabTapped,
-            currentIndex: _currentIndex,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined),
-                  label: 'Home',
-                  activeIcon: Icon(
-                    Icons.home,
-                    color: Color(0xFF3d3d4e),
-                  )),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search_outlined),
-                  label: 'Search',
-                  activeIcon: Icon(
-                    Icons.search,
-                    color: Color(0xFF3d3d4e),
-                  )),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.search,
-                  color: Color(0xFF3d3d4e),
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border),
-                  label: 'Favoritos',
-                  activeIcon: Icon(
-                    Icons.favorite,
-                    color: Color(0xFF3d3d4e),
-                  )),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline),
-                  label: 'Perfil',
-                  activeIcon: Icon(
-                    Icons.person,
-                    color: Color(0xFF3d3d4e),
-                  ))
-            ],
-          ),
-        )*/
     );
   }
 }
