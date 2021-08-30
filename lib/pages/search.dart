@@ -77,7 +77,8 @@ class SearchState extends State<Search> {
                     )),
                 Padding(
                     padding: EdgeInsets.only(top: 10, left: 19, right: 19),
-                    child: Text("Trending")),
+                    child: Text("Trending",
+                        style: TextStyle(color: Styles.textBlack))),
                 Container(
                     margin: Styles.sidePaddingWithVerticalSpace,
                     child: Column(
@@ -85,7 +86,8 @@ class SearchState extends State<Search> {
                     )),
                 Padding(
                     padding: EdgeInsets.only(top: 20, left: 19, right: 19),
-                    child: Text("Buscas recentes")),
+                    child: Text("Buscas recentes",
+                        style: TextStyle(color: Styles.textBlack))),
                 Container(
                     margin: Styles.sidePaddingWithVerticalSpace,
                     child: Wrap(
