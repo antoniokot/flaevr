@@ -1,3 +1,4 @@
+import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/folder.dart';
 
@@ -30,13 +31,50 @@ class _FavoritesState extends State<Favorites> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Favoritos",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Color(0xFF3D3D4E)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Favoritos",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Color(0xFF3D3D4E)),
+                  ),
+                  InkWell(
+                    customBorder: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                         color: Styles.lightMutedGrey,
+                         borderRadius: BorderRadius.circular(18)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Nova Pasta",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Icon(
+                              Icons.add,
+                              size: 15,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    onTap: () => {
+
+                    },
+                  )
+                ],
               ),
               Expanded(
                 child: SizedBox(
