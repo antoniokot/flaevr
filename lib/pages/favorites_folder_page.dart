@@ -1,4 +1,6 @@
+import 'package:flaevr/components/folder.dart';
 import 'package:flutter/material.dart';
+import 'package:flaevr/utils/styles.dart';
 import 'package:flaevr/components/folder_item.dart';
 
 class FolderPage extends StatefulWidget {
@@ -9,7 +11,7 @@ class FolderPage extends StatefulWidget {
 }
 
 class FolderPage_State extends State<FolderPage> {
-  int listLenght = 5;
+  int listLenght = 9;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,8 @@ class FolderPage_State extends State<FolderPage> {
         iconTheme: IconThemeData(color: Color(0xFF3d3d4e)),
         elevation: 0.0,
       ),
-      body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 29.0),
+      body: Padding(  
+          padding: Styles.sidePadding,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,19 +35,24 @@ class FolderPage_State extends State<FolderPage> {
                     fontSize: 24,
                     color: Color(0xFF3D3D4E)),
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
               Expanded(
                 child: SizedBox(
                   height: 200.0,
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: (MediaQuery.of(context).size.width / 2) - 5,
-                      childAspectRatio: 1,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 19.0,
+                      mainAxisExtent: 200,
+                      childAspectRatio: 3/2.25,
                     ), 
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.all(0),
                     itemCount: listLenght,
                     itemBuilder: (context, index){
                       return Container(
-                        child: FolderCard(),
+                        child: FolderItemCard(),
                         //height: 50,
                       );
                     } 

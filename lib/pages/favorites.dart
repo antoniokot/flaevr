@@ -9,7 +9,7 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
-  int listLenght = 12;
+  int listLenght = 5;
   @override
   Widget build(BuildContext context) {
     // TextStyle dangerText = TextStyle(
@@ -42,8 +42,10 @@ class _FavoritesState extends State<Favorites> {
                 child: SizedBox(
                   height: 250.0,
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: (MediaQuery.of(context).size.width / 2) - 5,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 19,
+                      mainAxisSpacing: 10,
                       childAspectRatio: 1,
                     ), 
                     padding: EdgeInsets.only(top: 20),

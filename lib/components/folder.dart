@@ -1,3 +1,4 @@
+import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/pages/favorites_folder_page.dart';
 import 'dart:math';
@@ -22,9 +23,9 @@ class FavFolderState extends State<FavFolder> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container( 
         child: Padding(
-          padding: const EdgeInsets.all(14.0),
+          padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, left: 0.0, right: 0.0),
           child: InkResponse(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
