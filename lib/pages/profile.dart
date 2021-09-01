@@ -1,6 +1,9 @@
 import 'package:flaevr/components/productCard.dart';
-import 'package:flaevr/pages/config.dart';
+import 'package:flaevr/models/User.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:async';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -18,6 +21,20 @@ class ProfileState extends State<Profile> {
       setState(() {
         _borderRadius = 20 - metrics.pixels;
       });
+    }
+  }
+
+  Future<User> fetchById() async {
+    final response = await http.get(Uri.parse('/users/unique/2'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return User.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load product');
     }
   }
 
