@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flaevr/pages/search.dart';
 import 'package:flaevr/pages/favorites.dart';
+import 'package:flaevr/pages/results.dart';
 import 'package:flutter/material.dart';
 
 class Origin extends StatefulWidget {
@@ -22,7 +23,7 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
-    Favorites(),
+    Results(),
     Profile()
   ];
 

@@ -40,7 +40,7 @@ class ProductCardState extends State<ProductCard> {
       width: widget.width,
       margin: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: BorderRadius.all(Radius.circular(16)),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.23),
@@ -58,8 +58,8 @@ class ProductCardState extends State<ProductCard> {
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16)),
                 child: Image.network(
                   "https://m.media-amazon.com/images/I/81szW4cEfZL._SL1500_.jpg",
                   fit: BoxFit.cover,
@@ -71,8 +71,8 @@ class ProductCardState extends State<ProductCard> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20)),
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16)),
                   color: _mainColor),
               width: double.infinity,
               height: (widget.heightAspectRatio.aspectRatio * 16),
