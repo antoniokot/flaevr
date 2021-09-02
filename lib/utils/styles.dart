@@ -16,6 +16,7 @@ class Styles {
 
   //colors
   static Color ultraLightMutedGrey = Color(0xffEFF3F5);
-  static Color lightMutedGrey = Color(0xffF1F1F2);
+  static Color lightMutedGrey = Color(0xffE1E1E2);
+  static Color mutedGrey = Color(0xffA6A6A7);
   static Color textBlack = Color(0xff3d3d4e);
 }
