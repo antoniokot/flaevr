@@ -15,19 +15,26 @@ class HomeState extends State<Home> {
   String nome = "Mariana";
 
   void initState() {
+    fetchById();
     super.initState();
-    fetchById().then((user) => {nome = user.name});
   }
 
   Future<User> fetchById() async {
     final id = 2;
     final response =
-        await http.get(Uri.parse('/users/unique/' + id.toString()));
+        await http.get(Uri.parse('http://127.0.0.1:3333/users/unique/' + id.toString()));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      return User.fromJson(jsonDecode(response.body));
+      // print(response.body.toString());
+      List<dynamic> values =  json.decode(response.body);
+      Map<String, dynamic> map = values[0];
+      var resp = User.fromJson(map);
+      setState(() {
+             nome = resp.name; 
+      });
+      return resp;
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
