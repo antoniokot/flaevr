@@ -1,15 +1,15 @@
 class Stamp {
-  final int idStamp;
+  final int id;
   final String name;
 
   Stamp({
-    this.idStamp,
+    this.id,
     this.name,
   });
 
   factory Stamp.fromJson(Map<String, dynamic> json) {
     return Stamp(
-      idStamp: json['idStamp'],
+      id: json['idStamp'],
       name: json['name'],
     );
   }

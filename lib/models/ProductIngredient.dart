@@ -1,17 +1,17 @@
 class ProductIngredient {
-  final int idProductIngredient;
+  final int id;
   final int idProduct;
   final int idIngredient;
 
   ProductIngredient({
-    this.idProductIngredient,
+    this.id,
     this.idProduct,
     this.idIngredient,
   });
 
   factory ProductIngredient.fromJson(Map<String, dynamic> json) {
     return ProductIngredient(
-      idProductIngredient: json['idProductIngredient'],
+      id: json['idProductIngredient'],
       idProduct: json['idProduct'],
       idIngredient: json['idIngredient'],
     );

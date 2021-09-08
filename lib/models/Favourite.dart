@@ -1,17 +1,17 @@
 import 'package:flaevr/models/ProductModel.dart';
 
 class Favourite {
-  final int idFavourite;
+  final int id;
   final int idProduct;
 
   Favourite({
-    this.idFavourite,
+    this.id,
     this.idProduct,
   });
 
   factory Favourite.fromJson(Map<String, dynamic> json) {
     return Favourite(
-      idFavourite: json['idFavourite'],
+      id: json['idFavourite'],
       idProduct: json['idProduct'],
     );
   }

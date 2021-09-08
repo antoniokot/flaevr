@@ -1,11 +1,11 @@
 class Ingredient {
-  final int idIngredient;
+  final int id;
   final String name;
   final int isAllergenic;
   final int isVegan;
 
   Ingredient({
-    this.idIngredient,
+    this.id,
     this.name,
     this.isAllergenic,
     this.isVegan,
@@ -13,7 +13,7 @@ class Ingredient {
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(
-      idIngredient: json['idStamp'],
+      id: json['idStamp'],
       name: json['name'],
       isAllergenic: json['isAllergenic'],
       isVegan: json['isVegan'],
