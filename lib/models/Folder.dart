@@ -1,16 +1,19 @@
 class Folder {
-  final int id;
-  final int idFav;
+  final int idFolder;
+  final String name;
+  final int idUser;
 
   Folder({
-    this.id,
-    this.idFav,
+    this.idFolder,
+    this.name,
+    this.idUser,
   });
 
   factory Folder.fromJson(Map<String, dynamic> json) {
     return Folder(
-      id: json['idFolder'],
-      idFav: json['idFavourite'],
+      idFolder: json['idFolder'],
+      name: json['name'],
+      idUser: json['idUser'],
     );
   }
 }
