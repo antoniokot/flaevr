@@ -30,6 +30,7 @@ class HomeState extends State<Home> {
                     fontSize: 24,
                     color: Color(0xFF3D3D4E)),
               ),
+              
             ],
           ),
         )

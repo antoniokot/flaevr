@@ -18,7 +18,7 @@ class ResultsState extends State<Results> {
           physics: BouncingScrollPhysics(),
           child: Column(children: [
             Container(
-              margin: EdgeInsets.only(bottom: 10, top: 20, left: 19, right: 19),
+              margin: EdgeInsets.only(bottom: 10, top: 44, left: 19, right: 19),
               child: SearchBar(tipText: "Pesquise algo"),
             ),
             Padding(

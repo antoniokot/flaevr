@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
+import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'dart:async';
 
 class Product extends StatefulWidget {
-  Product({Key key}) : super(key: key);
+  Product({Key key, this.barcode}) : super(key: key);
+
+  String barcode;
 
   @override
   ProductState createState() => ProductState();
@@ -25,6 +31,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
+    if (widget.barcode != "" && widget.barcode != null) fetchByBarcode();
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
     getMainColors(
@@ -38,6 +45,20 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  Future<ProductModel> fetchByBarcode() async {
+    final response = await http.get(Uri.parse('api link'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return ProductModel.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load product');
+    }
   }
 
   Future<void> getMainColors(NetworkImage img, Size size) async {
