@@ -1,4 +1,5 @@
 import 'package:flaevr/pages/login.dart';
+import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/button.dart';
 
@@ -10,7 +11,35 @@ class Signup extends StatefulWidget {
 }
 
 class SignupState extends State<Signup> {
+  bool _nameErr = false;
+  bool _emailErr = false;
+  bool _passErr = false;
+  bool _confPassErr = false;
+  final _name = TextEditingController();
+  final _email = TextEditingController();
+  final _pass = TextEditingController();
+  final _confPass = TextEditingController();
+
   void _register() {
+    _nameErr = false;
+    _emailErr = false;
+    _passErr = false;
+    _confPassErr = false;
+
+    if (_name.text.isEmpty || _name.text.length > 30) _nameErr = true;
+    if (_email.text.isEmpty ||
+        !_email.text.contains("@") ||
+        !_email.text.contains(".")) _emailErr = true;
+    if (_pass.text.isEmpty ||
+        _pass.text.length < 8 ||
+        !_pass.text.contains(new RegExp(r'[0-9]'))) _passErr = true;
+    if (_confPass.text.isEmpty || _pass.text != _confPass.text)
+      _confPassErr = true;
+
+    setState(() {});
+    if (_nameErr || _emailErr || _passErr || _confPassErr) {
+      return;
+    }
     Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }
 
@@ -90,6 +119,7 @@ class SignupState extends State<Signup> {
                                   ),
                                 ),
                                 TextField(
+                                  controller: _name,
                                   autofocus: false,
                                   style: TextStyle(
                                       fontSize: 15.0, color: Color(0xFF3d3d4e)),
@@ -113,7 +143,14 @@ class SignupState extends State<Signup> {
                                             BorderSide(color: Colors.grey),
                                         borderRadius: BorderRadius.circular(8),
                                       )),
-                                )
+                                ),
+                                Visibility(
+                                    visible: _nameErr,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                        child: Text(
+                                            "O nome deve ter no mínimo 1 e no máximo 30 caracteres.",
+                                            style: Styles.errText)))
                               ],
                             )),
                         Padding(
@@ -132,6 +169,7 @@ class SignupState extends State<Signup> {
                                   ),
                                 ),
                                 TextField(
+                                  controller: _email,
                                   autofocus: false,
                                   style: TextStyle(
                                       fontSize: 15.0, color: Color(0xFF3d3d4e)),
@@ -155,7 +193,13 @@ class SignupState extends State<Signup> {
                                             BorderSide(color: Colors.grey),
                                         borderRadius: BorderRadius.circular(8),
                                       )),
-                                )
+                                ),
+                                Visibility(
+                                    visible: _emailErr,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                        child: Text("O e-mail é inválido.",
+                                            style: Styles.errText)))
                               ],
                             )),
                         Padding(
@@ -174,6 +218,7 @@ class SignupState extends State<Signup> {
                                   ),
                                 ),
                                 TextField(
+                                  controller: _pass,
                                   obscureText: !_obscureText,
                                   autofocus: false,
                                   style: TextStyle(
@@ -212,7 +257,14 @@ class SignupState extends State<Signup> {
                                             BorderSide(color: Colors.grey),
                                         borderRadius: BorderRadius.circular(8),
                                       )),
-                                )
+                                ),
+                                Visibility(
+                                    visible: _passErr,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                        child: Text(
+                                            "A senha deve ter no mínimo 8 caracteres e 1 número.",
+                                            style: Styles.errText)))
                               ],
                             )),
                         Padding(
@@ -231,6 +283,7 @@ class SignupState extends State<Signup> {
                                   ),
                                 ),
                                 TextField(
+                                  controller: _confPass,
                                   obscureText: !_obscureConfText,
                                   autofocus: false,
                                   style: TextStyle(
@@ -270,7 +323,13 @@ class SignupState extends State<Signup> {
                                             BorderSide(color: Colors.grey),
                                         borderRadius: BorderRadius.circular(8),
                                       )),
-                                )
+                                ),
+                                Visibility(
+                                    visible: _confPassErr,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                        child: Text("A senha deve ser a mesma.",
+                                            style: Styles.errText)))
                               ],
                             )),
                         Button(

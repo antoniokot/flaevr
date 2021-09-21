@@ -8,7 +8,8 @@ class Styles {
       color: Color(0XFFbababa), fontSize: 12, fontWeight: FontWeight.w300);
   static TextStyle smallText = TextStyle(
       color: Color(0xFF3d3d4e), fontSize: 12, fontWeight: FontWeight.w400);
-
+  static TextStyle errText = TextStyle(
+      color: Color(0xFFff3d4e), fontSize: 13, fontWeight: FontWeight.w500);
   //padding
   static EdgeInsets sidePadding = EdgeInsets.symmetric(horizontal: 19);
   static EdgeInsets sidePaddingWithVerticalSpace =

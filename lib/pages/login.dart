@@ -1,6 +1,7 @@
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/pages/signup.dart';
 import 'package:flaevr/pages/spa.dart';
+import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -11,8 +12,28 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
+  bool _errorShow = false;
+  final _email = TextEditingController();
+  final _pass = TextEditingController();
+
   void _login() {
+    _email.text.isEmpty ? _errorShow = true : _errorShow = false;
+    _pass.text.isEmpty ? _errorShow = true : _errorShow = false;
+    if (_errorShow == true) {
+      setState(() {});
+      return;
+    }
     Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
+  }
+
+  void removeErrMsg() {
+    debugPrint(_errorShow.toString());
+    if (_errorShow == true) {
+      setState(() {
+        _errorShow = false;
+      });
+      return;
+    }
   }
 
   bool _obscureText = false;
@@ -100,6 +121,10 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
                                 TextField(
+                                  onChanged: (text) {
+                                    removeErrMsg();
+                                  },
+                                  controller: _email,
                                   autofocus: false,
                                   style: TextStyle(
                                       fontSize: 15.0, color: Color(0xFF3d3d4e)),
@@ -142,6 +167,10 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
                                 TextField(
+                                  onChanged: (text) {
+                                    removeErrMsg();
+                                  },
+                                  controller: _pass,
                                   obscureText: !_obscureText,
                                   autofocus: false,
                                   style: TextStyle(
@@ -180,7 +209,14 @@ class LoginState extends State<Login> {
                                             BorderSide(color: Colors.grey),
                                         borderRadius: BorderRadius.circular(8),
                                       )),
-                                )
+                                ),
+                                Visibility(
+                                    visible: _errorShow,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                        child: Text(
+                                            "O e-mail ou a senha inseridos estão incorretos.",
+                                            style: Styles.errText)))
                               ],
                             )),
                         Button(
