@@ -1,3 +1,4 @@
+import 'package:flaevr/components/skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/models/user.dart';
 import 'package:http/http.dart' as http;
@@ -12,29 +13,29 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  String nome = "Mariana";
+  Future<User> usr;
 
   void initState() {
+<<<<<<< HEAD
     //fetchById();
+=======
+    usr = fetchById();
+>>>>>>> c2b1566074c60caeaad644e2f102068dd30728f2
     super.initState();
   }
 
   Future<User> fetchById() async {
     final id = 1;
-    final response =
-        await http.get(Uri.parse('http://127.0.0.1:3333/users/unique/' + id.toString()));
+    final response = await http
+        .get(Uri.parse('http://127.0.0.1:3333/users/unique/' + id.toString()));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       // print(response.body.toString());
-      List<dynamic> values =  json.decode(response.body);
+      List<dynamic> values = json.decode(response.body);
       Map<String, dynamic> map = values[0];
-      var resp = User.fromJson(map);
-      setState(() {
-             nome = resp.name; 
-      });
-      return resp;
+      return User.fromJson(map);
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -49,17 +50,30 @@ class HomeState extends State<Home> {
       child: Scaffold(
           backgroundColor: Colors.white,
           body: Padding(
-            padding: const EdgeInsets.all(29.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 19.0, vertical: 29.0),
             child: Column(
               children: <Widget>[
-                Text(
-                  "Olá, " + nome,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                      color: Color(0xFF3D3D4E)),
-                ),
+                FutureBuilder<User>(
+                  future: usr,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        "Olá, " + snapshot.data.name,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Color(0xFF3D3D4E)),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+
+                    // By default, show a loading spinner.
+                    return Skeleton(width: 190, height: 20);
+                  },
+                )
               ],
             ),
           )),
