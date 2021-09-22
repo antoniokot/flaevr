@@ -15,7 +15,7 @@ class HomeState extends State<Home> {
   String nome = "Mariana";
 
   void initState() {
-    fetchById();
+    //fetchById();
     super.initState();
   }
 

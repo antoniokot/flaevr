@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flaevr/components/folder_item.dart';
 
+import 'package:flaevr/services/FolderService.dart';
+
 class FolderPage extends StatefulWidget {
   const FolderPage ({ Key key }) : super(key: key);
 

@@ -2,6 +2,8 @@ import 'package:flaevr/components/productGrid.dart';
 import 'package:flaevr/components/searchBar.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flaevr/services/FolderService.dart';
+
 class Results extends StatefulWidget {
   Results({Key key}) : super(key: key);
 
@@ -10,6 +12,16 @@ class Results extends StatefulWidget {
 }
 
 class ResultsState extends State<Results> {
+
+  FolderService folderService = new FolderService();
+
+  @override 
+  void initState() {
+    super.initState();
+
+    folderService.getAllFoldersByIdUser(1).then((map) => print(map));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
