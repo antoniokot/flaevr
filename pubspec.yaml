@@ -21,10 +21,13 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  flutter_spinkit: "^4.1.2"
+  flutter_spinkit: ^5.1.0
   google_fonts: ^2.1.0
   palette_generator: ^0.3.0
-  charts_flutter: ^0.11.0
+  charts_flutter: 
+    git:
+      url: git://github.com/google/charts.git
+      path: charts_flutter
   flutter_barcode_scanner: ^2.0.0
   http: ^0.13.3
   flutter:
