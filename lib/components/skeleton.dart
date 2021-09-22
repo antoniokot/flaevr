@@ -36,8 +36,8 @@ class SkeletonState extends State<Skeleton> with SingleTickerProviderStateMixin 
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
