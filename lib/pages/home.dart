@@ -16,11 +16,7 @@ class HomeState extends State<Home> {
   Future<User> usr;
 
   void initState() {
-<<<<<<< HEAD
-    //fetchById();
-=======
     usr = fetchById();
->>>>>>> c2b1566074c60caeaad644e2f102068dd30728f2
     super.initState();
   }
 
