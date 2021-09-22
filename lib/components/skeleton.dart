@@ -38,8 +38,8 @@ class SkeletonState extends State<Skeleton>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
