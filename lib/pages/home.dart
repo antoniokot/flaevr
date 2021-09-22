@@ -21,7 +21,7 @@ class HomeState extends State<Home> {
   }
 
   Future<User> fetchById() async {
-    final id = 2;
+    final id = 1;
     final response = await http
         .get(Uri.parse('http://127.0.0.1:3333/users/unique/' + id.toString()));
 
