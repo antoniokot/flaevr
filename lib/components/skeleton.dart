@@ -5,8 +5,14 @@ class Skeleton extends StatefulWidget {
   final double height;
   final double width;
   final double radius;
+  final EdgeInsets padding;
 
-  Skeleton({Key key, this.height = 20, this.width = 200, this.radius = 8})
+  Skeleton(
+      {Key key,
+      this.height = 20,
+      this.width = 200,
+      this.radius = 8,
+      this.padding = EdgeInsets.zero})
       : super(key: key);
 
   createState() => SkeletonState();
@@ -44,19 +50,21 @@ class SkeletonState extends State<Skeleton>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
-          gradient: LinearGradient(
-              begin: Alignment(gradientPosition.value, 0),
-              end: Alignment(-1, 0),
-              colors: [
-                Styles.ultraLightMutedGrey,
-                Styles.lightMutedGrey,
-                Color(0xffC9C9CA)
-              ])),
-    );
+    return Padding(
+        padding: this.widget.padding,
+        child: Container(
+          width: widget.width,
+          height: widget.height,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
+              gradient: LinearGradient(
+                  begin: Alignment(gradientPosition.value, 0),
+                  end: Alignment(-1, 0),
+                  colors: [
+                    Styles.ultraLightMutedGrey,
+                    Styles.lightMutedGrey,
+                    Color(0xffC9C9CA)
+                  ])),
+        ));
   }
 }
