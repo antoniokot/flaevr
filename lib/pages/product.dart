@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:convert';
 
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/productOverview.dart';
@@ -10,9 +11,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 class Product extends StatefulWidget {
-  Product({Key key, this.barcode}) : super(key: key);
+  Product({Key key, this.barcode, ProductModel prod}) : super(key: key);
 
   String barcode;
+  ProductModel prod;
 
   @override
   ProductState createState() => ProductState();
@@ -31,7 +33,13 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    if (widget.barcode != "" && widget.barcode != null) fetchByBarcode();
+    if (widget.barcode != "" && widget.barcode != null) {
+      fetchByBarcode().then((ProductModel p) {
+        fetchAll(p.id);
+      });
+    } else
+      fetchAll(this.widget.prod.id);
+
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
     getMainColors(
@@ -59,6 +67,11 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
       // then throw an exception.
       throw Exception('Failed to load product');
     }
+  }
+
+  //talvez retorne um dicionario
+  Future<ProductModel> fetchAll(int id) async {
+    //fetch tabela nutricional, meio ambiente e tabela nutricional
   }
 
   Future<void> getMainColors(NetworkImage img, Size size) async {

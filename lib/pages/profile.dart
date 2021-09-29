@@ -1,5 +1,6 @@
 import 'package:flaevr/components/productCard.dart';
 import 'package:flaevr/models/User.dart';
+import 'package:flaevr/models/ProductModel.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -37,6 +38,7 @@ class ProfileState extends State<Profile> {
       throw Exception('Failed to load product');
     }
   }
+  Future<List<ProductModel>> recents;
 
   @override
   Widget build(BuildContext context) {
@@ -77,19 +79,38 @@ class ProfileState extends State<Profile> {
                             ),
                             SizedBox(
                               height: 220,
-                              child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 15,
-                                itemBuilder:
-                                    (BuildContext context, int index) =>
-                                        ProductCard(
-                                  heightAspectRatio:
-                                      new AspectRatio(aspectRatio: 2.3),
-                                  width: 140,
-                                ),
-                              ),
+                              child: FutureBuilder<List<ProductModel>>(
+                                    future: recents,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return ListView.builder(
+                                          physics: BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: recents.length,
+                                          itemBuilder:
+                                          (BuildContext context, int index) =>
+                                            ProductCard(
+                                              heightAspectRatio:
+                                                new AspectRatio(aspectRatio: 2.3),
+                                              width: 140,
+                                            )
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return Text('${snapshot.error}');
+                                      }
+                                      // By default, show a loading skeleton.
+                                      return ListView.builder(
+                                          physics: BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: 15,
+                                          itemBuilder:
+                                          (BuildContext context, int index) =>
+                                            Skeleton(width: 140, height 240);
+                                        );
+                                    },
+                                  ),
                             ),
                             Padding(
                                 padding: EdgeInsets.only(bottom: 15),
@@ -118,16 +139,18 @@ class ProfileState extends State<Profile> {
                                 )),
                             SizedBox(
                               height: MediaQuery.of(context).size.height - 200,
-                              child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: 15,
-                                itemBuilder:
-                                    (BuildContext context, int index) => Card(
-                                  child: Center(child: Text('Dummy Card Text')),
-                                ),
-                              ),
+                              child: FutureBuilder<ProductModel>(
+                                    future: recents,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Favorites(built: true);
+                                      } else if (snapshot.hasError) {
+                                        return Text('${snapshot.error}');
+                                      }
+                                      // By default, show a loading skeleton.
+                                      return Favorites(built: false);
+                                    },
+                                  ),
                             ),
                           ],
                         ),
