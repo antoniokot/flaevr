@@ -1,6 +1,8 @@
 import 'package:flaevr/components/productCard.dart';
+import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/User.dart';
 import 'package:flaevr/models/ProductModel.dart';
+import 'package:flaevr/pages/favorites.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -87,7 +89,7 @@ class ProfileState extends State<Profile> {
                                           physics: BouncingScrollPhysics(),
                                           shrinkWrap: true,
                                           scrollDirection: Axis.horizontal,
-                                          itemCount: recents.length,
+                                          itemCount: 10,
                                           itemBuilder:
                                           (BuildContext context, int index) =>
                                             ProductCard(
@@ -107,7 +109,7 @@ class ProfileState extends State<Profile> {
                                           itemCount: 15,
                                           itemBuilder:
                                           (BuildContext context, int index) =>
-                                            Skeleton(width: 140, height 240);
+                                            Skeleton(width: 140, height: 240)
                                         );
                                     },
                                   ),
@@ -139,7 +141,7 @@ class ProfileState extends State<Profile> {
                                 )),
                             SizedBox(
                               height: MediaQuery.of(context).size.height - 200,
-                              child: FutureBuilder<ProductModel>(
+                              child: FutureBuilder<List<ProductModel>>(
                                     future: recents,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {

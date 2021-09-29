@@ -1,3 +1,4 @@
+import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 class Favorites extends StatefulWidget {
-  const Favorites({Key key, bool built}) : super(key: key);
+  const Favorites({Key key, this.built}) : super(key: key);
 
+  final bool built;
+  
   @override
   _FavoritesState createState() => _FavoritesState();
 }
