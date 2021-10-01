@@ -1,8 +1,11 @@
 import 'package:flaevr/components/productCard.dart';
 import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/models/User.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/pages/favorites.dart';
+import 'package:flaevr/services/FolderService.dart';
+import 'package:flaevr/services/UserService.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -40,7 +43,16 @@ class ProfileState extends State<Profile> {
       throw Exception('Failed to load product');
     }
   }
+
   Future<List<ProductModel>> recents;
+  Future<List<Folder>> allFolders;
+  Future<User> usr;
+
+  void initState() {
+    super.initState();
+    usr = UserService.getByID(1);
+    allFolders = FolderService.getAllFoldersByIdUser(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,37 +94,36 @@ class ProfileState extends State<Profile> {
                             SizedBox(
                               height: 220,
                               child: FutureBuilder<List<ProductModel>>(
-                                    future: recents,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return ListView.builder(
-                                          physics: BouncingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: 10,
-                                          itemBuilder:
-                                          (BuildContext context, int index) =>
-                                            ProductCard(
-                                              heightAspectRatio:
-                                                new AspectRatio(aspectRatio: 2.3),
-                                              width: 140,
-                                            )
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return Text('${snapshot.error}');
-                                      }
-                                      // By default, show a loading skeleton.
-                                      return ListView.builder(
-                                          physics: BouncingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: 15,
-                                          itemBuilder:
-                                          (BuildContext context, int index) =>
-                                            Skeleton(width: 140, height: 240)
-                                        );
-                                    },
-                                  ),
+                                future: recents,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 10,
+                                        itemBuilder:
+                                            (BuildContext context, int index) =>
+                                                ProductCard(
+                                                  heightAspectRatio:
+                                                      new AspectRatio(
+                                                          aspectRatio: 2.3),
+                                                  width: 140,
+                                                ));
+                                  } else if (snapshot.hasError) {
+                                    return Text('${snapshot.error}');
+                                  }
+                                  // By default, show a loading skeleton.
+                                  return ListView.builder(
+                                      physics: BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 15,
+                                      itemBuilder: (BuildContext context,
+                                              int index) =>
+                                          Skeleton(width: 140, height: 240));
+                                },
+                              ),
                             ),
                             Padding(
                                 padding: EdgeInsets.only(bottom: 15),
@@ -141,18 +152,24 @@ class ProfileState extends State<Profile> {
                                 )),
                             SizedBox(
                               height: MediaQuery.of(context).size.height - 200,
-                              child: FutureBuilder<List<ProductModel>>(
-                                    future: recents,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return Favorites(built: true);
-                                      } else if (snapshot.hasError) {
-                                        return Text('${snapshot.error}');
-                                      }
-                                      // By default, show a loading skeleton.
-                                      return Favorites(built: false);
-                                    },
-                                  ),
+                              child: FutureBuilder<List<Folder>>(
+                                future: allFolders,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Favorites(
+                                      built: true,
+                                      folders: snapshot.data,
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return Text('${snapshot.error}');
+                                  }
+                                  // By default, show a loading skeleton.
+                                  return Favorites(
+                                    built: false,
+                                    folders: [],
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         ),

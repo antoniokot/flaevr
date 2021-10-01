@@ -1,4 +1,7 @@
+import 'package:flaevr/models/User.dart';
+import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/login.dart';
+import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/button.dart';
@@ -40,7 +43,14 @@ class SignupState extends State<Signup> {
     if (_nameErr || _emailErr || _passErr || _confPassErr) {
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+    else{
+      UserService.postNewFavourite(
+            context, new User(id: 1, name: _name.text,email: _email.text, password: _pass.text))
+        .then((res) {
+          //////////////////////////////////////// CRIAR SESSÃO
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    });
+    }
   }
 
   bool _obscureText = true;

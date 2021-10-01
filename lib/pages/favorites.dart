@@ -3,43 +3,40 @@ import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/folder.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'dart:async';
 
 class Favorites extends StatefulWidget {
-  const Favorites({Key key, this.built}) : super(key: key);
+  const Favorites({Key key, this.built, this.folders}) : super(key: key);
 
   final bool built;
-  
+  final List<Folder> folders;
+
   @override
   _FavoritesState createState() => _FavoritesState();
 }
 
 class _FavoritesState extends State<Favorites> {
   int id = 1;
-  Future<List<Folder>> folders;
 
   void initState() {
     super.initState();
-    folders = fetchAllById(id);
+    //folders = fetchAllById(id);
   }
 
-  Future<List<Folder>> fetchAllById(id) async {
-    final response = await http.get(Uri.parse('/users/unique/$id'));
+  // Future<List<Folder>> fetchAllById(id) async {
+  //   final response = await http.get(Uri.parse('/users/unique/$id'));
 
-    if (response.statusCode == 200) {
-      List<Folder> folders;
-      // verificar depois se jsonDecode(response.body) nn precisa de [indexacao]
-      folders = jsonDecode(response.body)
-          .map((data) => Folder.fromJson(data))
-          .toList();
+  //   if (response.statusCode == 200) {
+  //     List<Folder> folders;
+  //     // verificar depois se jsonDecode(response.body) nn precisa de [indexacao]
+  //     folders = jsonDecode(response.body)
+  //         .map((data) => Folder.fromJson(data))
+  //         .toList();
 
-      return folders;
-    } else {
-      throw Exception('Failed to load favorite folders');
-    }
-  }
+  //     return folders;
+  //   } else {
+  //     throw Exception('Failed to load favorite folders');
+  //   }
+  // }
 
   int listLenght = 5;
   @override
@@ -120,7 +117,12 @@ class _FavoritesState extends State<Favorites> {
                     itemBuilder: (context, index) {
                       if (widget.built == true) {
                         return Container(
-                          child: FavFolder(),
+                          child: () {
+                            if (widget.built != true)
+                              return Skeleton();
+                            else
+                              return FavFolder(folder: widget.folders[index]);
+                          }(),
                           //height: 50,
                         );
                       } else
