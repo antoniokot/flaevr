@@ -113,7 +113,7 @@ class _FavoritesState extends State<Favorites> {
                       childAspectRatio: 1,
                     ),
                     padding: EdgeInsets.only(top: 20),
-                    itemCount: listLenght,
+                    itemCount: widget.folders.length,
                     itemBuilder: (context, index) {
                       if (widget.built == true) {
                         return Container(

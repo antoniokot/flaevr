@@ -30,26 +30,25 @@ class SignupState extends State<Signup> {
     _confPassErr = false;
 
     if (_name.text.isEmpty || _name.text.length > 30) _nameErr = true;
-    if (_email.text.isEmpty ||
-        !_email.text.contains("@") ||
-        !_email.text.contains(".")) _emailErr = true;
-    if (_pass.text.isEmpty ||
-        _pass.text.length < 8 ||
-        !_pass.text.contains(new RegExp(r'[0-9]'))) _passErr = true;
-    if (_confPass.text.isEmpty || _pass.text != _confPass.text)
-      _confPassErr = true;
+    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains(".")) _emailErr = true;
+    if (_pass.text.isEmpty || _pass.text.length < 8 || !_pass.text.contains(new RegExp(r'[0-9]'))) _passErr = true;
+    if (_confPass.text.isEmpty || _pass.text != _confPass.text) _confPassErr = true;
 
     setState(() {});
     if (_nameErr || _emailErr || _passErr || _confPassErr) {
       return;
     }
     else{
-      UserService.postNewFavourite(
+      UserService.postNewUser(
             context, new User(id: 1, name: _name.text,email: _email.text, password: _pass.text))
-        .then((res) {
-          //////////////////////////////////////// CRIAR SESSÃO
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-    });
+      .then((res) {
+        //////////////////////////////////////// CRIAR SESSÃO
+        print(res);
+        if(res.statusCode == 200 || res.statusCode == 201)
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+        else
+          print("deu ruim na australia");
+      });
     }
   }
 

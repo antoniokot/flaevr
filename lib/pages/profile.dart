@@ -30,27 +30,13 @@ class ProfileState extends State<Profile> {
     }
   }
 
-  Future<User> fetchById() async {
-    final response = await http.get(Uri.parse('/users/unique/2'));
-
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return User.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load product');
-    }
-  }
-
   Future<List<ProductModel>> recents;
   Future<List<Folder>> allFolders;
-  Future<User> usr;
+  Future<User> user;
 
   void initState() {
     super.initState();
-    usr = UserService.getByID(1);
+    user = UserService.getByID(1);
     allFolders = FolderService.getAllFoldersByIdUser(1);
   }
 
@@ -101,7 +87,7 @@ class ProfileState extends State<Profile> {
                                         physics: BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         scrollDirection: Axis.horizontal,
-                                        itemCount: 10,
+                                        itemCount: snapshot.data.length,
                                         itemBuilder:
                                             (BuildContext context, int index) =>
                                                 ProductCard(

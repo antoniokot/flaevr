@@ -1,6 +1,7 @@
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/pages/signup.dart';
 import 'package:flaevr/pages/spa.dart';
+import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -17,13 +18,26 @@ class LoginState extends State<Login> {
   final _pass = TextEditingController();
 
   void _login() {
-    _email.text.isEmpty ? _errorShow = true : _errorShow = false;
+    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains("."))
+      _errorShow = true;
+    else
+      _errorShow = false;
     _pass.text.isEmpty ? _errorShow = true : _errorShow = false;
+    
     if (_errorShow == true) {
       setState(() {});
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
+    else {
+      UserService.login(context, _email.text, _pass.text).then((res) {
+        //print(res);
+        if(res != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
+        } else {
+          print("erro no login");
+        }  
+      });
+    }
   }
 
   void removeErrMsg() {
