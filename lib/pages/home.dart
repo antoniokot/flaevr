@@ -7,7 +7,9 @@ import 'dart:async';
 import 'dart:convert';
 
 class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+  Home({Key key, this.loggedUser}) : super(key: key);
+
+  final User loggedUser;
 
   @override
   HomeState createState() => HomeState();
@@ -18,7 +20,7 @@ class HomeState extends State<Home> {
 
   void initState() {
     super.initState();
-    usr = UserService.getByID(1);
+    usr = UserService.getByID(widget.loggedUser.id);
   }
 
   @override

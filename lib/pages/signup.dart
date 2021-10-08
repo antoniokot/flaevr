@@ -44,8 +44,8 @@ class SignupState extends State<Signup> {
       .then((res) {
         //////////////////////////////////////// CRIAR SESSÃO
         print(res);
-        if(res.statusCode == 200 || res.statusCode == 201)
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+        if(res != null)
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(loggedUser: res)));
         else
           print("deu ruim na australia");
       });

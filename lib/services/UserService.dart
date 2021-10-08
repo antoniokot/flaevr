@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class UserService {
-  static Future<Response> postNewUser(context, User u) async {
+  static Future<User> postNewUser(context, User u) async {
     try {
       final response = await http
           .post(Uri.parse('http://127.0.0.1:3333/users/post'), body: {
@@ -12,7 +12,23 @@ class UserService {
         "email": u.email,
         "password": u.password,
       });
-      return response;
+
+      if (response.statusCode == 200) {
+        // If the server did return a 200 OK response,
+        // then parse the JSON.
+        // print(response.body.toString());
+        //List<dynamic> values = 
+        
+
+        Map<String, dynamic> map = json.decode(response.body);
+        print(User.fromJson(map).name);
+
+        return User.fromJson(map);
+      } else {
+        // If the server did not return a 200 OK response,
+        // then throw an exception.
+        return null;
+      }
     } catch (e) {
       print(e);
     }

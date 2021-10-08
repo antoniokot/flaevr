@@ -1,5 +1,6 @@
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/pages/signup.dart';
+import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/spa.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
@@ -32,7 +33,8 @@ class LoginState extends State<Login> {
       UserService.login(context, _email.text, _pass.text).then((res) {
         //print(res);
         if(res != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(loggedUser: res)));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
         } else {
           print("erro no login");
         }  
