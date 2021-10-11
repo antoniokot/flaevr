@@ -1,13 +1,15 @@
-import 'dart:convert';
-import 'dart:convert';
-
 import 'package:flaevr/components/productComposition.dart';
+import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/NutritionalFacts.dart';
+import 'package:flaevr/models/Stamp.dart';
+import 'package:flaevr/services/NutritionalService.dart';
+import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/models/ProductModel.dart';
+import 'package:flaevr/services/StampService.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 
 class Product extends StatefulWidget {
@@ -21,6 +23,11 @@ class Product extends StatefulWidget {
 }
 
 class ProductState extends State<Product> with SingleTickerProviderStateMixin {
+  //will be fetched on initState
+  Future<ProductModel> prod;
+  Future<List<Stamp>> stamps;
+  Future<List<NutritionalFacts>> nutri;
+
   var top = 0.0;
   var _mainColors;
   var textColor;
@@ -34,8 +41,10 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     if (widget.barcode != "" && widget.barcode != null) {
-      fetchByBarcode().then((ProductModel p) {
+      this.prod =
+          ProductService.getByBarcode(widget.barcode).then((ProductModel p) {
         fetchAll(p.id);
+        return p;
       });
     } else
       fetchAll(this.widget.prod.id);
@@ -55,23 +64,13 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<ProductModel> fetchByBarcode() async {
-    final response = await http.get(Uri.parse('api link'));
-
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return ProductModel.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load product');
-    }
-  }
-
   //talvez retorne um dicionario
-  Future<ProductModel> fetchAll(int id) async {
-    //fetch tabela nutricional, meio ambiente e tabela nutricional
+  Future<void> fetchAll(int id) async {
+    if (id >= 0) this.prod = ProductService.getByID(id);
+
+    this.nutri = NutriotinalService.getByID(id);
+    this.stamps = StampService.getAllByProductID(id);
+    //fetch tabela nutricional, meio ambiente e selos
   }
 
   Future<void> getMainColors(NetworkImage img, Size size) async {
@@ -150,7 +149,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                     elevation: 0,
                     floating: false,
                     pinned: true,
-                    brightness: Brightness.light,
                     backgroundColor: () {
                       if (_mainColors == null)
                         return Colors.blue;
@@ -174,10 +172,26 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                     else
                                       return EdgeInsets.only(bottom: 25);
                                   }(),
-                                  child: Text(
-                                    "Nattier Chips",
-                                    style: TextStyle(
-                                        fontSize: 14.0, color: textColor),
+                                  child: FutureBuilder<ProductModel>(
+                                    future: prod,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Text(
+                                          snapshot.data.name,
+                                          style: TextStyle(
+                                              fontSize: 14.0, color: textColor),
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return Text('${snapshot.error}');
+                                      }
+
+                                      // By default, show a loading spinner.
+                                      // return Skeleton(width: 190, height: 20);
+                                      return Skeleton(
+                                        width: 60,
+                                        height: 18,
+                                      );
+                                    },
                                   ))),
                           background: Image.network(
                             "https://www.webpackaging.com/Up/Comp/1220/11116249/12336095-EFNGZGDX/i/prev/tetra-top-water.jpg",
