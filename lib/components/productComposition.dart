@@ -1,15 +1,24 @@
 import 'package:flaevr/components/ingredients.dart';
 import 'package:flaevr/components/nutritionalValues.dart';
 import 'package:flaevr/components/slider.dart';
+import 'package:flaevr/models/Ingredient.dart';
+import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flutter/cupertino.dart';
 
 class ProductComposition extends StatelessWidget {
+  @override
+  ProductComposition(
+      {@required this.ingredients, @required this.nutritionalFacts});
+
+  final List<NutritionalFacts> nutritionalFacts;
+  final List<Ingredient> ingredients;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         height: 500,
         child: SliderCustom(
-          children: [NutritionalValues(), Ingredients()],
+          children: [NutritionalValues(nutritionalFacts: this.nutritionalFacts), Ingredients(ingredients: this.ingredients)],
           borderRadius: 20,
           overlap: false,
           activeColor: Color(0xFFFF4646),

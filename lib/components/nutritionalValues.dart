@@ -1,7 +1,13 @@
+import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class NutritionalValues extends StatelessWidget {
+  @override
+  NutritionalValues({@required this.nutritionalFacts});
+
+  final List<NutritionalFacts> nutritionalFacts;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -15,53 +21,40 @@ class NutritionalValues extends StatelessWidget {
                   data: Theme.of(context)
                       .copyWith(dividerColor: Styles.ultraLightMutedGrey),
                   child: DataTable(
-                    columns: <DataColumn>[
-                      DataColumn(
-                        label: Container(
-                          width: 90,
-                          child: Text('Porção de 20g'),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Container(
-                          width: 50,
-                          child: Text('Qtd por porção'),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Container(
-                          width: 40,
-                          child: Text(
-                            '%VD*',
-                            style: TextStyle(fontStyle: FontStyle.italic),
+                      columns: <DataColumn>[
+                        DataColumn(
+                          label: Container(
+                            width: 90,
+                            child: Text('Porção de 20g'),
                           ),
                         ),
-                      ),
-                    ],
-                    rows: <DataRow>[
-                      DataRow(
-                        cells: [
-                          DataCell(Text("alo")),
-                          DataCell(Text('19')),
-                          DataCell(Text('Student')),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('Janine')),
-                          DataCell(Text('43')),
-                          DataCell(Text('Professor')),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('William')),
-                          DataCell(Text('27')),
-                          DataCell(Text('Associate Professor')),
-                        ],
-                      ),
-                    ],
-                  )),
+                        DataColumn(
+                          label: Container(
+                            width: 50,
+                            child: Text('Qtd por porção'),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Container(
+                            width: 40,
+                            child: Text(
+                              '%VD*',
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                            ),
+                          ),
+                        ),
+                      ],
+                      rows: () {
+                        List<DataRow> row;
+                        for (int i = 0; i < nutritionalFacts.length; i++) {
+                          row.add(new DataRow(cells: [
+                            DataCell(Text("Carboidratos")),
+                            DataCell(Text(nutritionalFacts[i].serving)),
+                            DataCell(Text('10')),
+                          ]));
+                        }
+                        return row;
+                      }())),
               Container(
                   margin: EdgeInsets.only(top: 20),
                   child: Text(

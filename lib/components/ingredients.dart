@@ -1,7 +1,14 @@
+import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class Ingredients extends StatelessWidget {
+
+  @override
+  Ingredients({@required this.ingredients});
+
+  final List<Ingredient> ingredients;
+
   List<Widget> generateTable() {
     List<Widget> ret = [
       Container(
@@ -26,7 +33,7 @@ class Ingredients extends StatelessWidget {
             ],
           ))
     ];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < ingredients.length; i++) {
       ret.add(Container(
           decoration: BoxDecoration(
               border: new Border(
@@ -36,7 +43,7 @@ class Ingredients extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Leite"),
+              Text(ingredients[i].name),
               Row(
                 children: [
                   Container(

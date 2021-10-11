@@ -1,13 +1,13 @@
+import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:flaevr/models/Stamp.dart';
-import 'package:flaevr/models/ProductStamp.dart';
+import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
-class StampService {
-  //get all stamps from a product
-  static Future<List<Stamp>> getAllByProductID(int id) async {
+class IngredientService {
+  //get entire nutritional facts table from product id
+  static Future<List<Ingredient>> getByID(int id) async {
     try {
       
 

@@ -1,7 +1,10 @@
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/Composition.dart';
+import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/Stamp.dart';
+import 'package:flaevr/services/IngredientService.dart';
 import 'package:flaevr/services/NutritionalService.dart';
 import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/components/productOverview.dart';
@@ -26,7 +29,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   //will be fetched on initState
   Future<ProductModel> prod;
   Future<List<Stamp>> stamps;
-  Future<List<NutritionalFacts>> nutri;
+  Future<Composition> composition;
 
   var top = 0.0;
   var _mainColors;
@@ -68,9 +71,15 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   Future<void> fetchAll(int id) async {
     if (id >= 0) this.prod = ProductService.getByID(id);
 
-    this.nutri = NutriotinalService.getByID(id);
+    this.composition = fetchComposition(id);
     this.stamps = StampService.getAllByProductID(id);
     //fetch tabela nutricional, meio ambiente e selos
+  }
+
+  Future<Composition> fetchComposition(int id) async {
+    return new Composition(
+        nutritionalFacts: await NutriotinalService.getByID(id),
+        ingredients: await IngredientService.getByID(id));
   }
 
   Future<void> getMainColors(NetworkImage img, Size size) async {
@@ -204,8 +213,31 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: [
-                          ProductOverview.withSampleData(),
-                          ProductComposition(),
+                          FutureBuilder<List<Stamp>>(
+                            future: stamps,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                ProductOverview.withSampleData();
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+                              return CircularProgressIndicator();
+                            },
+                          ),
+                          FutureBuilder<Composition>(
+                            future: composition,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                ProductComposition(
+                                    nutritionalFacts:
+                                        snapshot.data.nutritionalFacts,
+                                    ingredients: snapshot.data.ingredients);
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+                              return CircularProgressIndicator();
+                            },
+                          ),
                           Column(
                             children: [
                               Text('third tab'),
