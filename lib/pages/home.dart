@@ -13,18 +13,12 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  Future<User> user;
-  Future<Map<String, String>> teste;
-
-  //  Future<User> getUserAsync(res) async {
-  //   print(res);
-  //   print(User.fromJson());
-  //   return User.fromJson(res);
-  // }
+  User user;
 
   void getName() async {
-    teste = await FlutterSession().get("user");
-    print(teste.runtimeType);
+    //this.user = User.fromJson(await FlutterSession().get("user")) as Future<User>; talvez funcione precisa testar
+    dynamic json = await FlutterSession().get("user");
+    this.user = User.fromJson(json);
   }
 
   void initState() {
@@ -43,30 +37,13 @@ class HomeState extends State<Home> {
                 const EdgeInsets.symmetric(horizontal: 19.0, vertical: 29.0),
             child: Column(
               children: <Widget>[
-                FutureBuilder<User>(
-                  future: this.user,
-                  builder: (context, snapshot) {
-                    print(snapshot.data);
-                    if (snapshot.hasData) {
-                      return Text(
-                        "Olá, " + snapshot.data.name,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            color: Color(0xFF3D3D4E)),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    }
-
-                    // By default, show a loading spinner.
-                    // return Skeleton(width: 190, height: 20);
-                    return Skeleton(
-                      width: 140,
-                      height: 22,
-                    );
-                  },
+                Text(
+                  "Olá, " + this.user.name == null ? "" : this.user.name,
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Color(0xFF3D3D4E)),
                 )
               ],
             ),
