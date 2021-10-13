@@ -13,10 +13,18 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  Future<User> usr;
+  Future<User> user;
+  Future<Map<String, String>> teste;
+
+  //  Future<User> getUserAsync(res) async {
+  //   print(res);
+  //   print(User.fromJson());
+  //   return User.fromJson(res);
+  // }
 
   void getName() async {
-    this.usr = await FlutterSession().get("user");
+    teste = await FlutterSession().get("user");
+    print(teste.runtimeType);
   }
 
   void initState() {
@@ -36,8 +44,9 @@ class HomeState extends State<Home> {
             child: Column(
               children: <Widget>[
                 FutureBuilder<User>(
-                  future: usr,
+                  future: this.user,
                   builder: (context, snapshot) {
+                    print(snapshot.data);
                     if (snapshot.hasData) {
                       return Text(
                         "Olá, " + snapshot.data.name,
