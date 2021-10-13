@@ -3,8 +3,7 @@ class User {
   final String name;
   final String password;
   final String email;
-  final String pictureFileName;
-  final String pictureData;
+  final int avatar;
   // boolean
   final String rememberMeToken;
 
@@ -13,8 +12,7 @@ class User {
     this.name,
     this.password,
     this.email,
-    this.pictureFileName,
-    this.pictureData,
+    this.avatar,
     this.rememberMeToken,
   });
 
@@ -24,8 +22,7 @@ class User {
       name: json['name'],
       password: json['password'],
       email: json['email'],
-      pictureFileName: json['pictureFileName'],
-      pictureData: json['pictureData'],
+      avatar: json['avatar'],
       rememberMeToken: json['remember_me_token'],
     );
   }
