@@ -1,15 +1,12 @@
 import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/User.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flutter/material.dart';
-import 'package:flaevr/models/User.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
+import 'package:flutter_session/flutter_session.dart';
 
 class Home extends StatefulWidget {
-  Home({Key key, this.loggedUser}) : super(key: key);
-
-  final User loggedUser;
+  Home({Key key}) : super(key: key);
 
   @override
   HomeState createState() => HomeState();
@@ -18,9 +15,13 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   Future<User> usr;
 
+  void getName() async {
+    this.usr = await FlutterSession().get("user");
+  }
+
   void initState() {
     super.initState();
-    usr = UserService.getByID(widget.loggedUser.id);
+    getName();
   }
 
   @override
@@ -52,7 +53,10 @@ class HomeState extends State<Home> {
 
                     // By default, show a loading spinner.
                     // return Skeleton(width: 190, height: 20);
-                    return CircularProgressIndicator();
+                    return Skeleton(
+                      width: 140,
+                      height: 22,
+                    );
                   },
                 )
               ],

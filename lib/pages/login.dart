@@ -1,4 +1,5 @@
 import 'package:flaevr/components/button.dart';
+import 'package:flaevr/models/User.dart';
 import 'package:flaevr/pages/signup.dart';
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/spa.dart';
@@ -37,11 +38,14 @@ class LoginState extends State<Login> {
         //print(res);
         if (res != null) {
           var session = FlutterSession();
-          await session.set("name", res.name);
-          await session.set("email", res.email);
-          await session.set("id", res.id);
-          await session.set("avatar", res.avatar);
-          await session.set("token", res.rememberMeToken);
+          await session.set(
+              "user",
+              new User(
+                  id: res.id,
+                  name: res.name,
+                  email: res.email,
+                  avatar: res.avatar,
+                  rememberMeToken: res.rememberMeToken));
 
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Origin()));

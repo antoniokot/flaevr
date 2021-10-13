@@ -9,6 +9,7 @@ import 'package:flaevr/services/UserService.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_session/flutter_session.dart';
 import 'dart:async';
 
 class Profile extends StatefulWidget {
@@ -33,11 +34,19 @@ class ProfileState extends State<Profile> {
   Future<List<ProductModel>> recents;
   Future<List<Folder>> allFolders;
   Future<User> user;
+  int id;
+
+  void getUserData() async {
+    this.user = await FlutterSession().get("user").then((user) {
+      this.id = user.id;
+      return user;
+    });
+  }
 
   void initState() {
     super.initState();
-    user = UserService.getByID(1);
-    allFolders = FolderService.getAllFoldersByIdUser(1);
+    getUserData();
+    allFolders = FolderService.getAllFoldersByIdUser(this.id);
   }
 
   @override
@@ -184,7 +193,23 @@ class ProfileState extends State<Profile> {
                                       fit: BoxFit.fill),
                                 ),
                               ),
-                              Text('Mariana Melo'),
+                              FutureBuilder<User>(
+                                future: user,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text(snapshot.data.name);
+                                  } else if (snapshot.hasError) {
+                                    return Text('${snapshot.error}');
+                                  }
+
+                                  // By default, show a loading spinner.
+                                  // return Skeleton(width: 190, height: 20);
+                                  return Skeleton(
+                                    width: 140,
+                                    height: 22,
+                                  );
+                                },
+                              ),
                               IconButton(
                                   icon: Icon(Icons.settings), onPressed: () {})
                             ]))),

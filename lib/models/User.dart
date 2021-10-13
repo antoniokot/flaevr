@@ -26,4 +26,16 @@ class User {
       rememberMeToken: json['remember_me_token'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data["idUser"] = id;
+    data["name"] = name;
+    data["password"] = password;
+    data["email"] = email;
+    data["avatar"] = avatar;
+    data["rememberMeToken"] = rememberMeToken;
+
+    return data;
+  }
 }

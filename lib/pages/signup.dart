@@ -1,10 +1,12 @@
 import 'package:flaevr/models/User.dart';
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/login.dart';
+import 'package:flaevr/pages/spa.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/button.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key key}) : super(key: key);
@@ -30,23 +32,41 @@ class SignupState extends State<Signup> {
     _confPassErr = false;
 
     if (_name.text.isEmpty || _name.text.length > 30) _nameErr = true;
-    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains(".")) _emailErr = true;
-    if (_pass.text.isEmpty || _pass.text.length < 8 || !_pass.text.contains(new RegExp(r'[0-9]'))) _passErr = true;
-    if (_confPass.text.isEmpty || _pass.text != _confPass.text) _confPassErr = true;
+    if (_email.text.isEmpty ||
+        !_email.text.contains("@") ||
+        !_email.text.contains(".")) _emailErr = true;
+    if (_pass.text.isEmpty ||
+        _pass.text.length < 8 ||
+        !_pass.text.contains(new RegExp(r'[0-9]'))) _passErr = true;
+    if (_confPass.text.isEmpty || _pass.text != _confPass.text)
+      _confPassErr = true;
 
     setState(() {});
     if (_nameErr || _emailErr || _passErr || _confPassErr) {
       return;
-    }
-    else{
+    } else {
       UserService.postNewUser(
-            context, new User(id: 1, name: _name.text,email: _email.text, password: _pass.text))
-      .then((res) {
-        //////////////////////////////////////// CRIAR SESSÃO
+              context,
+              new User(
+                  id: 1,
+                  name: _name.text,
+                  email: _email.text,
+                  password: _pass.text))
+          .then((res) async {
         print(res);
-        if(res != null)
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(loggedUser: res)));
-        else
+        if (res != null) {
+          var session = FlutterSession();
+          await session.set(
+              "user",
+              new User(
+                  id: res.id,
+                  name: res.name,
+                  email: res.email,
+                  avatar: res.avatar,
+                  rememberMeToken: res.rememberMeToken));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Origin()));
+        } else
           print("deu ruim na australia");
       });
     }

@@ -13,7 +13,15 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   Future<bool> checkLogin() async {
-    dynamic token = await FlutterSession().get("token");
+    dynamic token;
+    try {
+      token = await FlutterSession().get("token");
+    } catch (exception) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainPage()));
+      });
+    }
     if (token == null)
       return false;
     else
