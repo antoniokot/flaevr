@@ -1,6 +1,8 @@
+import 'package:flaevr/pages/spa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flaevr/pages/main_page.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class LoadingPage extends StatefulWidget {
   LoadingPage({Key key}) : super(key: key);
@@ -10,19 +12,30 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  bool checkLogin() {
-    return false;
+  Future<bool> checkLogin() async {
+    dynamic token = await FlutterSession().get("token");
+    if (token == null)
+      return false;
+    else
+      return true;
   }
 
   @override
   void initState() {
     super.initState();
-    if (!checkLogin()) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MainPage()));
-      });
-    }
+    checkLogin().then((res) {
+      if (res) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        });
+      } else {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Origin()));
+        });
+      }
+    });
   }
 
   @override

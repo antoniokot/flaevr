@@ -5,6 +5,8 @@ import 'package:flaevr/pages/spa.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
+import 'dart:async';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -18,26 +20,34 @@ class LoginState extends State<Login> {
   final _email = TextEditingController();
   final _pass = TextEditingController();
 
-  void _login() {
-    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains("."))
+  void _login() async {
+    if (_email.text.isEmpty ||
+        !_email.text.contains("@") ||
+        !_email.text.contains("."))
       _errorShow = true;
     else
       _errorShow = false;
     _pass.text.isEmpty ? _errorShow = true : _errorShow = false;
-    
+
     if (_errorShow == true) {
       setState(() {});
       return;
-    }
-    else {
-      UserService.login(context, _email.text, _pass.text).then((res) {
+    } else {
+      UserService.login(context, _email.text, _pass.text).then((res) async {
         //print(res);
-        if(res != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(loggedUser: res)));
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
+        if (res != null) {
+          var session = FlutterSession();
+          await session.set("name", res.name);
+          await session.set("email", res.email);
+          await session.set("id", res.id);
+          await session.set("avatar", res.avatar);
+          await session.set("token", res.rememberMeToken);
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Origin()));
         } else {
           print("erro no login");
-        }  
+        }
       });
     }
   }

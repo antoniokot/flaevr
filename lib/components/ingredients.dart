@@ -3,7 +3,6 @@ import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class Ingredients extends StatelessWidget {
-
   @override
   Ingredients({@required this.ingredients});
 
@@ -54,7 +53,9 @@ class Ingredients extends StatelessWidget {
                           width: 15,
                           height: 15,
                           decoration: BoxDecoration(
-                            color: Styles.textBlack,
+                            color: ingredients[i].isAllergenic == 1
+                                ? Styles.textBlack
+                                : Styles.lightMutedGrey,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ))),
                   Container(
@@ -64,7 +65,9 @@ class Ingredients extends StatelessWidget {
                           width: 15,
                           height: 15,
                           decoration: BoxDecoration(
-                            color: Styles.lightMutedGrey,
+                            color: ingredients[i].isVegan == 1
+                                ? Styles.textBlack
+                                : Styles.lightMutedGrey,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ))),
                 ],
