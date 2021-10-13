@@ -1,4 +1,6 @@
+import 'package:flaevr/models/NutrientNutrionalFacts.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
+import 'package:flaevr/models/NutritionalFactsRow.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +8,7 @@ class NutritionalValues extends StatelessWidget {
   @override
   NutritionalValues({@required this.nutritionalFacts});
 
-  final List<NutritionalFacts> nutritionalFacts;
+  final List<NutritionalFactsRow> nutritionalFacts;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class NutritionalValues extends StatelessWidget {
                         for (int i = 0; i < nutritionalFacts.length; i++) {
                           row.add(new DataRow(cells: [
                             DataCell(Text("Carboidratos")),
-                            DataCell(Text(nutritionalFacts[i].serving)),
+                            DataCell(Text(nutritionalFacts[i].value)),
                             DataCell(Text('10')),
                           ]));
                         }
