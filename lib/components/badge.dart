@@ -2,6 +2,10 @@ import 'package:flaevr/components/curvedText.dart';
 import 'package:flutter/material.dart';
 
 class Badge extends StatelessWidget {
+  @override
+  Badge({@required this.text}) {}
+
+  final String text;
   List<Widget> getCustomCurvedText(String txt) {
     double textSize = txt.length * 20.0;
     int iteration = (360 / (textSize + 5)).round();
@@ -70,8 +74,7 @@ class Badge extends StatelessWidget {
             color: Colors.green,
             borderRadius: BorderRadius.all(Radius.circular(50))),
         child: Image(
-          image: NetworkImage(
-              "https://i.pinimg.com/originals/a9/d9/52/a9d952b64210ae40937fd430695cfffd.png"),
+          image: NetworkImage("lib/assets/images/badges/" + text + ".png"),
           fit: BoxFit.contain,
         ));
   }
