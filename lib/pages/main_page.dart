@@ -106,10 +106,6 @@ class MainPage extends StatelessWidget {
               },
             ),
           ),
-          Skeleton(
-            width: 100,
-            height: 100,
-          )
         ]));
   }
 }
