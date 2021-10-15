@@ -22,9 +22,7 @@ class LoginState extends State<Login> {
   final _pass = TextEditingController();
 
   void _login() async {
-    if (_email.text.isEmpty ||
-        !_email.text.contains("@") ||
-        !_email.text.contains("."))
+    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains("."))
       _errorShow = true;
     else
       _errorShow = false;
@@ -47,8 +45,7 @@ class LoginState extends State<Login> {
                   avatar: res.avatar,
                   rememberMeToken: res.rememberMeToken));
 
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Origin()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
         } else {
           print("erro no login");
         }

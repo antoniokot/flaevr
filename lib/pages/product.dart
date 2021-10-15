@@ -72,7 +72,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     if (id >= 0) this.prod = ProductService.getByID(id);
 
     this.composition = fetchComposition(id);
-    this.stamps = StampService.getAllByProductID(id);
+    this.stamps = StampService.getAllStampsByProductID(id);
     //fetch tabela nutricional, meio ambiente e selos
   }
 

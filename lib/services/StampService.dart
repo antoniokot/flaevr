@@ -6,21 +6,51 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class StampService {
-  //get all stamps from a product
-  static Future<List<Stamp>> getAllByProductID(int id) async {
+  //get all stamp
+  static Future<List<Stamp>> getAllStamps() async {
     try {
-      
+      List<Stamp> stamps = [];
+      final response = await http.get(Uri.parse('http://127.0.0.1:3333/stamps'));      
+      if (response.statusCode == 200) {
+        var decodeJson = jsonDecode(response.body);
 
-      // if (response.statusCode == 200) {
-        
-      // } else {
-      //   // If the server did not return a 200 OK response,
-      //   // then throw an exception.
-      //   return null;
-      // }
+        decodeJson.forEach((item) => {
+              stamps.add(new Stamp(
+                id: item['idStamp'],
+                name: item['name'],
+              ))
+            });
+
+        return stamps;
+      } else {
+        return null;
+      }
     } catch (e) {
       print(e);
       return null;
     }
+  }
+
+  static Future<List<Stamp>> getAllStampsByProductID(int id) async {
+    // try {
+    //   List<Stamp> stamps = [];
+    //   final response = await http.get(Uri.parse('http://127.0.0.1:3333/productStamps/' + id.toString()));
+    //   if (response.statusCode == 200) {
+    //     var decodeJson = jsonDecode(response.body);
+
+    //     decodeJson.forEach((item) => {
+    //           stamps.add(new Stamp(
+    //             id: item['idStamp'],
+    //             name: item['name'],
+    //           ))
+    //         });
+
+    //     return stamps;
+    //   } else return null;
+    // } catch(e) {
+    //   print(e);
+    //   return null;
+    // }
+    return null;
   }
 }

@@ -33,20 +33,19 @@ class ProfileState extends State<Profile> {
 
   Future<List<ProductModel>> recents;
   Future<List<Folder>> allFolders;
-  Future<User> user;
-  int id;
+  User user;
 
-  void getUserData() async {
-    this.user = await FlutterSession().get("user").then((user) {
-      this.id = user.id;
-      return user;
+  void getUser() async {
+    dynamic json = await FlutterSession().get("user");
+    setState(() {
+      this.user = User.fromJson(json);
+      this.allFolders = FolderService.getAllFoldersByIdUser(this.user.id);
     });
   }
 
   void initState() {
     super.initState();
-    getUserData();
-    allFolders = FolderService.getAllFoldersByIdUser(this.id);
+    getUser();  
   }
 
   @override
@@ -63,7 +62,9 @@ class ProfileState extends State<Profile> {
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(_borderRadius),
-                          topRight: Radius.circular(_borderRadius))),
+                          topRight: Radius.circular(_borderRadius)
+                      ),
+                  ),
                   child: NotificationListener<ScrollNotification>(
                       onNotification: (scrollNotification) {
                         if (scrollNotification is ScrollUpdateNotification) {
@@ -84,7 +85,9 @@ class ProfileState extends State<Profile> {
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Color(0xff3d3d4e),
-                                      fontWeight: FontWeight.w500)),
+                                      fontWeight: FontWeight.w500
+                                  ),
+                              ),
                             ),
                             SizedBox(
                               height: 220,
@@ -193,23 +196,7 @@ class ProfileState extends State<Profile> {
                                       fit: BoxFit.fill),
                                 ),
                               ),
-                              FutureBuilder<User>(
-                                future: user,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Text(snapshot.data.name);
-                                  } else if (snapshot.hasError) {
-                                    return Text('${snapshot.error}');
-                                  }
-
-                                  // By default, show a loading spinner.
-                                  // return Skeleton(width: 190, height: 20);
-                                  return Skeleton(
-                                    width: 140,
-                                    height: 22,
-                                  );
-                                },
-                              ),
+                              Text(this.user == null ? "" : this.user.name),
                               IconButton(
                                   icon: Icon(Icons.settings), onPressed: () {})
                             ]))),

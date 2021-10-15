@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xff3d3d4e),
         canvasColor: Colors.white,
-        // Define the default font family.
         fontFamily: 'Lato',
       ),
       home: LoadingPage(),
