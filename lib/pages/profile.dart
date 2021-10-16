@@ -36,8 +36,7 @@ class ProfileState extends State<Profile> {
   User user;
 
   void getUser() async {
-    dynamic json = await FlutterSession().get("user");
-    setState(() {
+    await FlutterSession().get("user").then((json) {
       this.user = User.fromJson(json);
       this.allFolders = FolderService.getAllFoldersByIdUser(this.user.id);
     });
@@ -45,7 +44,7 @@ class ProfileState extends State<Profile> {
 
   void initState() {
     super.initState();
-    getUser();  
+    getUser();
   }
 
   @override
@@ -59,11 +58,10 @@ class ProfileState extends State<Profile> {
               Container(
                   margin: EdgeInsets.only(top: 60),
                   decoration: new BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(_borderRadius),
-                          topRight: Radius.circular(_borderRadius)
-                      ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(_borderRadius),
+                        topRight: Radius.circular(_borderRadius)),
                   ),
                   child: NotificationListener<ScrollNotification>(
                       onNotification: (scrollNotification) {
@@ -81,12 +79,12 @@ class ProfileState extends State<Profile> {
                             SizedBox(height: 30),
                             Padding(
                               padding: EdgeInsets.only(left: 15),
-                              child: Text("Recentes",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xff3d3d4e),
-                                      fontWeight: FontWeight.w500
-                                  ),
+                              child: Text(
+                                "Recentes",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xff3d3d4e),
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                             SizedBox(

@@ -18,20 +18,8 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
-  User user;
-  Future<List<Folder>> allFolders;
-
-  void getUser() async {
-    dynamic json = await FlutterSession().get("user");
-    setState(() {
-      this.user = User.fromJson(json);
-      this.allFolders = FolderService.getAllFoldersByIdUser(this.user.id);
-    });
-  }
-
   void initState() {
     super.initState();
-    getUser();
   }
 
   // Future<List<Folder>> fetchAllById(id) async {
@@ -79,8 +67,7 @@ class _FavoritesState extends State<Favorites> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
-                        color: Color(0xFF3D3D4E)
-                    ),
+                        color: Color(0xFF3D3D4E)),
                   ),
                   InkWell(
                     customBorder: RoundedRectangleBorder(
@@ -117,40 +104,30 @@ class _FavoritesState extends State<Favorites> {
               Expanded(
                   child: SizedBox(
                 height: 250.0,
-                child: FutureBuilder<List<Folder>>(
-                  future: this.allFolders,
-                  builder: (context, snapshot) {
-                    if(snapshot.hasData) {
-                      return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 19,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 1,
-                        ),
-                        padding: EdgeInsets.only(top: 20),
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          if (widget.built == true) {
-                            print("teste: " + snapshot.data.toString());
-                            return Container(
-                              child: () {
-                                if (widget.built != true)
-                                  return Skeleton();
-                                else
-                                  return FavFolder(folder: snapshot.data[index]);
-                              }(),
-                              //height: 50,
-                            );
-                          } else
-                            return Skeleton(radius: 18);
-                        }
-                      );
-                    } else {
-                      return Text('${snapshot.error}');
-                    }
-                  }
-                ),          
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 19,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1,
+                    ),
+                    padding: EdgeInsets.only(top: 20),
+                    itemCount: widget.folders.length,
+                    itemBuilder: (context, index) {
+                      if (widget.built == true) {
+                        print("teste: " + widget.folders[index].toString());
+                        return Container(
+                          child: () {
+                            if (widget.built != true)
+                              return Skeleton();
+                            else
+                              return FavFolder(folder: widget.folders[index]);
+                          }(),
+                          //height: 50,
+                        );
+                      } else
+                        return Skeleton(radius: 18);
+                    }),
               ))
             ],
           ),
