@@ -1,1 +1,1 @@
-//aqui vai ter que ter selecionar todos os alergenicos por id de produto
+//aqui vai ter que ter selecionar todos os Allergenos por id de produto

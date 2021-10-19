@@ -1,13 +1,13 @@
 class Ingredient {
   final int id;
   final String name;
-  final int isAllergenic;
+  final int isAllergen;
   final int isVegan;
 
   Ingredient({
     this.id,
     this.name,
-    this.isAllergenic,
+    this.isAllergen,
     this.isVegan,
   });
 
@@ -15,7 +15,7 @@ class Ingredient {
     return Ingredient(
       id: json['idStamp'],
       name: json['name'],
-      isAllergenic: json['isAllergenic'],
+      isAllergen: json['isAllergen'],
       isVegan: json['isVegan'],
     );
   }

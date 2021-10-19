@@ -53,7 +53,7 @@ class Ingredients extends StatelessWidget {
                           width: 15,
                           height: 15,
                           decoration: BoxDecoration(
-                            color: ingredients[i].isAllergenic == 1
+                            color: ingredients[i].isAllergen == 1
                                 ? Styles.textBlack
                                 : Styles.lightMutedGrey,
                             borderRadius: BorderRadius.all(Radius.circular(15)),

@@ -1,7 +1,7 @@
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
-class Alergenic extends StatelessWidget {
+class Allergen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

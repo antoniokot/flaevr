@@ -1,7 +1,7 @@
-import 'package:flaevr/components/alergenic.dart';
+import 'package:flaevr/components/allergen.dart';
 import 'package:flutter/material.dart';
 
-class Alergenics extends StatelessWidget {
+class Allergens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,7 +9,7 @@ class Alergenics extends StatelessWidget {
         child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) {
-            return Alergenic();
+            return Allergen();
           },
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,

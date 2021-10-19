@@ -1,4 +1,4 @@
-import 'package:flaevr/components/alergenics.dart';
+import 'package:flaevr/components/allergens.dart';
 import 'package:flaevr/components/badges.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/styles.dart';
@@ -116,7 +116,7 @@ class ProductOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-        Alergenics()
+        Allergens()
       ],
     );
   }
