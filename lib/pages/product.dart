@@ -10,7 +10,6 @@ import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/models/ProductModel.dart';
-import 'package:flaevr/services/StampService.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -28,7 +27,6 @@ class Product extends StatefulWidget {
 class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   //will be fetched on initState
   Future<ProductModel> prod;
-  Future<List<Stamp>> stamps;
   Future<Composition> composition;
 
   var top = 0.0;
@@ -72,7 +70,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     if (id >= 0) this.prod = ProductService.getByID(id);
 
     this.composition = fetchComposition(id);
-    this.stamps = StampService.getAllStampsByProductID(id);
     //fetch tabela nutricional, meio ambiente e selos
   }
 
@@ -213,11 +210,11 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: [
-                          FutureBuilder<List<Stamp>>(
-                            future: stamps,
+                          FutureBuilder<ProductModel>(
+                            future: prod,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                ProductOverview.withSampleData();
+                                ProductOverview.withSampleData(snapshot.data);
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }

@@ -1,5 +1,6 @@
 import 'package:flaevr/components/alergenics.dart';
 import 'package:flaevr/components/badges.dart';
+import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -7,14 +8,16 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class ProductOverview extends StatelessWidget {
   final List<charts.Series> seriesList;
   final bool animate;
+  final ProductModel product;
 
-  ProductOverview(this.seriesList, {this.animate, mainColor});
+  ProductOverview(this.seriesList, this.product, {this.animate, mainColor});
 
   /// Creates a [PieChart] with sample data and no transition.
-  factory ProductOverview.withSampleData() {
+  factory ProductOverview.withSampleData(ProductModel p) {
     return new ProductOverview(
       _createSampleData(),
       // Disable animations for image tests.
+      p,
       animate: true,
     );
   }
@@ -33,7 +36,7 @@ class ProductOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-        Badges(),
+        Badges(this.product.id),
         Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 19),
           child: Row(
@@ -119,6 +122,7 @@ class ProductOverview extends StatelessWidget {
   }
 
   static List<charts.Series<LinearScores, int>> _createSampleData() {
+    //nesse vetor será calcualdos os scores das sessões
     final data = [
       new LinearScores(80, charts.ColorUtil.fromDartColor(Colors.blue)),
       new LinearScores(
