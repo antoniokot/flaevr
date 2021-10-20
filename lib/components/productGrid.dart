@@ -1,12 +1,15 @@
 import 'package:flaevr/components/productCard.dart';
 import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/ProductModel.dart';
 import 'package:flutter/material.dart';
 
 class ProductGrid extends StatelessWidget {
   @override
-  ProductGrid({@required this.physics, this.built = false});
+  ProductGrid(
+      {@required this.physics, this.built = false, @required this.products});
 
   final ScrollPhysics physics;
+  final List<ProductModel> products;
   final bool built;
 
   int getGridCount(s) {
@@ -32,6 +35,7 @@ class ProductGrid extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           if (built)
             return ProductCard(
+              product: products[index],
               heightAspectRatio: new AspectRatio(aspectRatio: 2.3),
               width: 190,
             );

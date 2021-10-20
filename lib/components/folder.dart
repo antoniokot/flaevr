@@ -134,7 +134,10 @@ class FavFolderState extends State<FavFolder> {
           ),
           onTap: () => {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => FolderPage()))
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        FolderPage(folder: this.widget.folder)))
           },
         ),
       ),

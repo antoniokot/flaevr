@@ -1,3 +1,4 @@
+import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'dart:async';
 
 class ProductCard extends StatefulWidget {
   @override
-  ProductCard({this.heightAspectRatio, this.width})
+  ProductCard({this.heightAspectRatio, this.width, this.product})
       : assert(heightAspectRatio != null &&
             heightAspectRatio.aspectRatio > 0 &&
             width > 0 &&
@@ -14,6 +15,7 @@ class ProductCard extends StatefulWidget {
 
   final AspectRatio heightAspectRatio;
   final double width;
+  final ProductModel product;
   @override
   ProductCardState createState() => ProductCardState();
 }
@@ -24,8 +26,8 @@ class ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     super.initState();
-    getMainColors(
-        new AssetImage('lib/assets/images/product2.png'), new Size(500, 500));
+    getMainColors(new NetworkImage(this.widget.product.pictureUrl.toString()),
+        new Size(500, 500));
   }
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
@@ -76,8 +78,8 @@ class ProductCardState extends State<ProductCard> {
                     child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        child: Image.asset(
-                          'lib/assets/images/product2.png',
+                        child: Image.network(
+                          this.widget.product.pictureUrl,
                           fit: BoxFit.contain,
                         )),
                   ),
@@ -101,7 +103,7 @@ class ProductCardState extends State<ProductCard> {
                         Padding(
                           padding: EdgeInsets.only(top: 8),
                           child: Text(
-                            "Wasabi Doritos",
+                            this.widget.product.name,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: Color(0xff3d3d4e),
