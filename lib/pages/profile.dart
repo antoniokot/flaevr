@@ -107,6 +107,7 @@ class ProfileState extends State<Profile> {
                                                       new AspectRatio(
                                                           aspectRatio: 2.3),
                                                   width: 140,
+                                                  product: snapshot.data[index],
                                                 ));
                                   } else if (snapshot.hasError) {
                                     return Text('${snapshot.error}');

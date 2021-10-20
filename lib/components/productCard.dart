@@ -26,7 +26,10 @@ class ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     super.initState();
-    getMainColors(new NetworkImage(this.widget.product.pictureUrl != null ? this.widget.product.pictureUrl.toString() : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612"),
+    getMainColors(
+        new NetworkImage(this.widget.product.pictureUrl != null
+            ? this.widget.product.pictureUrl.toString()
+            : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612"),
         new Size(500, 500));
   }
 
@@ -40,8 +43,11 @@ class ProductCardState extends State<ProductCard> {
     return GestureDetector(
         onTap: () => {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Product(prod: this.widget.product)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Product(prod: this.widget.product)));
                 // Add Your Code here.
               })
             },
@@ -79,7 +85,9 @@ class ProductCardState extends State<ProductCard> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: Image.network(
-                          this.widget.product.pictureUrl != null ? this.widget.product.pictureUrl : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612",
+                          this.widget.product.pictureUrl != null
+                              ? this.widget.product.pictureUrl
+                              : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612",
                           fit: BoxFit.contain,
                         )),
                   ),
