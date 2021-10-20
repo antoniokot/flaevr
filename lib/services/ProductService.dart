@@ -66,4 +66,30 @@ class ProductService {
       return null;
     }
   }
+
+  static Future<List<ProductModel>> getAllRecentProducts(int idUser) async {
+    try {
+      final response = await http.get(
+          Uri.parse('http://127.0.0.1:3333/scanns/user/' + idUser.toString()));
+
+      if (response.statusCode == 200) {
+        List<ProductModel> ret = [];
+        var decodeJson = jsonDecode(response.body);
+
+        decodeJson.forEach((item) => {
+              ret.add(new ProductModel(
+                  id: item['idProduct'],
+                  name: item['name'],
+                  barcode: item['barcode'],
+                  pictureUrl: item['pictureUrl']))
+            });
+        return ret;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

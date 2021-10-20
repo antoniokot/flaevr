@@ -5,6 +5,7 @@ import 'package:flaevr/models/User.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/services/FolderService.dart';
+import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -39,6 +40,7 @@ class ProfileState extends State<Profile> {
     await FlutterSession().get("user").then((json) {
       this.user = User.fromJson(json);
       this.allFolders = FolderService.getAllFoldersByIdUser(this.user.id);
+      this.recents = ProductService.getAllRecentProducts(this.user.id);
     });
   }
 
@@ -115,8 +117,14 @@ class ProfileState extends State<Profile> {
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
                                       itemCount: 15,
-                                      itemBuilder: (BuildContext context, int index) =>
-                                          Skeleton(width: 140, height: 240));
+                                      itemBuilder:
+                                          (BuildContext context, int index) =>
+                                              Skeleton(
+                                                width: 140,
+                                                height: 240,
+                                                padding: EdgeInsets.all(12),
+                                                radius: 16,
+                                              ));
                                 },
                               ),
                             ),
