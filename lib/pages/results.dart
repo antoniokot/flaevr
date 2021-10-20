@@ -32,26 +32,26 @@ class ResultsState extends State<Results> {
               margin: EdgeInsets.only(bottom: 10, top: 44, left: 19, right: 19),
               child: SearchBar(tipText: "Pesquise algo"),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
-              child: FutureBuilder<List<ProductModel>>(
-                future: futureProducts,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ProductGrid(
-                        physics: new NeverScrollableScrollPhysics(),
-                        built: true);
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 7),
+            //   child: FutureBuilder<List<ProductModel>>(
+            //     future: futureProducts,
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         return ProductGrid(
+            //             physics: new NeverScrollableScrollPhysics(),
+            //             built: true);
+            //       } else if (snapshot.hasError) {
+            //         return Text('${snapshot.error}');
+            //       }
 
-                  // By default, show a loading spinner.
-                  return ProductGrid(
-                      physics: new NeverScrollableScrollPhysics(),
-                      built: false);
-                },
-              ),
-            )
+            //       // By default, show a loading spinner.
+            //       return ProductGrid(
+            //           physics: new NeverScrollableScrollPhysics(),
+            //           built: false);
+            //     },
+            //   ),
+            // )
           ])),
     );
   }

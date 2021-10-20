@@ -26,7 +26,7 @@ class ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     super.initState();
-    getMainColors(new NetworkImage(this.widget.product.pictureUrl.toString()),
+    getMainColors(new NetworkImage(this.widget.product.pictureUrl != null ? this.widget.product.pictureUrl.toString() : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612"),
         new Size(500, 500));
   }
 
@@ -41,7 +41,7 @@ class ProductCardState extends State<ProductCard> {
         onTap: () => {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Product()));
+                    MaterialPageRoute(builder: (context) => Product(prod: this.widget.product)));
                 // Add Your Code here.
               })
             },
@@ -79,7 +79,7 @@ class ProductCardState extends State<ProductCard> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: Image.network(
-                          this.widget.product.pictureUrl,
+                          this.widget.product.pictureUrl != null ? this.widget.product.pictureUrl : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612",
                           fit: BoxFit.contain,
                         )),
                   ),
@@ -103,7 +103,7 @@ class ProductCardState extends State<ProductCard> {
                         Padding(
                           padding: EdgeInsets.only(top: 8),
                           child: Text(
-                            this.widget.product.name,
+                            this.widget.product.name.split(',')[0],
                             style: TextStyle(
                                 fontSize: 13,
                                 color: Color(0xff3d3d4e),
@@ -113,7 +113,7 @@ class ProductCardState extends State<ProductCard> {
                         Padding(
                           padding: EdgeInsets.only(bottom: 8),
                           child: Text(
-                            "Elma Chips",
+                            this.widget.product.name.split(',')[1],
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Styles.mutedGrey,

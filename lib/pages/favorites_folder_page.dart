@@ -31,17 +31,7 @@ class FolderPage_State extends State<FolderPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Favoritos", //nome da pasta
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Color(0xFF3D3D4E)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-              ),
+              
               Products(
                 folder: this.widget.folder,
               )

@@ -1,4 +1,6 @@
 import 'package:flaevr/models/Folder.dart';
+import 'package:flaevr/pages/product.dart';
+import 'package:flaevr/pages/products.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/pages/favorites_folder_page.dart';
 import 'dart:math';
@@ -137,7 +139,7 @@ class FavFolderState extends State<FavFolder> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        FolderPage(folder: this.widget.folder)))
+                        Products(folder: this.widget.folder)))
           },
         ),
       ),

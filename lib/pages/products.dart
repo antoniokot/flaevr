@@ -26,30 +26,43 @@ class ProductsState extends State<Products> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-          child: Column(children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 10),
-        ),
-        FutureBuilder<List<ProductModel>>(
-          future: futureProducts,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
+        child: Column(children: [
+          Text(
+            "Favoritos", //nome da pasta
+            textAlign: TextAlign.start,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                color: Color(0xFF3D3D4E)),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 10),
+          ),
+          FutureBuilder<List<ProductModel>>(
+            future: futureProducts,
+            builder: (context, snapshot) {
+              print(snapshot.data);
+              if (snapshot.hasData) {
+                return ProductGrid(
+                    physics: new NeverScrollableScrollPhysics(),
+                    built: true,
+                    products: snapshot.data);
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+
+              // By default, show a loading spinner.
               return ProductGrid(
                   physics: new NeverScrollableScrollPhysics(),
-                  built: true,
-                  products: snapshot.data);
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-
-            // By default, show a loading spinner.
-            return ProductGrid(
-                physics: new NeverScrollableScrollPhysics(),
-                built: false,
-                products: []);
-          },
-        ),
-      ])),
+                  built: false,
+                  products: []);
+            },
+          ),
+       ]
+      )),
     );
   }
 }

@@ -115,8 +115,7 @@ class ProfileState extends State<Profile> {
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
                                       itemCount: 15,
-                                      itemBuilder: (BuildContext context,
-                                              int index) =>
+                                      itemBuilder: (BuildContext context, int index) =>
                                           Skeleton(width: 140, height: 240));
                                 },
                               ),
