@@ -28,7 +28,7 @@ class UserService {
       if (item.hasSugar == 1 && !items.contains("sugar")) {
         ret.add("sugar");
       }
-      return ret;
     }
+    return ret;
   }
 }
