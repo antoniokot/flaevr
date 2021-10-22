@@ -20,21 +20,35 @@ class FolderPage_State extends State<FolderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: false,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(color: Color(0xFF3d3d4e)),
           elevation: 0.0,
         ),
-        body: Padding(
-          padding: Styles.sidePadding,
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 7),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
-              Products(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                  this.widget.folder.name, //nome da pasta
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Color(0xFF3D3D4E)),
+                ),
+              ),
+              Expanded(
+                  child: Products(
                 folder: this.widget.folder,
-              )
+              ))
+
               // Expanded(
               //   child: SizedBox(
               //     height: 200.0,

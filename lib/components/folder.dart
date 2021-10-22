@@ -139,7 +139,7 @@ class FavFolderState extends State<FavFolder> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        Products(folder: this.widget.folder)))
+                        FolderPage(folder: this.widget.folder)))
           },
         ),
       ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
 import 'dart:async';
 
+import 'package:palette_generator/palette_generator.dart';
+
 class ProductCard extends StatefulWidget {
   @override
   ProductCard({this.heightAspectRatio, this.width, this.product})
@@ -35,7 +37,15 @@ class ProductCardState extends State<ProductCard> {
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
     await ColorGenerator.getMainColors(img, size, 1).then((value) =>
-        {_mainColor = value.lightVibrantColor.color, setState(() {})});
+        {_mainColor = getColorByImportance(value).color, setState(() {})});
+  }
+
+  PaletteColor getColorByImportance(PaletteGenerator palette) {
+    if (palette.lightVibrantColor != null) return palette.lightVibrantColor;
+    if (palette.dominantColor != null) return palette.dominantColor;
+    if (palette.lightMutedColor != null) return palette.lightMutedColor;
+    if (palette.darkVibrantColor != null) return palette.darkVibrantColor;
+    return palette.darkMutedColor;
   }
 
   @override

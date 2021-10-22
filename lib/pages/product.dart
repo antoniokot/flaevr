@@ -15,10 +15,10 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class Product extends StatefulWidget {
-  Product({Key key, this.barcode, ProductModel prod}) : super(key: key);
+  Product({Key key, this.barcode, this.prod}) : super(key: key);
 
-  String barcode;
-  ProductModel prod;
+  final String barcode;
+  final ProductModel prod;
 
   @override
   ProductState createState() => ProductState();
@@ -26,7 +26,7 @@ class Product extends StatefulWidget {
 
 class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   //will be fetched on initState
-  Future<ProductModel> prod;
+  Future<ProductModel> product;
   Future<Composition> composition;
 
   var top = 0.0;
@@ -42,13 +42,19 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     if (widget.barcode != "" && widget.barcode != null) {
-      this.prod =
+      print("tem barcode");
+      this.product =
           ProductService.getByBarcode(widget.barcode).then((ProductModel p) {
         fetchAll(p.id);
         return p;
       });
-    } else
+    } else if (widget.prod != null && widget.prod.id > 0) {
+      print("nn tem barcode");
+      this.product = getProductAsync();
       fetchAll(this.widget.prod.id);
+    } else {
+      print("deu erroooo");
+    }
 
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
@@ -67,10 +73,14 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
   //talvez retorne um dicionario
   Future<void> fetchAll(int id) async {
-    if (id >= 0) this.prod = ProductService.getByID(id);
+    if (this.product == null) this.product = ProductService.getByID(id);
 
     this.composition = fetchComposition(id);
     //fetch tabela nutricional, meio ambiente e selos
+  }
+
+  Future<ProductModel> getProductAsync() async {
+    return this.widget.prod;
   }
 
   Future<Composition> fetchComposition(int id) async {
@@ -82,6 +92,10 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   Future<void> getMainColors(NetworkImage img, Size size) async {
     await ColorGenerator.getMainColors(img, size, 4).then((value) => {
           _mainColors = value.colors.toList(),
+          /*for (int i = 0; i < value.colors.toList().length; i++)
+            {
+              print("ai malygnos: " + value.colors.toList()[i].value.toString())
+            },*/
           setState(() {
             adjustBrightness(_mainColors[0]);
           })
@@ -179,7 +193,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       return EdgeInsets.only(bottom: 25);
                                   }(),
                                   child: FutureBuilder<ProductModel>(
-                                    future: prod,
+                                    future: product,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         return Text(
@@ -190,9 +204,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       } else if (snapshot.hasError) {
                                         return Text('${snapshot.error}');
                                       }
-
-                                      // By default, show a loading spinner.
-                                      // return Skeleton(width: 190, height: 20);
                                       return Skeleton(
                                         width: 60,
                                         height: 18,
@@ -211,14 +222,20 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                         alignment: Alignment.centerLeft,
                         child: [
                           FutureBuilder<ProductModel>(
-                            future: prod,
+                            future: product,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 ProductOverview.withSampleData(snapshot.data);
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
-                              return CircularProgressIndicator();
+                              return SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height - 200,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                    color: Color(0xFFFF4646),
+                                  )));
                             },
                           ),
                           FutureBuilder<Composition>(
@@ -232,7 +249,13 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
-                              return CircularProgressIndicator();
+                              return SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height - 200,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                    color: Color(0xFFFF4646),
+                                  )));
                             },
                           ),
                           Column(
