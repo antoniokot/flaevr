@@ -8,7 +8,7 @@ import 'dart:convert';
 
 class NutriotinalService {
   //get entire nutritional facts table from product id
-  static Future<List<NutritionalFactsRow>> getByID(int id) async {
+  static Future<NutritionalFacts> getByID(int id) async {
     try {
       // if (response.statusCode == 200) {
 

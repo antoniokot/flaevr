@@ -8,7 +8,7 @@ class NutritionalValues extends StatelessWidget {
   @override
   NutritionalValues({@required this.nutritionalFacts});
 
-  final List<NutritionalFactsRow> nutritionalFacts;
+  final NutritionalFacts nutritionalFacts;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +48,12 @@ class NutritionalValues extends StatelessWidget {
                       ],
                       rows: () {
                         List<DataRow> row;
-                        for (int i = 0; i < nutritionalFacts.length; i++) {
+                        for (int i = 0;
+                            i < nutritionalFacts.nutrients.length;
+                            i++) {
                           row.add(new DataRow(cells: [
                             DataCell(Text("Carboidratos")),
-                            DataCell(Text(nutritionalFacts[i].value)),
+                            DataCell(Text(nutritionalFacts.nutrients[i].value)),
                             DataCell(Text('10')),
                           ]));
                         }

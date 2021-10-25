@@ -1,10 +1,10 @@
 import 'package:flaevr/models/NutritionalFactsRow.dart';
 
-import 'NutrientNutrionalFacts.dart';
+import 'NutritionalFacts.dart';
 import 'Ingredient.dart';
 
 class Composition {
-  List<NutritionalFactsRow> nutritionalFacts;
+  NutritionalFacts nutritionalFacts;
   List<Ingredient> ingredients;
 
   Composition({

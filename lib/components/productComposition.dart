@@ -12,7 +12,7 @@ class ProductComposition extends StatelessWidget {
   ProductComposition(
       {@required this.ingredients, @required this.nutritionalFacts});
 
-  final List<NutritionalFactsRow> nutritionalFacts;
+  final NutritionalFacts nutritionalFacts;
   final List<Ingredient> ingredients;
 
   @override
