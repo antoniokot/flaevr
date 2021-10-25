@@ -10,13 +10,35 @@ class NutriotinalService {
   //get entire nutritional facts table from product id
   static Future<NutritionalFacts> getByID(int id) async {
     try {
-      // if (response.statusCode == 200) {
+      final response = await http.get(
+          Uri.parse('http://127.0.0.1:3333/nutritionalFacts/' + id.toString()));
 
-      // } else {
-      //   // If the server did not return a 200 OK response,
-      //   // then throw an exception.
-      //   return null;
-      // }
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+
+        final mainResp = await http.get(Uri.parse(
+            'http://127.0.0.1:3333/nutrientsNutritionalFacts/' +
+                id.toString()));
+        var listJson;
+        if (mainResp.statusCode == 200) {
+          listJson = jsonDecode(mainResp.body);
+        } else {
+          return null;
+        }
+
+        if (listJson != null) {
+          List<NutritionalFactsRow> nutrients = List<NutritionalFactsRow>.from(
+              listJson.map((model) => NutritionalFactsRow.fromJson(model)));
+          return new NutritionalFacts(
+              id: json['idNutritionalFacts'],
+              idProduct: json['idProduct'],
+              serving: json['serving'],
+              nutrients: nutrients);
+        } else
+          return null;
+      } else {
+        return null;
+      }
     } catch (e) {
       print(e);
       return null;

@@ -9,15 +9,33 @@ class IngredientService {
   //get entire nutritional facts table from product id
   static Future<List<Ingredient>> getByID(int id) async {
     try {
-      
+      List<Ingredient> ingredients = [];
+      final response = await http.get(Uri.parse(
+          'http://127.0.0.1:3333/ingredients/product/' + id.toString()));
 
-      // if (response.statusCode == 200) {
-        
-      // } else {
-      //   // If the server did not return a 200 OK response,
-      //   // then throw an exception.
-      //   return null;
-      // }
+      if (response.statusCode == 200) {
+        var decodeJson = jsonDecode(response.body);
+
+        decodeJson.forEach((json) => {
+              ingredients.add(new Ingredient(
+                  id: json['idStamp'],
+                  name: json['name'],
+                  isAllergen: json['isAllergen'],
+                  isVegan: json['isVegan'],
+                  hasMilk: json['hasMilk'],
+                  hasEgg: json['hasEgg'],
+                  hasGluten: json['hasGluten'],
+                  hasSeafood: json['hasSeafood'],
+                  hasFish: json['hasFish'],
+                  hasSugar: json['hasSugar'],
+                  hasSoy: json['hasSoy'],
+                  hasNuts: json['hasNuts']))
+            });
+
+        return ingredients;
+      } else {
+        return [];
+      }
     } catch (e) {
       print(e);
       return null;
