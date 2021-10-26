@@ -41,6 +41,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
+    super.initState();
     if (widget.barcode != "" && widget.barcode != null) {
       print("tem barcode");
       this.product =
@@ -62,7 +63,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
         new NetworkImage(
             "https://www.webpackaging.com/Up/Comp/1220/11116249/12336095-EFNGZGDX/i/prev/tetra-top-water.jpg"),
         new Size(1000, 200));
-    super.initState();
   }
 
   @override
@@ -84,9 +84,15 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   }
 
   Future<Composition> fetchComposition(int id) async {
-    return new Composition(
-        nutritionalFacts: await NutriotinalService.getByID(id),
+    var c = new Composition(
+        //nutritionalFacts: await NutriotinalService.getByID(id),
+        nutritionalFacts: new NutritionalFacts(
+            id: 1, idProduct: 1, serving: "malygnos", nutrients: []),
         ingredients: await IngredientService.getByID(id));
+
+    setState(() {});
+
+    return c;
   }
 
   Future<void> getMainColors(NetworkImage img, Size size) async {

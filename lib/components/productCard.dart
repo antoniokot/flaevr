@@ -36,8 +36,10 @@ class ProductCardState extends State<ProductCard> {
   }
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
-    await ColorGenerator.getMainColors(img, size, 1).then((value) =>
-        {_mainColor = getColorByImportance(value).color, setState(() {})});
+    await ColorGenerator.getMainColors(img, size, 1).then((value) => {
+          _mainColor = getColorByImportance(value).color,
+          if (mounted) setState(() {})
+        });
   }
 
   PaletteColor getColorByImportance(PaletteGenerator palette) {
@@ -52,14 +54,11 @@ class ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Product(prod: this.widget.product)));
-                // Add Your Code here.
-              })
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Product(prod: this.widget.product)))
+              // Add Your Code here.
             },
         child: Container(
           height: (widget.heightAspectRatio.aspectRatio * widget.width),

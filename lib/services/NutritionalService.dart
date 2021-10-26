@@ -25,14 +25,15 @@ class NutriotinalService {
         } else {
           return null;
         }
-
         if (listJson != null) {
           List<NutritionalFactsRow> nutrients = List<NutritionalFactsRow>.from(
               listJson.map((model) => NutritionalFactsRow.fromJson(model)));
+          print(nutrients.toString());
+          print(json.toString());
           return new NutritionalFacts(
               id: json['idNutritionalFacts'],
               idProduct: json['idProduct'],
-              serving: json['serving'],
+              serving: json['serving'].toString(),
               nutrients: nutrients);
         } else
           return null;

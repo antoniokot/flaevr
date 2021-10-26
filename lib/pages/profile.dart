@@ -1,3 +1,4 @@
+import 'package:flaevr/components/notFound.dart';
 import 'package:flaevr/components/productCard.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Folder.dart';
@@ -107,22 +108,29 @@ class ProfileState extends State<Profile> {
                                   future: recents,
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      return ListView.builder(
-                                          physics: BouncingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: snapshot.data.length,
-                                          itemBuilder: (BuildContext context,
-                                                  int index) =>
-                                              ProductCard(
-                                                heightAspectRatio:
-                                                    new AspectRatio(
-                                                        aspectRatio: 2.3),
-                                                width: 140,
-                                                product: snapshot.data[index],
-                                              ));
+                                      if (snapshot.data == null ||
+                                          snapshot.data.length == 0)
+                                        return NotFound(
+                                          text: "Que vazio!",
+                                        );
+                                      else {
+                                        return ListView.builder(
+                                            physics: BouncingScrollPhysics(),
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: snapshot.data.length,
+                                            itemBuilder: (BuildContext context,
+                                                    int index) =>
+                                                ProductCard(
+                                                  heightAspectRatio:
+                                                      new AspectRatio(
+                                                          aspectRatio: 2.3),
+                                                  width: 140,
+                                                  product: snapshot.data[index],
+                                                ));
+                                      }
                                     } else if (snapshot.hasError) {
-                                      return Text('${snapshot.error}');
+                                      return NotFound(text: "Que vazio!");
                                     }
                                     // By default, show a loading skeleton.
                                     return ListView.builder(

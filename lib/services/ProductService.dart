@@ -6,8 +6,8 @@ import 'dart:convert';
 class ProductService {
   static Future<ProductModel> getByID(int id) async {
     try {
-      final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/products/unique/' + id.toString()));
+      final response = await http
+          .get(Uri.parse('http://127.0.0.1:3333/products/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);
@@ -76,13 +76,10 @@ class ProductService {
         List<ProductModel> ret = [];
         var decodeJson = jsonDecode(response.body);
 
-        decodeJson.forEach((item) => {
-              ret.add(new ProductModel(
-                  id: item['idProduct'],
-                  name: item['name'],
-                  barcode: item['barcode'],
-                  pictureUrl: item['pictureUrl']))
-            });
+        for (var item in decodeJson) {
+          ret.add(await ProductService.getByID(item['idProduct']));
+          print(ret.toString());
+        }
         return ret;
       } else {
         return null;
