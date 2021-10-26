@@ -1,5 +1,6 @@
 import 'package:flaevr/components/notFound.dart';
 import 'package:flaevr/components/productCard.dart';
+import 'package:flaevr/components/profilePicturePicker.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/models/User.dart';
@@ -244,15 +245,60 @@ class ProfileState extends State<Profile> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          'https://images.pexels.com/photos/4345992/pexels-photo-4345992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
-                                      fit: BoxFit.fill),
+                              InkWell(
+                                onTap: () {
+                                  showModalBottomSheet<void>(
+                                      isScrollControlled: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            this._borderRadius),
+                                      ),
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          decoration: new BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top: Radius.circular(
+                                                          this._borderRadius))),
+                                          height: 400,
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 20),
+                                                    child: Text(
+                                                        'Mudar a foto de perfil',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 18,
+                                                          color:
+                                                              Color(0xFF3D3D4E),
+                                                        ))),
+                                                ProfilePicturePicker()
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            'https://images.pexels.com/photos/4345992/pexels-photo-4345992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+                                        fit: BoxFit.fill),
+                                  ),
                                 ),
                               ),
                               Text(this.user == null ? "" : this.user.name),
