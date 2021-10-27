@@ -240,7 +240,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       MediaQuery.of(context).size.height - 200,
                                   child: Center(
                                       child: CircularProgressIndicator(
-                                    color: Color(0xFFFF4646),
+                                    valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFFFF4646)),
                                   )));
                             },
                           ),
@@ -260,7 +260,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       MediaQuery.of(context).size.height - 200,
                                   child: Center(
                                       child: CircularProgressIndicator(
-                                    color: Color(0xFFFF4646),
+                                    valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFFFF4646)),
                                   )));
                             },
                           ),
