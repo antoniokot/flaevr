@@ -66,7 +66,8 @@ class UserService {
   static Future<User> putProfilePic(int id, String url) async {
     try {
       final response = await http.put(
-          Uri.parse('http://127.0.0.1:3333/users/avatar/' + id.toString()));
+          Uri.parse('http://127.0.0.1:3333/users/avatar/' + id.toString()),
+          body: {"avatar": url});
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);

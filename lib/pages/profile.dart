@@ -10,6 +10,7 @@ import 'package:flaevr/services/FolderService.dart';
 import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
 import 'package:flaevr/utils/styles.dart';
+import 'package:flaevr/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'dart:async';
@@ -289,6 +290,10 @@ class ProfileState extends State<Profile> {
                                             ),
                                           ),
                                         );
+                                      }).then((value) => {
+                                        setState(() {
+                                          getUser();
+                                        })
                                       });
                                 },
                                 child: Container(
@@ -297,12 +302,21 @@ class ProfileState extends State<Profile> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: this.user.avatar.length > 2
-                                            ? NetworkImage(this.user.avatar)
-                                            : AssetImage(
-                                                "lib/assets/images/avatars/prof" +
-                                                    this.user.avatar +
-                                                    ".png"),
+                                        image: () {
+                                          if (this.user != null) {
+                                            if (!Utility.isNumeric(
+                                                this.user.avatar))
+                                              return NetworkImage(
+                                                  this.user.avatar);
+                                            else
+                                              return AssetImage(
+                                                  "lib/assets/images/avatars/prof" +
+                                                      this.user.avatar +
+                                                      ".png");
+                                          } else
+                                            return AssetImage(
+                                                "lib/assets/images/avatars/prof1.png");
+                                        }(),
                                         fit: BoxFit.fill),
                                   ),
                                 ),
