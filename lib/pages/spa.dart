@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flaevr/pages/compare.dart';
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/pages/main_page.dart';
@@ -25,7 +26,7 @@ class OriginState extends State<Origin> {
     Home(),
     Search(),
     Product(),
-    Favorites(built: true),
+    Compare(),
     Profile()
   ];
 

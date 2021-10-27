@@ -120,8 +120,7 @@ class ProfileState extends State<Profile> {
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
                                             itemCount: snapshot.data.length,
-                                            itemBuilder: (BuildContext context,
-                                                    int index) =>
+                                            itemBuilder: (BuildContext context,int index) =>
                                                 ProductCard(
                                                   heightAspectRatio:
                                                       new AspectRatio(
@@ -135,18 +134,18 @@ class ProfileState extends State<Profile> {
                                     }
                                     // By default, show a loading skeleton.
                                     return ListView.builder(
-                                        physics: BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 15,
-                                        itemBuilder:
-                                            (BuildContext context, int index) =>
-                                                Skeleton(
-                                                  width: 140,
-                                                  height: 240,
-                                                  padding: EdgeInsets.all(12),
-                                                  radius: 16,
-                                                ));
+                                      physics: BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 15,
+                                      itemBuilder: (BuildContext context, int index) =>
+                                        Skeleton(
+                                          width: 140,
+                                          height: 240,
+                                          padding: EdgeInsets.all(12),
+                                          radius: 16,
+                                        )
+                                    );
                                   },
                                 ),
                               ),

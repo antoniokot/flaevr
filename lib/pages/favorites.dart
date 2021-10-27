@@ -57,9 +57,9 @@ class _FavoritesState extends State<Favorites> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-              child: SizedBox(
-            height: 250.0,
-            child: GridView.builder(
+            child: SizedBox(
+              height: 250.0,
+              child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 19,
@@ -81,8 +81,10 @@ class _FavoritesState extends State<Favorites> {
                     );
                   } else
                     return Skeleton(radius: 18);
-                }),
-          ))
+                }
+              ),
+            )
+          )
         ],
       ),
     );
