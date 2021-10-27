@@ -3,7 +3,7 @@ class User {
   final String name;
   final String password;
   final String email;
-  final int avatar;
+  final String avatar;
   // boolean
   final String rememberMeToken;
 

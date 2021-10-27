@@ -1,6 +1,6 @@
 import 'package:flaevr/models/Ingredient.dart';
 
-class UserService {
+class AllergenService {
   static List<String> getListOfAllergens(List<Ingredient> items) {
     List<String> ret = [];
     for (var item in items) {

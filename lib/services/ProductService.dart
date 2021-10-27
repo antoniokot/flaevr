@@ -69,16 +69,15 @@ class ProductService {
 
   static Future<List<ProductModel>> getAllRecentProducts(int idUser) async {
     try {
-      final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/scanns/user/' + idUser.toString()));
+      final response = await http.get(Uri.parse(
+          'http://127.0.0.1:3333/products/user/' + idUser.toString()));
 
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];
         var decodeJson = jsonDecode(response.body);
 
         for (var item in decodeJson) {
-          ret.add(await ProductService.getByID(item['idProduct']));
-          print(ret.toString());
+          ret.add(ProductModel.fromJson(item));
         }
         return ret;
       } else {

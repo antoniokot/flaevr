@@ -1,8 +1,22 @@
+import 'dart:js';
+
+import 'package:flaevr/services/AllergensService.dart';
+import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePicturePicker extends StatelessWidget {
-  void setProfileImage(int imgIndex) {}
+  @override
+  ProfilePicturePicker({this.id});
+
+  final int id;
+
+  void setProfileImage(int imgIndex, BuildContext context) {
+    if (imgIndex > 9 || imgIndex < 1) return;
+
+    UserService.putProfilePic(this.id, imgIndex.toString());
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +45,7 @@ class ProfilePicturePicker extends StatelessWidget {
               ));
             }
             return InkWell(
-                onTap: () => setProfileImage(index),
+                onTap: () => setProfileImage(index, context),
                 child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,

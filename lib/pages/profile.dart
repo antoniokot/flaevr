@@ -282,7 +282,10 @@ class ProfileState extends State<Profile> {
                                                           color:
                                                               Color(0xFF3D3D4E),
                                                         ))),
-                                                ProfilePicturePicker()
+                                                ProfilePicturePicker(
+                                                    id: this.user == null
+                                                        ? 1
+                                                        : this.user.id)
                                               ],
                                             ),
                                           ),
@@ -295,8 +298,12 @@ class ProfileState extends State<Profile> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: NetworkImage(
-                                            'https://images.pexels.com/photos/4345992/pexels-photo-4345992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+                                        image: this.user.avatar.length > 2
+                                            ? NetworkImage(this.user.avatar)
+                                            : AssetImage(
+                                                "lib/assets/images/avatars/prof" +
+                                                    this.user.avatar +
+                                                    ".png"),
                                         fit: BoxFit.fill),
                                   ),
                                 ),
