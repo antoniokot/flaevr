@@ -4,6 +4,7 @@ import 'package:flaevr/services/AllergensService.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class ProfilePicturePicker extends StatelessWidget {
   @override
@@ -14,8 +15,13 @@ class ProfilePicturePicker extends StatelessWidget {
   void setProfileImage(int imgIndex, BuildContext context) {
     if (imgIndex > 9 || imgIndex < 1) return;
 
-    UserService.putProfilePic(this.id, imgIndex.toString());
-    Navigator.pop(context);
+    UserService.putProfilePic(this.id, imgIndex.toString()).then((value) async {
+      dynamic session = new FlutterSession();
+
+      await session
+          .set("user", await UserService.getByID(this.id))
+          .then((value) => Navigator.pop(context));
+    });
   }
 
   @override
