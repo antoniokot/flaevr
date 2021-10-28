@@ -45,48 +45,30 @@ class _FavoritesState extends State<Favorites> {
     //     fontSize: 14,
     //     color: Color(0xFFFF4646)
     // );
-    return Scaffold(
-      // extendBodyBehindAppBar: false,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   iconTheme: IconThemeData(color: Color(0xFF3d3d4e)),
-      //   elevation: 0.0,
-      // ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: SizedBox(
-              height: 250.0,
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 19,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 1,
-                ),
-                padding: EdgeInsets.only(top: 20),
-                itemCount: widget.folders.length,
-                itemBuilder: (context, index) {
-                  if (widget.built == true) {
-                    return Container(
-                      child: () {
-                        if (widget.built != true)
-                          return Skeleton();
-                        else
-                          return FavFolder(folder: widget.folders[index]);
-                      }(),
-                      //height: 50,
-                    );
-                  } else
-                    return Skeleton(radius: 18);
-                }
-              ),
-            )
-          )
-        ],
-      ),
-    );
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 19,
+          mainAxisSpacing: 10,
+          childAspectRatio: 1,
+        ),
+        padding: EdgeInsets.only(top: 20),
+        itemCount: widget.folders.length,
+        itemBuilder: (context, index) {
+          if (widget.built == true) {
+            return Container(
+              child: () {
+                if (widget.built != true)
+                  return Skeleton();
+                else
+                  return FavFolder(folder: widget.folders[index]);
+              }(),
+              //height: 50,
+            );
+          } else
+            return Skeleton(radius: 18);
+        });
   }
 }

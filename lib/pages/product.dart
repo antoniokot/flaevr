@@ -11,8 +11,11 @@ import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
+import 'package:flaevr/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:palette_generator/palette_generator.dart';
 
 class Product extends StatefulWidget {
   Product({Key key, this.barcode, this.prod}) : super(key: key);
@@ -30,7 +33,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   Future<Composition> composition;
 
   var top = 0.0;
-  var _mainColors;
+  var _mainColor;
   var textColor;
   final List<Widget> myTabs = [
     Tab(text: 'Resumo'),
@@ -42,16 +45,20 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    String imageUrlToFetch;
     if (widget.barcode != "" && widget.barcode != null) {
       print("tem barcode");
       this.product =
           ProductService.getByBarcode(widget.barcode).then((ProductModel p) {
+        imageUrlToFetch = p.pictureUrl;
         fetchAll(p.id);
         return p;
       });
     } else if (widget.prod != null && widget.prod.id > 0) {
       print("nn tem barcode");
       this.product = getProductAsync();
+      print(this.widget.prod.pictureUrl);
+      imageUrlToFetch = this.widget.prod.pictureUrl;
       fetchAll(this.widget.prod.id);
     } else {
       print("deu erroooo");
@@ -59,10 +66,11 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    getMainColors(
-        new NetworkImage(
-            "https://www.webpackaging.com/Up/Comp/1220/11116249/12336095-EFNGZGDX/i/prev/tetra-top-water.jpg"),
-        new Size(1000, 200));
+
+    if (imageUrlToFetch == null)
+      imageUrlToFetch =
+          "https://www.webpackaging.com/Up/Comp/1220/11116249/12336095-EFNGZGDX/i/prev/tetra-top-water.jpg";
+    getMainColors(new NetworkImage(imageUrlToFetch), new Size(1000, 200));
   }
 
   @override
@@ -89,23 +97,26 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
         nutritionalFacts: new NutritionalFacts(
             id: 1, idProduct: 1, serving: "malygnos", nutrients: []),
         ingredients: await IngredientService.getByID(id));
-    // print(c.ingredients.toString());
-    // print(c.nutritionalFacts.nutrients.toString());
 
     return c;
   }
 
-  Future<void> getMainColors(NetworkImage img, Size size) async {
+  Future<void> getMainColors(ImageProvider img, Size size) async {
     await ColorGenerator.getMainColors(img, size, 4).then((value) => {
-          _mainColors = value.colors.toList(),
-          /*for (int i = 0; i < value.colors.toList().length; i++)
-            {
-              print("ai malygnos: " + value.colors.toList()[i].value.toString())
-            },*/
+          _mainColor = getColorByImportance(value).color,
           setState(() {
-            adjustBrightness(_mainColors[0]);
-          })
+            adjustBrightness(_mainColor);
+          }),
+          if (mounted) setState(() {})
         });
+  }
+
+  PaletteColor getColorByImportance(PaletteGenerator palette) {
+    if (palette.lightVibrantColor != null) return palette.lightVibrantColor;
+    if (palette.dominantColor != null) return palette.dominantColor;
+    if (palette.lightMutedColor != null) return palette.lightMutedColor;
+    if (palette.darkVibrantColor != null) return palette.darkVibrantColor;
+    return palette.darkMutedColor;
   }
 
   void adjustBrightness(Color color) {
@@ -176,10 +187,10 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                     floating: false,
                     pinned: true,
                     backgroundColor: () {
-                      if (_mainColors == null)
+                      if (_mainColor == null)
                         return Colors.blue;
                       else
-                        return _mainColors[0];
+                        return _mainColor;
                     }(),
                     flexibleSpace: LayoutBuilder(builder:
                         (BuildContext context, BoxConstraints constraints) {
@@ -216,9 +227,28 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       );
                                     },
                                   ))),
-                          background: Image.network(
-                            "https://www.webpackaging.com/Up/Comp/1220/11116249/12336095-EFNGZGDX/i/prev/tetra-top-water.jpg",
-                            fit: BoxFit.cover,
+                          background: FutureBuilder<ProductModel>(
+                            future: product,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data.pictureUrl != null)
+                                  return Image.network(
+                                    snapshot.data.pictureUrl,
+                                    fit: BoxFit.cover,
+                                  );
+                                else
+                                  return Image.asset(
+                                    "lib/assets/images/404.gif",
+                                    fit: BoxFit.cover,
+                                  );
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+                              return Image.network(
+                                "https://www.webpackaging.com/Up/Comp/1220/11116249/12336095-EFNGZGDX/i/prev/tetra-top-water.jpg",
+                                fit: BoxFit.cover,
+                              );
+                            },
                           ));
                     })),
                 SliverList(

@@ -36,7 +36,9 @@ class Badges extends StatelessWidget {
                     children: snapshot.data
                         .map((item) => Padding(
                             padding: EdgeInsets.only(right: 10),
-                            child: Badge(text: item.name)))
+                            child: Padding(
+                                padding: EdgeInsets.only(right: 14),
+                                child: Badge(text: item.name))))
                         .toList()
                         .cast<Widget>(),
                   );
@@ -46,7 +48,11 @@ class Badges extends StatelessWidget {
                 return ListView.builder(
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return Skeleton(height: 85, width: 85, radius: 45);
+                    return Skeleton(
+                        height: 85,
+                        width: 85,
+                        radius: 45,
+                        padding: EdgeInsets.only(right: 14));
                   },
                   physics: BouncingScrollPhysics(),
                   shrinkWrap: true,

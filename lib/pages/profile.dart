@@ -46,14 +46,27 @@ class ProfileState extends State<Profile> {
       this.user = User.fromJson(json);
       this.allFolders = FolderService.getAllFoldersByIdUser(this.user.id);
       this.recents = ProductService.getAllRecentProducts(this.user.id);
-      PaletteGenerator color = await ColorGenerator.getMainColors(
-          new NetworkImage(
-              "https://images.pexels.com/photos/4345992/pexels-photo-4345992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"),
-          new Size(500, 500),
-          3);
-      this.userColor = color.lightMutedColor.color;
+      ImageProvider imgToGet;
+      if (Utility.isNumeric(this.user.avatar))
+        imgToGet = new AssetImage(
+            "lib/assets/images/avatars/prof" + this.user.avatar + ".png");
+      else
+        imgToGet = new NetworkImage(this.user.avatar);
+
+      PaletteGenerator color =
+          await ColorGenerator.getMainColors(imgToGet, new Size(100, 100), 3);
+
+      this.userColor = getColorByImportance(color).color;
       setState(() {});
     });
+  }
+
+  PaletteColor getColorByImportance(PaletteGenerator palette) {
+    if (palette.lightVibrantColor != null) return palette.lightVibrantColor;
+    if (palette.dominantColor != null) return palette.dominantColor;
+    if (palette.lightMutedColor != null) return palette.lightMutedColor;
+    if (palette.darkVibrantColor != null) return palette.darkVibrantColor;
+    return palette.darkMutedColor;
   }
 
   void initState() {
@@ -72,6 +85,8 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Container(
                   margin: EdgeInsets.only(top: 60),
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height - 60),
                   decoration: new BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -121,7 +136,8 @@ class ProfileState extends State<Profile> {
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
                                             itemCount: snapshot.data.length,
-                                            itemBuilder: (BuildContext context,int index) =>
+                                            itemBuilder: (BuildContext context,
+                                                    int index) =>
                                                 ProductCard(
                                                   heightAspectRatio:
                                                       new AspectRatio(
@@ -135,18 +151,18 @@ class ProfileState extends State<Profile> {
                                     }
                                     // By default, show a loading skeleton.
                                     return ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: 15,
-                                      itemBuilder: (BuildContext context, int index) =>
-                                        Skeleton(
-                                          width: 140,
-                                          height: 240,
-                                          padding: EdgeInsets.all(12),
-                                          radius: 16,
-                                        )
-                                    );
+                                        physics: BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 15,
+                                        itemBuilder:
+                                            (BuildContext context, int index) =>
+                                                Skeleton(
+                                                  width: 140,
+                                                  height: 240,
+                                                  padding: EdgeInsets.all(12),
+                                                  radius: 16,
+                                                ));
                                   },
                                 ),
                               ),
@@ -206,7 +222,6 @@ class ProfileState extends State<Profile> {
                                   ),
                                 )),
                             Container(
-                              height: MediaQuery.of(context).size.height - 200,
                               margin: Styles.sidePadding,
                               child: FutureBuilder<List<Folder>>(
                                 future: allFolders,
@@ -219,7 +234,6 @@ class ProfileState extends State<Profile> {
                                   } else if (snapshot.hasError) {
                                     return Text('${snapshot.error}');
                                   }
-                                  // By default, show a loading skeleton.
                                   return Favorites(
                                     built: false,
                                     folders: [],
