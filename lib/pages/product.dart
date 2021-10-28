@@ -89,8 +89,8 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
         nutritionalFacts: new NutritionalFacts(
             id: 1, idProduct: 1, serving: "malygnos", nutrients: []),
         ingredients: await IngredientService.getByID(id));
-
-    setState(() {});
+    // print(c.ingredients.toString());
+    // print(c.nutritionalFacts.nutrients.toString());
 
     return c;
   }
@@ -231,7 +231,8 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                             future: product,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                ProductOverview.withSampleData(snapshot.data);
+                                return ProductOverview.withSampleData(
+                                    snapshot.data);
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
@@ -240,7 +241,9 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       MediaQuery.of(context).size.height - 200,
                                   child: Center(
                                       child: CircularProgressIndicator(
-                                    valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFFFF4646)),
+                                    valueColor:
+                                        new AlwaysStoppedAnimation<Color>(
+                                            Color(0xFFFF4646)),
                                   )));
                             },
                           ),
@@ -248,7 +251,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                             future: composition,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                ProductComposition(
+                                return ProductComposition(
                                     nutritionalFacts:
                                         snapshot.data.nutritionalFacts,
                                     ingredients: snapshot.data.ingredients);
@@ -260,7 +263,9 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       MediaQuery.of(context).size.height - 200,
                                   child: Center(
                                       child: CircularProgressIndicator(
-                                    valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFFFF4646)),
+                                    valueColor:
+                                        new AlwaysStoppedAnimation<Color>(
+                                            Color(0xFFFF4646)),
                                   )));
                             },
                           ),

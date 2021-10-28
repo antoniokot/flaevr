@@ -15,6 +15,7 @@ class Badges extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<List<Stamp>> badges;
     getBadges() {
+      print("id: " + id.toString());
       badges = StampService.getAllStampsByProductID(id);
     }
 
@@ -26,6 +27,7 @@ class Badges extends StatelessWidget {
             child: FutureBuilder<List<Stamp>>(
               future: badges,
               builder: (context, snapshot) {
+                print("badges: " + snapshot.toString());
                 if (snapshot.hasData) {
                   return ListView(
                     physics: BouncingScrollPhysics(),
