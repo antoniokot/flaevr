@@ -6,6 +6,7 @@ import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/models/User.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/pages/favorites.dart';
+import 'package:flaevr/pages/config.dart';
 import 'package:flaevr/services/FolderService.dart';
 import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
@@ -337,7 +338,9 @@ class ProfileState extends State<Profile> {
                               ),
                               Text(this.user == null ? "" : this.user.name),
                               IconButton(
-                                  icon: Icon(Icons.settings), onPressed: () {})
+                                  icon: Icon(Icons.settings), onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => Config()));
+                                  })
                             ]))),
               ),
             ],
