@@ -4,10 +4,35 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class ProductService {
+ static Future<List<ProductModel>> getAllProducts() async {
+    try {
+      final response = await http.get(
+          Uri.parse('http://127.0.0.1:3333/products/folder/'));
+
+      if (response.statusCode == 200) {
+        List<ProductModel> ret = [];
+        var decodeJson = jsonDecode(response.body);
+
+        decodeJson.forEach((item) => {
+              ret.add(new ProductModel(
+                  id: item['idProduct'],
+                  name: item['name'],
+                  barcode: item['barcode'],
+                  pictureUrl: item['pictureUrl']))
+            });
+        return ret;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   static Future<ProductModel> getByID(int id) async {
     try {
-      final response = await http
-          .get(Uri.parse('http://127.0.0.1:3333/products/' + id.toString()));
+      final response = await http.get(Uri.parse('http://127.0.0.1:3333/products/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);
