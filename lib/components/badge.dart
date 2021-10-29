@@ -68,10 +68,10 @@ class Badge extends StatelessWidget {
           ],
         ));*/
     return Container(
-        height: 85,
-        width: 85,
+        height: 67,
+        width: 67,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(50.0),
+          borderRadius: BorderRadius.circular(34.0),
           child: Image(
             image: NetworkImage("lib/assets/images/badges/" + text + ".png"),
             fit: BoxFit.contain,

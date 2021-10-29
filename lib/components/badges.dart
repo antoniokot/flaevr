@@ -15,19 +15,17 @@ class Badges extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<List<Stamp>> badges;
     getBadges() {
-      print("id: " + id.toString());
       badges = StampService.getAllStampsByProductID(id);
     }
 
     return StatefulWrapper(
         onInit: getBadges(),
         child: Container(
-            height: 85,
+            height: 67,
             margin: EdgeInsets.symmetric(horizontal: 19),
             child: FutureBuilder<List<Stamp>>(
               future: badges,
               builder: (context, snapshot) {
-                print("badges: " + snapshot.toString());
                 if (snapshot.hasData) {
                   return ListView(
                     physics: BouncingScrollPhysics(),
@@ -49,9 +47,9 @@ class Badges extends StatelessWidget {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return Skeleton(
-                        height: 85,
-                        width: 85,
-                        radius: 45,
+                        height: 67,
+                        width: 67,
+                        radius: 34,
                         padding: EdgeInsets.only(right: 14));
                   },
                   physics: BouncingScrollPhysics(),

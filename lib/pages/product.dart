@@ -201,7 +201,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         return Text(
-                                          snapshot.data.name,
+                                          snapshot.data.name.split(",")[0],
                                           style: TextStyle(
                                               fontSize: 14.0, color: textColor),
                                         );
@@ -248,8 +248,11 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                             future: product,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                return ProductOverview.withSampleData(
-                                    snapshot.data);
+                                return ProductOverview(
+                                  snapshot.data,
+                                  animate: true,
+                                  color: this._mainColor,
+                                );
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
