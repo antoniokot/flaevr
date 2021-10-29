@@ -1,4 +1,5 @@
 import 'package:flaevr/pages/compare_search.dart';
+import 'package:flaevr/pages/search.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -37,11 +38,11 @@ class _CompareCardState extends State<CompareCard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.card_giftcard,
+                        Icons.tag_faces,
                         color: Color(0xFFFFFFFF),
                       ),
                       Text(
-                        "Adicione um produto para comparar seus dados",
+                        "Parece que você ainda não adicionou nenhum produto para comparar. Quer adicionar um?",
                         style: TextStyle(
                           color: Color(0xFFFFFFFF),
                         ),
@@ -61,7 +62,7 @@ class _CompareCardState extends State<CompareCard> {
           onTap: () => {
             Navigator.push(
               context, MaterialPageRoute(
-                  builder: (context) => CompareSearch()))
+                  builder: (context) => Search()))
           },
         ),
     );
