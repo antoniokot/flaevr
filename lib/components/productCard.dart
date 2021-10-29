@@ -37,17 +37,9 @@ class ProductCardState extends State<ProductCard> {
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
     await ColorGenerator.getMainColors(img, size, 1).then((value) => {
-          _mainColor = getColorByImportance(value).color,
+          _mainColor = ColorGenerator.getColorByImportance(value).color,
           if (mounted) setState(() {})
         });
-  }
-
-  PaletteColor getColorByImportance(PaletteGenerator palette) {
-    if (palette.lightVibrantColor != null) return palette.lightVibrantColor;
-    if (palette.dominantColor != null) return palette.dominantColor;
-    if (palette.lightMutedColor != null) return palette.lightMutedColor;
-    if (palette.darkVibrantColor != null) return palette.darkVibrantColor;
-    return palette.darkMutedColor;
   }
 
   @override

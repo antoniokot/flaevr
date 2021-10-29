@@ -15,18 +15,17 @@ class Ingredients extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Ingredientes"),
+              Text("Ingredientes", style: Styles.mediumTitle),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                       margin: EdgeInsets.only(right: 10),
-                      width: 70,
                       alignment: Alignment.center,
-                      child: Text("Alergênico")),
+                      child: Text("Alergênico", style: Styles.mediumTitle)),
                   Container(
-                      width: 100,
                       alignment: Alignment.center,
-                      child: Text("Origem Animal")),
+                      child: Text("Origem Animal", style: Styles.mediumTitle)),
                 ],
               )
             ],
@@ -42,7 +41,10 @@ class Ingredients extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(ingredients[i].name),
+              Text(
+                ingredients[i].name,
+                style: Styles.smallText,
+              ),
               Row(
                 children: [
                   Container(
@@ -50,8 +52,8 @@ class Ingredients extends StatelessWidget {
                       width: 70,
                       alignment: Alignment.center,
                       child: Container(
-                          width: 15,
-                          height: 15,
+                          width: 12,
+                          height: 12,
                           decoration: BoxDecoration(
                             color: ingredients[i].isAllergen == 1
                                 ? Styles.textBlack
@@ -62,8 +64,8 @@ class Ingredients extends StatelessWidget {
                       width: 100,
                       alignment: Alignment.center,
                       child: Container(
-                          width: 15,
-                          height: 15,
+                          width: 12,
+                          height: 12,
                           decoration: BoxDecoration(
                             color: ingredients[i].isVegan == 1
                                 ? Styles.textBlack

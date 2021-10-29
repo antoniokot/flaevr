@@ -15,7 +15,6 @@ class UserService {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> map = json.decode(response.body);
-        print(User.fromJson(map).name);
 
         return User.fromJson(map);
       } else
@@ -35,7 +34,6 @@ class UserService {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> map = json.decode(response.body);
-        print(User.fromJson(map).name);
 
         return User.fromJson(map);
       } else

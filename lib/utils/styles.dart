@@ -4,6 +4,8 @@ class Styles {
   //text
   static TextStyle smallTitle = TextStyle(
       color: Color(0xFF3d3d4e), fontSize: 13, fontWeight: FontWeight.w600);
+  static TextStyle mediumTitle = TextStyle(
+      color: Color(0xFF3d3d4e), fontSize: 14, fontWeight: FontWeight.w600);
   static TextStyle noteText = TextStyle(
       color: Color(0XFFbababa), fontSize: 12, fontWeight: FontWeight.w300);
   static TextStyle smallText = TextStyle(
@@ -14,6 +16,8 @@ class Styles {
   static EdgeInsets sidePadding = EdgeInsets.symmetric(horizontal: 19);
   static EdgeInsets sidePaddingWithVerticalSpace =
       EdgeInsets.symmetric(horizontal: 19, vertical: 10);
+  static EdgeInsets smallSidePaddingWithVerticalSpace =
+      EdgeInsets.symmetric(horizontal: 15, vertical: 10);
 
   //colors
   static Color ultraLightMutedGrey = Color(0xffEFF3F5);

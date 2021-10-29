@@ -47,7 +47,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     super.initState();
     String imageUrlToFetch;
     if (widget.barcode != "" && widget.barcode != null) {
-      print("tem barcode");
       this.product =
           ProductService.getByBarcode(widget.barcode).then((ProductModel p) {
         imageUrlToFetch = p.pictureUrl;
@@ -55,9 +54,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
         return p;
       });
     } else if (widget.prod != null && widget.prod.id > 0) {
-      print("nn tem barcode");
       this.product = getProductAsync();
-      print(this.widget.prod.pictureUrl);
       imageUrlToFetch = this.widget.prod.pictureUrl;
       fetchAll(this.widget.prod.id);
     } else {
@@ -93,9 +90,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
   Future<Composition> fetchComposition(int id) async {
     var c = new Composition(
-        //nutritionalFacts: await NutriotinalService.getByID(id),
-        nutritionalFacts: new NutritionalFacts(
-            id: 1, idProduct: 1, serving: "malygnos", nutrients: []),
+        nutritionalFacts: await NutriotinalService.getByID(id),
         ingredients: await IngredientService.getByID(id));
 
     return c;
@@ -103,20 +98,12 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
     await ColorGenerator.getMainColors(img, size, 4).then((value) => {
-          _mainColor = getColorByImportance(value).color,
+          _mainColor = ColorGenerator.getColorByImportance(value).color,
           setState(() {
             adjustBrightness(_mainColor);
           }),
           if (mounted) setState(() {})
         });
-  }
-
-  PaletteColor getColorByImportance(PaletteGenerator palette) {
-    if (palette.lightVibrantColor != null) return palette.lightVibrantColor;
-    if (palette.dominantColor != null) return palette.dominantColor;
-    if (palette.lightMutedColor != null) return palette.lightMutedColor;
-    if (palette.darkVibrantColor != null) return palette.darkVibrantColor;
-    return palette.darkMutedColor;
   }
 
   void adjustBrightness(Color color) {
@@ -148,7 +135,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       IconButton(
                         icon: Icon(
                           Icons.favorite,
-                          color: Color(0xFF3d3d4e),
+                          color: textColor,
                         ),
                         tooltip: 'Add to favorites',
                         onPressed: () {
@@ -158,7 +145,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       IconButton(
                         icon: Icon(
                           Icons.share,
-                          color: Color(0xFF3d3d4e),
+                          color: textColor,
                         ),
                         tooltip: 'Share',
                         onPressed: () {

@@ -70,12 +70,12 @@ class Badge extends StatelessWidget {
     return Container(
         height: 85,
         width: 85,
-        decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.all(Radius.circular(50))),
-        child: Image(
-          image: NetworkImage("lib/assets/images/badges/" + text + ".png"),
-          fit: BoxFit.contain,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50.0),
+          child: Image(
+            image: NetworkImage("lib/assets/images/badges/" + text + ".png"),
+            fit: BoxFit.contain,
+          ),
         ));
   }
 }

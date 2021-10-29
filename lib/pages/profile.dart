@@ -57,17 +57,9 @@ class ProfileState extends State<Profile> {
       PaletteGenerator color =
           await ColorGenerator.getMainColors(imgToGet, new Size(100, 100), 3);
 
-      this.userColor = getColorByImportance(color).color;
+      this.userColor = ColorGenerator.getColorByImportance(color).color;
       setState(() {});
     });
-  }
-
-  PaletteColor getColorByImportance(PaletteGenerator palette) {
-    if (palette.lightVibrantColor != null) return palette.lightVibrantColor;
-    if (palette.dominantColor != null) return palette.dominantColor;
-    if (palette.lightMutedColor != null) return palette.lightMutedColor;
-    if (palette.darkVibrantColor != null) return palette.darkVibrantColor;
-    return palette.darkMutedColor;
   }
 
   void initState() {
@@ -338,8 +330,12 @@ class ProfileState extends State<Profile> {
                               ),
                               Text(this.user == null ? "" : this.user.name),
                               IconButton(
-                                  icon: Icon(Icons.settings), onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => Config()));
+                                  icon: Icon(Icons.settings),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Config()));
                                   })
                             ]))),
               ),

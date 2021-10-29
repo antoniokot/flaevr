@@ -13,51 +13,72 @@ class NutritionalValues extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: (MediaQuery.of(context).size.width * 0.92) - 38,
+        width: ((MediaQuery.of(context).size.width * 0.92)),
         child: ListView(
             shrinkWrap: true,
-            padding: Styles.sidePaddingWithVerticalSpace,
+            padding: Styles.smallSidePaddingWithVerticalSpace,
             scrollDirection: Axis.vertical,
             children: [
               Theme(
                   data: Theme.of(context)
                       .copyWith(dividerColor: Styles.ultraLightMutedGrey),
                   child: DataTable(
+                      horizontalMargin: 0,
+                      columnSpacing: 10,
                       columns: <DataColumn>[
                         DataColumn(
                           label: Container(
-                            width: 90,
-                            child: Text('Porção de 20g'),
+                            child: Text(
+                              'Porção de 20g',
+                              style: Styles.mediumTitle,
+                            ),
                           ),
                         ),
                         DataColumn(
                           label: Container(
-                            width: 50,
-                            child: Text('Qtd por porção'),
+                            child: Text(
+                              'Qtd por porção',
+                              style: Styles.mediumTitle,
+                            ),
                           ),
                         ),
                         DataColumn(
                           label: Container(
-                            width: 40,
                             child: Text(
                               '%VD*',
-                              style: TextStyle(fontStyle: FontStyle.italic),
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Color(0xFF3d3d4e),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
                       ],
                       rows: () {
-                        List<DataRow> row;
-                        for (int i = 0;
-                            i < nutritionalFacts.nutrients.length;
-                            i++) {
-                          row.add(new DataRow(cells: [
-                            DataCell(Text("Carboidratos")),
-                            DataCell(Text(nutritionalFacts.nutrients[i].value)),
-                            DataCell(Text('10')),
-                          ]));
-                        }
-                        return row;
+                        List<DataRow> row = [];
+                        if (nutritionalFacts != null) {
+                          for (int i = 0;
+                              i < nutritionalFacts.nutrients.length;
+                              i++) {
+                            row.add(new DataRow(cells: [
+                              DataCell(Text(
+                                "Carboidratos",
+                                style: Styles.smallText,
+                              )),
+                              DataCell(Text(
+                                nutritionalFacts.nutrients[i].value,
+                                style: Styles.smallText,
+                              )),
+                              DataCell(Text(
+                                '10',
+                                style: Styles.smallText,
+                              )),
+                            ]));
+                          }
+                          return row;
+                        } else
+                          return row;
                       }())),
               Container(
                   margin: EdgeInsets.only(top: 20),

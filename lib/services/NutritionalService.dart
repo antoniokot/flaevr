@@ -17,7 +17,7 @@ class NutriotinalService {
         var json = jsonDecode(response.body);
 
         final mainResp = await http.get(Uri.parse(
-            'http://127.0.0.1:3333/nutrientsNutritionalFacts/' +
+            'http://127.0.0.1:3333/nutrientsNutritionalFacts/product/' +
                 id.toString()));
         var listJson;
         if (mainResp.statusCode == 200) {
@@ -28,12 +28,10 @@ class NutriotinalService {
         if (listJson != null) {
           List<NutritionalFactsRow> nutrients = List<NutritionalFactsRow>.from(
               listJson.map((model) => NutritionalFactsRow.fromJson(model)));
-          print(nutrients.toString());
-          print(json.toString());
           return new NutritionalFacts(
-              id: json['idNutritionalFacts'],
-              idProduct: json['idProduct'],
-              serving: json['serving'].toString(),
+              id: json[0]['idNutritionalFacts'],
+              idProduct: json[0]['idProduct'],
+              serving: json[0]['serving'],
               nutrients: nutrients);
         } else
           return null;
