@@ -25,10 +25,7 @@ dependencies:
   #google_fonts: ^2.1.0
   palette_generator: ^0.3.0
   flutter_session: ^0.1.1
-  charts_flutter: 
-    git:
-      url: git://github.com/google/charts.git
-      path: charts_flutter
+  syncfusion_flutter_gauges: ^19.3.47
   flutter_barcode_scanner: ^2.0.0
   http: ^0.13.3
   flutter:

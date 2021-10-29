@@ -22,7 +22,10 @@ class LoginState extends State<Login> {
   final _pass = TextEditingController();
 
   void _login() async {
-    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains("."))
+    print("login started");
+    if (_email.text.isEmpty ||
+        !_email.text.contains("@") ||
+        !_email.text.contains("."))
       _errorShow = true;
     else
       _errorShow = false;
@@ -32,29 +35,39 @@ class LoginState extends State<Login> {
       setState(() {});
       return;
     } else {
-      UserService.login(context, _email.text, _pass.text).then((res) async {
-        //print(res);
-        if (res != null) {
-          var session = FlutterSession();
-          await session.set(
-              "user",
-              new User(
-                  id: res.id,
-                  name: res.name,
-                  email: res.email,
-                  avatar: res.avatar,
-                  rememberMeToken: res.rememberMeToken));
+      try {
+        UserService.login(_email.text, _pass.text).then((res) async {
+          //print(res);
+          if (res != null) {
+            var session = FlutterSession();
+            await session.set(
+                "user",
+                new User(
+                    id: res.id,
+                    name: res.name,
+                    email: res.email,
+                    avatar: res.avatar,
+                    rememberMeToken: res.rememberMeToken));
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()));
-        } else {
-          print("erro no login");
-        }
-      });
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Origin()));
+          } else {
+            print("deu erro");
+            setState(() {
+              _errorShow = true;
+            });
+          }
+        });
+      } catch (e) {
+        setState(() {
+          _errorShow = true;
+        });
+        print(e);
+      }
     }
   }
 
   void removeErrMsg() {
-    debugPrint(_errorShow.toString());
     if (_errorShow == true) {
       setState(() {
         _errorShow = false;
@@ -194,6 +207,7 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
                                 TextField(
+                                  onSubmitted: (v) => _login,
                                   onChanged: (text) {
                                     removeErrMsg();
                                   },

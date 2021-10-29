@@ -24,7 +24,7 @@ class UserService {
     }
   }
 
-  static Future<User> login(context, String email, String password) async {
+  static Future<User> login(String email, String password) async {
     try {
       final response = await http
           .post(Uri.parse('http://127.0.0.1:3333/users/login/'), body: {
@@ -39,8 +39,7 @@ class UserService {
       } else
         return null;
     } catch (e) {
-      print(e);
-      return null;
+      throw (e);
     }
   }
 
