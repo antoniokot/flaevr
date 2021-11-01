@@ -1,3 +1,4 @@
+import 'package:flaevr/pages/results.dart';
 import 'package:flaevr/pages/search.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class NotFoundCompareCard extends StatelessWidget {
             onTap: () => {
               Navigator.push(
                 context, MaterialPageRoute(
-                    builder: (context) => Search(),
+                    builder: (context) => Results(),
                 )
               )
             },

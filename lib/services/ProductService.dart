@@ -7,7 +7,7 @@ class ProductService {
  static Future<List<ProductModel>> getAllProducts() async {
     try {
       final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/products/folder/'));
+          Uri.parse('http://127.0.0.1:3333/products/'));
 
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];

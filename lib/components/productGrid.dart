@@ -31,7 +31,7 @@ class ProductGrid extends StatelessWidget {
         physics: physics,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: getGridCount(size), childAspectRatio: 1 / 1.35),
-        itemCount: 2,
+        itemCount: built ? this.products.length : 4,
         itemBuilder: (BuildContext context, int index) {
           if (built)
             return ProductCard(
