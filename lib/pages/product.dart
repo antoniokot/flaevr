@@ -1,9 +1,6 @@
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
-import 'package:flaevr/models/Ingredient.dart';
-import 'package:flaevr/models/NutritionalFacts.dart';
-import 'package:flaevr/models/Stamp.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/services/IngredientService.dart';
 import 'package:flaevr/services/NutritionalService.dart';
@@ -12,11 +9,8 @@ import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
-import 'package:flaevr/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:palette_generator/palette_generator.dart';
 
 class Product extends StatefulWidget {
   Product({Key key, this.barcode, this.prod}) : super(key: key);
