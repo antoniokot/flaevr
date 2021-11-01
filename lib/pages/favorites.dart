@@ -8,10 +8,12 @@ import 'package:flaevr/components/folder.dart';
 import 'package:flutter_session/flutter_session.dart';
 
 class Favorites extends StatefulWidget {
-  const Favorites({Key key, this.built, this.folders}) : super(key: key);
+  const Favorites({Key key, this.built, this.folders, this.onClick})
+      : super(key: key);
 
   final bool built;
   final List<Folder> folders;
+  final Function onClick;
 
   @override
   _FavoritesState createState() => _FavoritesState();
@@ -21,22 +23,6 @@ class _FavoritesState extends State<Favorites> {
   void initState() {
     super.initState();
   }
-
-  // Future<List<Folder>> fetchAllById(id) async {
-  //   final response = await http.get(Uri.parse('/users/unique/$id'));
-
-  //   if (response.statusCode == 200) {
-  //     List<Folder> folders;
-  //     // verificar depois se jsonDecode(response.body) nn precisa de [indexacao]
-  //     folders = jsonDecode(response.body)
-  //         .map((data) => Folder.fromJson(data))
-  //         .toList();
-
-  //     return folders;
-  //   } else {
-  //     throw Exception('Failed to load favorite folders');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +41,7 @@ class _FavoritesState extends State<Favorites> {
           childAspectRatio: 1,
         ),
         padding: EdgeInsets.only(top: 20),
-        itemCount: widget.folders.length,
+        itemCount: widget.built == true ? widget.folders.length : 6,
         itemBuilder: (context, index) {
           if (widget.built == true) {
             return Container(
@@ -63,7 +49,9 @@ class _FavoritesState extends State<Favorites> {
                 if (widget.built != true)
                   return Skeleton();
                 else
-                  return FavFolder(folder: widget.folders[index]);
+                  return FavFolder(
+                      folder: widget.folders[index],
+                      onClick: this.widget.onClick);
               }(),
               //height: 50,
             );

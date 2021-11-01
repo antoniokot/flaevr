@@ -4,6 +4,7 @@ import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/Stamp.dart';
+import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/services/IngredientService.dart';
 import 'package:flaevr/services/NutritionalService.dart';
 import 'package:flaevr/services/ProductService.dart';
@@ -134,12 +135,36 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                     actions: [
                       IconButton(
                         icon: Icon(
-                          Icons.favorite,
+                          Icons.bookmark_border,
                           color: textColor,
                         ),
                         tooltip: 'Add to favorites',
                         onPressed: () {
-                          // handle the press
+                          showModalBottomSheet<void>(
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  decoration: new BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(20))),
+                                  height:
+                                      MediaQuery.of(context).size.height - 100,
+                                  child: Center(
+                                      child: Favorites(
+                                    built: false,
+                                    folders: [],
+                                    onClick: () {
+                                      print("malignoo");
+                                      Navigator.pop(context);
+                                    },
+                                  )),
+                                );
+                              });
                         },
                       ),
                       IconButton(

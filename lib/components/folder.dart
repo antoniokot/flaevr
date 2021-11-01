@@ -6,9 +6,10 @@ import 'package:flaevr/pages/favorites_folder_page.dart';
 import 'dart:math';
 
 class FavFolder extends StatefulWidget {
-  const FavFolder({Key key, this.folder}) : super(key: key);
+  const FavFolder({Key key, this.folder, this.onClick}) : super(key: key);
 
   final Folder folder;
+  final Function onClick;
 
   @override
   FavFolderState createState() => FavFolderState();
@@ -135,11 +136,16 @@ class FavFolderState extends State<FavFolder> {
             ],
           ),
           onTap: () => {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        FolderPage(folder: this.widget.folder)))
+            if (this.widget.onClick != null)
+              this.widget.onClick()
+            else
+              {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            FolderPage(folder: this.widget.folder)))
+              }
           },
         ),
       ),
