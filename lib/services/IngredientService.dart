@@ -3,6 +3,7 @@ import 'package:flaevr/models/ProductModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:http/http.dart';
+import 'package:flaevr/utils/sharedAssets.dart';
 import 'dart:convert';
 
 class IngredientService {
@@ -11,7 +12,7 @@ class IngredientService {
     try {
       List<Ingredient> ingredients = [];
       final response = await http.get(Uri.parse(
-          'http://127.0.0.1:3333/ingredients/product/' + id.toString()));
+          SharedAssets.apiURL + '/ingredients/product/' + id.toString()));
 
       if (response.statusCode == 200) {
         var decodeJson = jsonDecode(response.body);

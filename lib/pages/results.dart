@@ -18,11 +18,11 @@ class ResultsState extends State<Results> {
 
   Future<List<ProductModel>?> getListsAsync() async {
     if (allProducts == null) {
-      this.allProducts = (await ProductService.getAllProducts())!;
+      this.allProducts = await ProductService.getAllProducts();
       return await ProductService.getAllProducts();
     }
     return allProducts!
-        .where((p) => p.name!.toLowerCase().contains(this.nameSearched!))
+        .where((p) => p.name!.toLowerCase().contains(this.nameSearched))
         .toList();
   }
 
@@ -70,6 +70,7 @@ class ResultsState extends State<Results> {
               child: FutureBuilder<List<ProductModel>?>(
                 future: getListsAsync(),
                 builder: (context, snapshot) {
+                  print(snapshot.data);
                   if (snapshot.hasData) {
                     if (this.nameSearched != "") {
                       return ProductGrid(
@@ -88,7 +89,7 @@ class ResultsState extends State<Results> {
 
                   // By default, show a loading spinner.
                   return ProductGrid(
-                      products: snapshot.data!,
+                      products: [],
                       physics: new NeverScrollableScrollPhysics(),
                       built: false);
                 },

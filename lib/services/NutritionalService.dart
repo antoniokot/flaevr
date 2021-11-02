@@ -4,20 +4,23 @@ import 'package:flaevr/models/ProductModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:http/http.dart';
+import 'package:flaevr/utils/sharedAssets.dart';
 import 'dart:convert';
 
 class NutriotinalService {
   //get entire nutritional facts table from product id
   static Future<NutritionalFacts?> getByID(int id) async {
     try {
-      final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/nutritionalFacts/' + id.toString()));
+      final response = await http.get(Uri.parse(
+          SharedAssets.apiURL + '/nutritionalFacts/' + id.toString()));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
-        final mainResp = await http.get(Uri.parse(
-            'http://127.0.0.1:3333/nutrientsNutritionalFacts/product/' +
+        final mainResp = await http.get(Uri.parse(SharedAssets.apiURL != ""
+            ? SharedAssets.apiURL
+            : SharedAssets.staticLocalApiURL +
+                '/nutrientsNutritionalFacts/product/' +
                 id.toString()));
         var listJson;
         if (mainResp.statusCode == 200) {

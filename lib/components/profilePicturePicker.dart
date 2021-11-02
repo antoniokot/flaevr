@@ -1,6 +1,3 @@
-import 'dart:js';
-
-import 'package:flaevr/services/AllergensService.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';

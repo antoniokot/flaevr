@@ -1,13 +1,13 @@
 import 'package:flaevr/models/User.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+import 'package:flaevr/utils/sharedAssets.dart';
 import 'dart:convert';
 
 class UserService {
   static Future<User?> postNewUser(context, User u) async {
     try {
-      final response =
-          await http.post(Uri.parse('http://127.0.0.1:3333/users/post'), body: {
+      final response = await http
+          .post(Uri.parse(SharedAssets.apiURL + '/users/post'), body: {
         "name": u.name,
         "email": u.email,
         "password": u.password,
@@ -27,7 +27,7 @@ class UserService {
   static Future<User?> login(String email, String password) async {
     try {
       final response = await http
-          .post(Uri.parse('http://127.0.0.1:3333/users/login/'), body: {
+          .post(Uri.parse(SharedAssets.apiURL + '/users/login/'), body: {
         "email": email,
         "password": password,
       });
@@ -46,7 +46,7 @@ class UserService {
   static Future<User?> getByID(int id) async {
     try {
       final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/users/unique/' + id.toString()));
+          Uri.parse(SharedAssets.apiURL + '/users/unique/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);
@@ -63,7 +63,7 @@ class UserService {
   static Future<User?> putProfilePic(int id, String url) async {
     try {
       final response = await http.put(
-          Uri.parse('http://127.0.0.1:3333/users/avatar/' + id.toString()),
+          Uri.parse(SharedAssets.apiURL + '/users/avatar/' + id.toString()),
           body: {"avatar": url});
 
       if (response.statusCode == 200) {

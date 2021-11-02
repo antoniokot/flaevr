@@ -245,7 +245,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   );
                                 else
                                   return Image.asset(
-                                    "lib/assets/images/404.gif",
+                                    'lib/assets/images/404.gif',
                                     fit: BoxFit.cover,
                                   );
                               } else if (snapshot.hasError) {

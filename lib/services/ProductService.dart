@@ -1,13 +1,14 @@
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:flaevr/utils/sharedAssets.dart';
 import 'dart:convert';
 
 class ProductService {
   static Future<List<ProductModel>?> getAllProducts() async {
     try {
       final response =
-          await http.get(Uri.parse('http://127.0.0.1:3333/products/'));
+          await http.get(Uri.parse(SharedAssets.apiURL + '/products/'));
 
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];
@@ -33,7 +34,7 @@ class ProductService {
   static Future<ProductModel?> getByID(int id) async {
     try {
       final response = await http
-          .get(Uri.parse('http://127.0.0.1:3333/products/' + id.toString()));
+          .get(Uri.parse(SharedAssets.apiURL + '/products/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);
@@ -52,7 +53,7 @@ class ProductService {
   static Future<ProductModel?> getByBarcode(String code) async {
     try {
       final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/products/unique/barcode/' + code));
+          Uri.parse(SharedAssets.apiURL + '/products/unique/barcode/' + code));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);
@@ -70,7 +71,7 @@ class ProductService {
   static Future<List<ProductModel>?> getAllProductsInFolder(int id) async {
     try {
       final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/products/folder/' + id.toString()));
+          Uri.parse(SharedAssets.apiURL + '/products/folder/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];
@@ -96,7 +97,7 @@ class ProductService {
   static Future<List<ProductModel>?> getAllRecentProducts(int idUser) async {
     try {
       final response = await http.get(Uri.parse(
-          'http://127.0.0.1:3333/products/user/' + idUser.toString()));
+          SharedAssets.apiURL + '/products/user/' + idUser.toString()));
 
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];

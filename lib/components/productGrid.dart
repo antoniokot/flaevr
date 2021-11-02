@@ -87,12 +87,21 @@ class ProductGridState extends State<ProductGrid> {
         itemBuilder: (BuildContext context, int index) {
           if (this.widget.built)
             return FocusedMenuHolder(
-                menuWidth: MediaQuery.of(context).size.width * 0.40,
+                menuWidth: MediaQuery.of(context).size.width * 0.50,
                 blurSize: 5.0,
                 menuItemExtent: 35,
                 menuBoxDecoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.23),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 2), // changes position of shadow
+                    ),
+                  ],
+                ),
                 duration: Duration(milliseconds: 100),
                 animateMenuItems: true,
                 blurBackgroundColor: Colors.white,
@@ -105,26 +114,16 @@ class ProductGridState extends State<ProductGrid> {
                 menuItems: <FocusedMenuItem>[
                   // Add Each FocusedMenuItem  for Menu Options
                   FocusedMenuItem(
-                      title: Text("Open"),
-                      trailingIcon: Icon(Icons.open_in_new),
+                      title: Text("Salvar"),
+                      trailingIcon: Icon(Icons.bookmark_border),
                       onPressed: () {}),
                   FocusedMenuItem(
-                      title: Text("Share"),
+                      title: Text("Compartilhar"),
                       trailingIcon: Icon(Icons.share),
                       onPressed: () {}),
                   FocusedMenuItem(
                       title: Text("Favorite"),
                       trailingIcon: Icon(Icons.favorite_border),
-                      onPressed: () {}),
-                  FocusedMenuItem(
-                      title: Text(
-                        "Delete",
-                        style: TextStyle(color: Colors.redAccent),
-                      ),
-                      trailingIcon: Icon(
-                        Icons.delete,
-                        color: Colors.redAccent,
-                      ),
                       onPressed: () {}),
                 ],
                 onPressed: () {

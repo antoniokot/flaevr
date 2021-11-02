@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
+import 'package:flaevr/utils/sharedAssets.dart';
 import 'package:flaevr/models/Favourite.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,7 +9,7 @@ class FavouriteService {
     try {
       Favourite? favourite;
       final response = await http
-          .get(Uri.parse("http://127.0.0.1:3333/favourites" + id.toString()));
+          .get(Uri.parse(SharedAssets.apiURL + "/favourites" + id.toString()));
 
       if (response.statusCode == 200) {
         var decodeJson = jsonDecode(response.body);
@@ -34,7 +34,7 @@ class FavouriteService {
   void postNewFavourite(context, int idUser) async {
     try {
       final response = await http
-          .post(Uri.parse('http://127.0.0.1:3333/favourites/post'), body: {
+          .post(Uri.parse(SharedAssets.apiURL + '/favourites/post'), body: {
         "idUser": idUser,
       });
     } catch (e) {

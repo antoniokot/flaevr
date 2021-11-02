@@ -7,6 +7,7 @@ import 'package:flaevr/models/User.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/pages/config.dart';
+import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/services/FolderService.dart';
 import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
@@ -133,13 +134,23 @@ class ProfileState extends State<Profile> {
                                             itemCount: snapshot.data!.length,
                                             itemBuilder: (BuildContext context,
                                                     int index) =>
-                                                ProductCard(
-                                                  heightAspectRatio:
-                                                      new AspectRatio(
-                                                          aspectRatio: 2.3),
-                                                  width: 140,
-                                                  product:
-                                                      snapshot.data![index],
+                                                InkWell(
+                                                  onTap: () => Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Product(
+                                                                  prod: snapshot
+                                                                          .data![
+                                                                      index]))),
+                                                  child: ProductCard(
+                                                    heightAspectRatio:
+                                                        new AspectRatio(
+                                                            aspectRatio: 2.3),
+                                                    width: 140,
+                                                    product:
+                                                        snapshot.data![index],
+                                                  ),
                                                 ));
                                       }
                                     } else if (snapshot.hasError) {

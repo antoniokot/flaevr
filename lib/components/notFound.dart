@@ -18,7 +18,7 @@ class NotFound extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image(
-                image: AssetImage("lib/assets/images/404.gif"),
+                image: AssetImage('lib/assets/images/404.gif'),
                 height: 80,
                 width: 80,
               ),

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flaevr/models/Stamp.dart';
 import 'package:flaevr/models/ProductStamp.dart';
 import 'package:http/http.dart';
+import 'package:flaevr/utils/sharedAssets.dart';
 import 'dart:convert';
 
 class StampService {
@@ -11,7 +12,7 @@ class StampService {
     try {
       List<Stamp> stamps = [];
       final response =
-          await http.get(Uri.parse('http://127.0.0.1:3333/stamps'));
+          await http.get(Uri.parse(SharedAssets.apiURL + '/stamps'));
       if (response.statusCode == 200) {
         var decodeJson = jsonDecode(response.body);
 
@@ -36,7 +37,7 @@ class StampService {
     try {
       List<Stamp> stamps = [];
       final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/stamps/product/' + id.toString()));
+          Uri.parse(SharedAssets.apiURL + '/stamps/product/' + id.toString()));
       if (response.statusCode == 200) {
         var decodeJson = jsonDecode(response.body);
 
