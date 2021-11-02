@@ -10,7 +10,7 @@ class ColorGenerator {
     return paletteGenerator;
   }
 
-  static PaletteColor getColorByImportance(PaletteGenerator palette) {
+  static PaletteColor? getColorByImportance(PaletteGenerator palette) {
     if (palette.lightVibrantColor != null) return palette.lightVibrantColor;
     if (palette.dominantColor != null) return palette.dominantColor;
     if (palette.lightMutedColor != null) return palette.lightMutedColor;

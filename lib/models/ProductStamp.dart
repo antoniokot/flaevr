@@ -4,9 +4,9 @@ class ProductStamp {
   final int idStamp;
 
   ProductStamp({
-    this.id,
-    this.idProduct,
-    this.idStamp,
+    required this.id,
+    required this.idProduct,
+    required this.idStamp,
   });
 
   factory ProductStamp.fromJson(Map<String, dynamic> json) {

@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class UserService {
-  static Future<User> postNewUser(context, User u) async {
+  static Future<User?> postNewUser(context, User u) async {
     try {
       final response =
           await http.post(Uri.parse('http://127.0.0.1:3333/users/post'), body: {
@@ -24,7 +24,7 @@ class UserService {
     }
   }
 
-  static Future<User> login(String email, String password) async {
+  static Future<User?> login(String email, String password) async {
     try {
       final response = await http
           .post(Uri.parse('http://127.0.0.1:3333/users/login/'), body: {
@@ -43,7 +43,7 @@ class UserService {
     }
   }
 
-  static Future<User> getByID(int id) async {
+  static Future<User?> getByID(int id) async {
     try {
       final response = await http.get(
           Uri.parse('http://127.0.0.1:3333/users/unique/' + id.toString()));
@@ -60,7 +60,7 @@ class UserService {
     }
   }
 
-  static Future<User> putProfilePic(int id, String url) async {
+  static Future<User?> putProfilePic(int id, String url) async {
     try {
       final response = await http.put(
           Uri.parse('http://127.0.0.1:3333/users/avatar/' + id.toString()),

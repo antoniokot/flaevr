@@ -13,10 +13,10 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class Product extends StatefulWidget {
-  Product({Key key, this.barcode, this.prod}) : super(key: key);
+  Product({Key? key, this.barcode, this.prod}) : super(key: key);
 
-  final String barcode;
-  final ProductModel prod;
+  final String? barcode;
+  final ProductModel? prod;
 
   @override
   ProductState createState() => ProductState();
@@ -24,8 +24,8 @@ class Product extends StatefulWidget {
 
 class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   //will be fetched on initState
-  Future<ProductModel> product;
-  Future<Composition> composition;
+  Future<ProductModel?>? product;
+  Future<Composition?>? composition;
 
   var top = 0.0;
   var _mainColor;
@@ -35,39 +35,39 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     Tab(text: 'Composição'),
     Tab(text: 'Sustentabilidade'),
   ];
-  TabController _tabController;
+  TabController? _tabController;
 
   @override
   void initState() {
     super.initState();
-    String imageUrlToFetch;
+    String? imageUrlToFetch;
     if (widget.barcode != "" && widget.barcode != null) {
       this.product =
-          ProductService.getByBarcode(widget.barcode).then((ProductModel p) {
-        imageUrlToFetch = p.pictureUrl;
-        fetchAll(p.id);
+          ProductService.getByBarcode(widget.barcode!).then((ProductModel? p) {
+        imageUrlToFetch = p!.pictureUrl;
+        fetchAll(p.id!);
         return p;
       });
-    } else if (widget.prod != null && widget.prod.id > 0) {
+    } else if (widget.prod != null && widget.prod!.id! > 0) {
       this.product = getProductAsync();
-      imageUrlToFetch = this.widget.prod.pictureUrl;
-      fetchAll(this.widget.prod.id);
+      imageUrlToFetch = this.widget.prod!.pictureUrl;
+      fetchAll(this.widget.prod!.id!);
     } else {
       print("deu erroooo");
     }
 
     _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(_handleTabSelection);
+    _tabController!.addListener(_handleTabSelection);
 
     if (imageUrlToFetch == null)
       imageUrlToFetch =
           "https://www.webpackaging.com/Up/Comp/1220/11116249/12336095-EFNGZGDX/i/prev/tetra-top-water.jpg";
-    getMainColors(new NetworkImage(imageUrlToFetch), new Size(1000, 200));
+    getMainColors(new NetworkImage(imageUrlToFetch!), new Size(1000, 200));
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 
@@ -79,7 +79,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     //fetch tabela nutricional, meio ambiente e selos
   }
 
-  Future<ProductModel> getProductAsync() async {
+  Future<ProductModel?> getProductAsync() async {
     return this.widget.prod;
   }
 
@@ -93,7 +93,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
     await ColorGenerator.getMainColors(img, size, 4).then((value) => {
-          _mainColor = ColorGenerator.getColorByImportance(value).color,
+          _mainColor = ColorGenerator.getColorByImportance(value)?.color,
           setState(() {
             adjustBrightness(_mainColor);
           }),
@@ -108,7 +108,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   }
 
   _handleTabSelection() {
-    if (_tabController.indexIsChanging) {
+    if (_tabController!.indexIsChanging) {
       setState(() {});
     }
   }
@@ -119,6 +119,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
         body: DefaultTabController(
             length: 2,
             child: SliverScaffold(
+              physics: BouncingScrollPhysics(),
               hasPinnedAppBar: true,
               expandedHeight: 200.0,
               borderRadius: 20.0,
@@ -215,12 +216,12 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                     else
                                       return EdgeInsets.only(bottom: 25);
                                   }(),
-                                  child: FutureBuilder<ProductModel>(
+                                  child: FutureBuilder<ProductModel?>(
                                     future: product,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         return Text(
-                                          snapshot.data.name.split(",")[0],
+                                          snapshot.data!.name!.split(",")[0],
                                           style: TextStyle(
                                               fontSize: 14.0, color: textColor),
                                         );
@@ -233,13 +234,13 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                       );
                                     },
                                   ))),
-                          background: FutureBuilder<ProductModel>(
+                          background: FutureBuilder<ProductModel?>(
                             future: product,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                if (snapshot.data.pictureUrl != null)
+                                if (snapshot.data!.pictureUrl != null)
                                   return Image.network(
-                                    snapshot.data.pictureUrl,
+                                    snapshot.data!.pictureUrl!,
                                     fit: BoxFit.cover,
                                   );
                                 else
@@ -263,12 +264,12 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: [
-                          FutureBuilder<ProductModel>(
+                          FutureBuilder<ProductModel?>(
                             future: product,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ProductOverview(
-                                  snapshot.data,
+                                  snapshot.data!,
                                   animate: true,
                                   color: this._mainColor,
                                 );
@@ -286,14 +287,14 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   )));
                             },
                           ),
-                          FutureBuilder<Composition>(
+                          FutureBuilder<Composition?>(
                             future: composition,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ProductComposition(
                                     nutritionalFacts:
-                                        snapshot.data.nutritionalFacts,
-                                    ingredients: snapshot.data.ingredients);
+                                        snapshot.data!.nutritionalFacts!,
+                                    ingredients: snapshot.data!.ingredients!);
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
@@ -315,7 +316,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   40, (index) => Text('line: $index'))
                             ],
                           ),
-                        ][_tabController.index],
+                        ][_tabController!.index],
                       ),
                     ],
                   ),

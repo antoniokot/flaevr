@@ -4,8 +4,8 @@ import 'NutritionalFacts.dart';
 import 'Ingredient.dart';
 
 class Composition {
-  NutritionalFacts nutritionalFacts;
-  List<Ingredient> ingredients;
+  NutritionalFacts? nutritionalFacts;
+  List<Ingredient>? ingredients;
 
   Composition({
     this.nutritionalFacts,

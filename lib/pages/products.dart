@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flaevr/models/ProductModel.dart';
 
 class Products extends StatefulWidget {
-  Products({Key key, this.folder}) : super(key: key);
+  Products({Key? key, required this.folder}) : super(key: key);
 
   final Folder folder;
 
@@ -14,27 +14,19 @@ class Products extends StatefulWidget {
 }
 
 class ProductsState extends State<Products> {
-  Future<List<ProductModel>> futureProducts;
-
-  void initState() {
-    futureProducts =
-        ProductService.getAllProductsInFolder(this.widget.folder.id);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: 30),
-        child: FutureBuilder<List<ProductModel>>(
-          future: futureProducts,
+        child: FutureBuilder<List<ProductModel>?>(
+          future: ProductService.getAllProductsInFolder(this.widget.folder.id),
           builder: (context, snapshot) {
             print(snapshot.data);
             if (snapshot.hasData) {
               return ProductGrid(
                   physics: new NeverScrollableScrollPhysics(),
                   built: true,
-                  products: snapshot.data);
+                  products: snapshot.data!);
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }

@@ -8,7 +8,7 @@ import 'dart:convert';
 
 class NutriotinalService {
   //get entire nutritional facts table from product id
-  static Future<NutritionalFacts> getByID(int id) async {
+  static Future<NutritionalFacts?> getByID(int id) async {
     try {
       final response = await http.get(
           Uri.parse('http://127.0.0.1:3333/nutritionalFacts/' + id.toString()));

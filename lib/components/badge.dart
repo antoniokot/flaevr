@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Badge extends StatelessWidget {
   @override
-  Badge({@required this.text}) {}
+  Badge({required this.text}) {}
 
   final String text;
   List<Widget> getCustomCurvedText(String txt) {

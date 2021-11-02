@@ -6,11 +6,11 @@ import 'package:flaevr/pages/spa.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 import 'dart:async';
 
 class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
 
   @override
   LoginState createState() => LoginState();
@@ -37,7 +37,6 @@ class LoginState extends State<Login> {
     } else {
       try {
         UserService.login(_email.text, _pass.text).then((res) async {
-          //print(res);
           if (res != null) {
             var session = FlutterSession();
             await session.set(
@@ -47,7 +46,8 @@ class LoginState extends State<Login> {
                     name: res.name,
                     email: res.email,
                     avatar: res.avatar,
-                    rememberMeToken: res.rememberMeToken));
+                    rememberMeToken: res.rememberMeToken,
+                    password: ""));
 
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Origin()));

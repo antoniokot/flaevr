@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
   @override
-  SearchBar({@required this.tipText});
+  SearchBar({required this.tipText});
 
   final String tipText;
 

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class SliderCustom extends StatefulWidget {
   SliderCustom({
-    Key key,
-    @required this.children,
-    @required this.borderRadius,
-    @required this.overlap,
-    @required this.activeColor,
-    @required this.inactiveColor,
+    Key? key,
+    required this.children,
+    required this.borderRadius,
+    required this.overlap,
+    required this.activeColor,
+    required this.inactiveColor,
   }) : super(key: key);
 
   final List<Widget> children;

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class NutritionalValues extends StatelessWidget {
   @override
-  NutritionalValues({@required this.nutritionalFacts});
+  NutritionalValues({required this.nutritionalFacts});
 
   final NutritionalFacts nutritionalFacts;
 

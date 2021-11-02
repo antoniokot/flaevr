@@ -2,10 +2,10 @@ import 'package:flaevr/pages/spa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flaevr/pages/main_page.dart';
-import 'package:flutter_session/flutter_session.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 
 class LoadingPage extends StatefulWidget {
-  LoadingPage({Key key}) : super(key: key);
+  LoadingPage({Key? key}) : super(key: key);
 
   @override
   _LoadingPageState createState() => _LoadingPageState();
@@ -18,7 +18,7 @@ class _LoadingPageState extends State<LoadingPage> {
       user = await FlutterSession().get("user");
       //print(user);
     } catch (exception) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MainPage()));
       });
@@ -34,12 +34,10 @@ class _LoadingPageState extends State<LoadingPage> {
     super.initState();
     checkLogin().then((res) {
       if (!res) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MainPage()));
-        });
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainPage()));
       } else {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Origin()));
         });

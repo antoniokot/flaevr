@@ -4,10 +4,10 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class ProductService {
- static Future<List<ProductModel>> getAllProducts() async {
+  static Future<List<ProductModel>?> getAllProducts() async {
     try {
-      final response = await http.get(
-          Uri.parse('http://127.0.0.1:3333/products/'));
+      final response =
+          await http.get(Uri.parse('http://127.0.0.1:3333/products/'));
 
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];
@@ -30,9 +30,10 @@ class ProductService {
     }
   }
 
-  static Future<ProductModel> getByID(int id) async {
+  static Future<ProductModel?> getByID(int id) async {
     try {
-      final response = await http.get(Uri.parse('http://127.0.0.1:3333/products/' + id.toString()));
+      final response = await http
+          .get(Uri.parse('http://127.0.0.1:3333/products/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);
@@ -48,7 +49,7 @@ class ProductService {
   }
 
   //TERMINAR
-  static Future<ProductModel> getByBarcode(String code) async {
+  static Future<ProductModel?> getByBarcode(String code) async {
     try {
       final response = await http.get(
           Uri.parse('http://127.0.0.1:3333/products/unique/barcode/' + code));
@@ -66,7 +67,7 @@ class ProductService {
     }
   }
 
-  static Future<List<ProductModel>> getAllProductsInFolder(int id) async {
+  static Future<List<ProductModel>?> getAllProductsInFolder(int id) async {
     try {
       final response = await http.get(
           Uri.parse('http://127.0.0.1:3333/products/folder/' + id.toString()));
@@ -92,7 +93,7 @@ class ProductService {
     }
   }
 
-  static Future<List<ProductModel>> getAllRecentProducts(int idUser) async {
+  static Future<List<ProductModel>?> getAllRecentProducts(int idUser) async {
     try {
       final response = await http.get(Uri.parse(
           'http://127.0.0.1:3333/products/user/' + idUser.toString()));
@@ -100,6 +101,7 @@ class ProductService {
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];
         var decodeJson = jsonDecode(response.body);
+        print(decodeJson);
 
         for (var item in decodeJson) {
           ret.add(ProductModel.fromJson(item));

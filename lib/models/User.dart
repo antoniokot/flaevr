@@ -1,11 +1,11 @@
 class User {
-  final int id;
-  final String name;
-  final String password;
-  final String email;
-  final String avatar;
+  final int? id;
+  final String? name;
+  final String? password;
+  final String? email;
+  final String? avatar;
   // boolean
-  final String rememberMeToken;
+  final String? rememberMeToken;
 
   User({
     this.id,

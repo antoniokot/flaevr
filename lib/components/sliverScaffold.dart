@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SliverScaffold extends StatefulWidget {
-  final ScrollController controller;
-  final ScrollPhysics physics;
+  final ScrollController? controller;
+  final ScrollPhysics? physics;
   final List<Widget> slivers;
   final double initialScrollOffset;
   final double borderRadius;
@@ -16,25 +16,20 @@ class SliverScaffold extends StatefulWidget {
   final bool hasPinnedAppBar;
 
   SliverScaffold(
-      {@required this.expandedHeight,
+      {required this.expandedHeight,
       this.controller,
       this.physics,
-      this.slivers,
-      this.hasPinnedAppBar,
-      this.initialScrollOffset,
-      this.borderRadius}) {
-    assert(expandedHeight != null);
-    assert(hasPinnedAppBar != null);
-    assert(initialScrollOffset != null);
-    assert(borderRadius != null);
-  }
+      required this.slivers,
+      required this.hasPinnedAppBar,
+      required this.initialScrollOffset,
+      required this.borderRadius});
 
   @override
   _SliverScaffoldState createState() => _SliverScaffoldState();
 }
 
 class _SliverScaffoldState extends State<SliverScaffold> {
-  ScrollController ctrl;
+  ScrollController? ctrl;
 
   @override
   void initState() {
@@ -42,13 +37,13 @@ class _SliverScaffoldState extends State<SliverScaffold> {
 
     ctrl = widget.controller ??
         ScrollController(initialScrollOffset: this.widget.initialScrollOffset);
-    ctrl.addListener(() => setState(() {}));
+    ctrl!.addListener(() => setState(() {}));
   }
 
   @override
   void dispose() {
     if (widget.controller == null) {
-      ctrl.dispose();
+      ctrl!.dispose();
     }
     super.dispose();
   }

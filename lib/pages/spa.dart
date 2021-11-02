@@ -14,7 +14,7 @@ import 'package:flaevr/pages/results.dart';
 import 'package:flutter/material.dart';
 
 class Origin extends StatefulWidget {
-  Origin({Key key}) : super(key: key);
+  Origin({Key? key}) : super(key: key);
 
   @override
   OriginState createState() => OriginState();

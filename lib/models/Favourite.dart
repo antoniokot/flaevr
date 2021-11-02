@@ -5,8 +5,8 @@ class Favourite {
   final int idProduct;
 
   Favourite({
-    this.id,
-    this.idProduct,
+    required this.id,
+    required this.idProduct,
   });
 
   factory Favourite.fromJson(Map<String, dynamic> json) {

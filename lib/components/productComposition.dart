@@ -10,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 class ProductComposition extends StatelessWidget {
   @override
   ProductComposition(
-      {@required this.ingredients, @required this.nutritionalFacts});
+      {required this.ingredients, required this.nutritionalFacts});
 
   final NutritionalFacts nutritionalFacts;
   final List<Ingredient> ingredients;

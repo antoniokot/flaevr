@@ -7,7 +7,7 @@ import 'dart:convert';
 
 class StampService {
   //get all stamp
-  static Future<List<Stamp>> getAllStamps() async {
+  static Future<List<Stamp>?> getAllStamps() async {
     try {
       List<Stamp> stamps = [];
       final response =
@@ -32,7 +32,7 @@ class StampService {
     }
   }
 
-  static Future<List<Stamp>> getAllStampsByProductID(int id) async {
+  static Future<List<Stamp>?> getAllStampsByProductID(int id) async {
     try {
       List<Stamp> stamps = [];
       final response = await http.get(

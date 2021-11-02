@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class FolderService {
-  static Future<List<Folder>> getAllFoldersByIdUser(int idUser) async {
+  static Future<List<Folder>?> getAllFoldersByIdUser(int idUser) async {
     try {
       List<Folder> folders = [];
       final response = await http
@@ -31,9 +31,9 @@ class FolderService {
     }
   }
 
-  static Future<Folder> getFolderById(int id) async {
+  static Future<Folder?> getFolderById(int id) async {
     try {
-      Folder folder;
+      Folder? folder;
       final response = await http.get(
           Uri.parse('http://127.0.0.1:3333/folders/unique/' + id.toString()));
 
@@ -58,7 +58,8 @@ class FolderService {
     }
   }
 
-  static Future<Response> postNewFolder(context, String name, int idUser) async {
+  static Future<Response?> postNewFolder(
+      context, String name, int idUser) async {
     try {
       final response = await http
           .post(Uri.parse('http://127.0.0.1:3333/folders/post'), body: {

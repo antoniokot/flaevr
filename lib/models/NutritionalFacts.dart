@@ -6,7 +6,11 @@ class NutritionalFacts {
   final String serving;
   List<NutritionalFactsRow> nutrients;
 
-  NutritionalFacts({this.id, this.idProduct, this.serving, this.nutrients});
+  NutritionalFacts(
+      {required this.id,
+      required this.idProduct,
+      required this.serving,
+      required this.nutrients});
 
   factory NutritionalFacts.fromJson(Map<String, dynamic> json) {
     return NutritionalFacts(

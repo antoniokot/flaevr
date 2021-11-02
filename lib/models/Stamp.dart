@@ -3,8 +3,8 @@ class Stamp {
   final String name;
 
   Stamp({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
   });
 
   factory Stamp.fromJson(Map<String, dynamic> json) {

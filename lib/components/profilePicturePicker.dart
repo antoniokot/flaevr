@@ -4,11 +4,11 @@ import 'package:flaevr/services/AllergensService.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 
 class ProfilePicturePicker extends StatelessWidget {
   @override
-  ProfilePicturePicker({this.id});
+  ProfilePicturePicker({required this.id});
 
   final int id;
 

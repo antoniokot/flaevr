@@ -4,7 +4,8 @@ import 'package:flaevr/pages/favorites_folder_page.dart';
 import 'dart:math';
 
 class FavFolder extends StatefulWidget {
-  const FavFolder({Key key, this.folder, this.onClick}) : super(key: key);
+  const FavFolder({Key? key, required this.folder, required this.onClick})
+      : super(key: key);
 
   final Folder folder;
   final Function onClick;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Ingredients extends StatelessWidget {
   @override
-  Ingredients({@required this.ingredients});
+  Ingredients({required this.ingredients});
 
   final List<Ingredient> ingredients;
 

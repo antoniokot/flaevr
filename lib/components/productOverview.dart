@@ -10,7 +10,7 @@ class ProductOverview extends StatelessWidget {
   final ProductModel product;
   final Color color;
 
-  ProductOverview(this.product, {this.animate, this.color});
+  ProductOverview(this.product, {required this.animate, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ProductOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-        Badges(this.product.id),
+        Badges(id: this.product.id!),
         Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 19),
           child: Row(

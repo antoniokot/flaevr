@@ -5,10 +5,14 @@ import 'package:flaevr/services/FolderService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/folder.dart';
-import 'package:flutter_session/flutter_session.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 
 class Favorites extends StatefulWidget {
-  const Favorites({Key key, this.built, this.folders, this.onClick})
+  const Favorites(
+      {Key? key,
+      required this.built,
+      required this.folders,
+      required this.onClick})
       : super(key: key);
 
   final bool built;

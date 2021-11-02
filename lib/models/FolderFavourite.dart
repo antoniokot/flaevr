@@ -4,9 +4,9 @@ class FolderFavourite {
   final int idFavourite;
 
   FolderFavourite({
-    this.id,
-    this.idFolder,
-    this.idFavourite,
+    required this.id,
+    required this.idFolder,
+    required this.idFavourite,
   });
 
   factory FolderFavourite.fromJson(Map<String, dynamic> json) {

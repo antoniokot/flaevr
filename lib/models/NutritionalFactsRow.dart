@@ -6,11 +6,11 @@ class NutritionalFactsRow {
   final String dailyValue;
 
   NutritionalFactsRow(
-      {this.idNutrientNutritionalFacts,
-      this.product,
-      this.nutrient,
-      this.value,
-      this.dailyValue});
+      {required this.idNutrientNutritionalFacts,
+      required this.product,
+      required this.nutrient,
+      required this.value,
+      required this.dailyValue});
 
   factory NutritionalFactsRow.fromJson(Map<String, dynamic> json) {
     return NutritionalFactsRow(

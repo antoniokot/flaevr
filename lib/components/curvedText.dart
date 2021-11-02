@@ -5,10 +5,10 @@ import 'package:flutter/widgets.dart';
 
 class CurvedText extends StatelessWidget {
   const CurvedText({
-    Key key,
-    @required this.radius,
-    @required this.text,
-    @required this.textStyle,
+    Key? key,
+    required this.radius,
+    required this.text,
+    required this.textStyle,
     this.startAngle = 0,
   }) : super(key: key);
 

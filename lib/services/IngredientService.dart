@@ -7,7 +7,7 @@ import 'dart:convert';
 
 class IngredientService {
   //get entire nutritional facts table from product id
-  static Future<List<Ingredient>> getByID(int id) async {
+  static Future<List<Ingredient>?> getByID(int id) async {
     try {
       List<Ingredient> ingredients = [];
       final response = await http.get(Uri.parse(

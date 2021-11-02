@@ -1,8 +1,8 @@
 class ProductModel {
-  final int id;
-  final String name;
-  final String barcode;
-  final String pictureUrl;
+  final int? id;
+  final String? name;
+  final String? barcode;
+  final String? pictureUrl;
 
   ProductModel({
     this.id,

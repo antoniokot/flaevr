@@ -3,13 +3,13 @@ class Scanned {
   final String name;
 
   Scanned({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
   });
 
   factory Scanned.fromJson(Map<String, dynamic> json) {
     return Scanned(
-      id: json['idNutrient'],  
+      id: json['idNutrient'],
       name: json['name'],
     );
   }

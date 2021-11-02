@@ -13,18 +13,18 @@ class Ingredient {
   final int hasNuts;
 
   Ingredient(
-      {this.id,
-      this.name,
-      this.isAllergen,
-      this.isVegan,
-      this.hasMilk,
-      this.hasEgg,
-      this.hasGluten,
-      this.hasSeafood,
-      this.hasFish,
-      this.hasSugar,
-      this.hasSoy,
-      this.hasNuts});
+      {required this.id,
+      required this.name,
+      required this.isAllergen,
+      required this.isVegan,
+      required this.hasMilk,
+      required this.hasEgg,
+      required this.hasGluten,
+      required this.hasSeafood,
+      required this.hasFish,
+      required this.hasSugar,
+      required this.hasSoy,
+      required this.hasNuts});
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(

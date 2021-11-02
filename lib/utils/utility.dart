@@ -1,8 +1,8 @@
 class Utility {
-  static bool isNumeric(String s) {
+  static bool isNumeric(String? s) {
     if (s == null) {
       return false;
     }
-    return double.parse(s, (e) => null) != null;
+    return double.tryParse(s) != null;
   }
 }

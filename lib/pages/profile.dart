@@ -13,13 +13,13 @@ import 'package:flaevr/utils/colorGenerator.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flaevr/utils/utility.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 import 'dart:async';
 
 import 'package:palette_generator/palette_generator.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key key}) : super(key: key);
+  Profile({Key? key}) : super(key: key);
 
   @override
   ProfileState createState() => ProfileState();
@@ -37,34 +37,35 @@ class ProfileState extends State<Profile> {
     }
   }
 
-  Future<List<ProductModel>> recents;
-  Future<List<Folder>> allFolders;
-  User user;
-  Color userColor;
+  Future<List<ProductModel>?>? recents;
+  Future<List<Folder>?>? allFolders;
+  User? user;
+  Color? userColor;
 
   void getUser() async {
     await FlutterSession().get("user").then((json) async {
       this.user = User.fromJson(json);
-      this.allFolders = FolderService.getAllFoldersByIdUser(this.user.id);
-      this.recents = ProductService.getAllRecentProducts(this.user.id);
+      this.allFolders = FolderService.getAllFoldersByIdUser(this.user!.id!);
+      this.recents = ProductService.getAllRecentProducts(this.user!.id!);
       ImageProvider imgToGet;
-      if (Utility.isNumeric(this.user.avatar))
+      if (Utility.isNumeric(this.user!.avatar!))
         imgToGet = new AssetImage(
-            "lib/assets/images/avatars/prof" + this.user.avatar + ".png");
+            "lib/assets/images/avatars/prof" + this.user!.avatar! + ".png");
       else
-        imgToGet = new NetworkImage(this.user.avatar);
+        imgToGet = new NetworkImage(this.user!.avatar!);
 
       PaletteGenerator color =
           await ColorGenerator.getMainColors(imgToGet, new Size(100, 100), 3);
 
-      this.userColor = ColorGenerator.getColorByImportance(color).color;
+      this.userColor = ColorGenerator.getColorByImportance(color)!.color;
       setState(() {});
     });
   }
 
+  @override
   void initState() {
-    super.initState();
     getUser();
+    super.initState();
   }
 
   @override
@@ -73,7 +74,7 @@ class ProfileState extends State<Profile> {
     return SafeArea(
       child: Scaffold(
           backgroundColor:
-              this.userColor == null ? Styles.mutedGrey : this.userColor,
+              this.userColor == null ? Styles.mutedGrey : this.userColor!,
           body: Stack(
             children: <Widget>[
               Container(
@@ -114,12 +115,13 @@ class ProfileState extends State<Profile> {
                               padding: EdgeInsets.only(left: 7),
                               child: SizedBox(
                                 height: 220,
-                                child: FutureBuilder<List<ProductModel>>(
+                                child: FutureBuilder<List<ProductModel>?>(
                                   future: recents,
                                   builder: (context, snapshot) {
+                                    print(snapshot.data.toString());
                                     if (snapshot.hasData) {
                                       if (snapshot.data == null ||
-                                          snapshot.data.length == 0)
+                                          snapshot.data?.length == 0)
                                         return NotFound(
                                           text: "Que vazio!",
                                         );
@@ -128,7 +130,7 @@ class ProfileState extends State<Profile> {
                                             physics: BouncingScrollPhysics(),
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: snapshot.data.length,
+                                            itemCount: snapshot.data!.length,
                                             itemBuilder: (BuildContext context,
                                                     int index) =>
                                                 ProductCard(
@@ -136,7 +138,8 @@ class ProfileState extends State<Profile> {
                                                       new AspectRatio(
                                                           aspectRatio: 2.3),
                                                   width: 140,
-                                                  product: snapshot.data[index],
+                                                  product:
+                                                      snapshot.data![index],
                                                 ));
                                       }
                                     } else if (snapshot.hasError) {
@@ -216,18 +219,20 @@ class ProfileState extends State<Profile> {
                                 )),
                             Container(
                               margin: Styles.sidePadding,
-                              child: FutureBuilder<List<Folder>>(
+                              child: FutureBuilder<List<Folder>?>(
                                 future: allFolders,
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     return Favorites(
+                                      onClick: () => {},
                                       built: true,
-                                      folders: snapshot.data,
+                                      folders: snapshot.data!,
                                     );
                                   } else if (snapshot.hasError) {
                                     return Text('${snapshot.error}');
                                   }
                                   return Favorites(
+                                    onClick: () => {},
                                     built: false,
                                     folders: [],
                                   );
@@ -290,9 +295,7 @@ class ProfileState extends State<Profile> {
                                                               Color(0xFF3D3D4E),
                                                         ))),
                                                 ProfilePicturePicker(
-                                                    id: this.user == null
-                                                        ? 1
-                                                        : this.user.id)
+                                                    id: this.user!.id!)
                                               ],
                                             ),
                                           ),
@@ -309,26 +312,23 @@ class ProfileState extends State<Profile> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: () {
-                                          if (this.user != null) {
-                                            if (!Utility.isNumeric(
-                                                this.user.avatar))
-                                              return NetworkImage(
-                                                  this.user.avatar);
-                                            else
-                                              return AssetImage(
-                                                  "lib/assets/images/avatars/prof" +
-                                                      this.user.avatar +
-                                                      ".png");
-                                          } else
-                                            return AssetImage(
-                                                "lib/assets/images/avatars/prof1.png");
-                                        }(),
+                                        image: this.user == null
+                                            ? AssetImage(
+                                                "lib/assets/images/avatars/prof1.png")
+                                            : Utility.isNumeric(
+                                                        this.user!.avatar) ==
+                                                    false
+                                                ? NetworkImage(
+                                                    this.user!.avatar!)
+                                                : AssetImage(
+                                                    "lib/assets/images/avatars/prof" +
+                                                        this.user!.avatar! +
+                                                        ".png") as ImageProvider,
                                         fit: BoxFit.fill),
                                   ),
                                 ),
                               ),
-                              Text(this.user == null ? "" : this.user.name),
+                              Text(this.user == null ? " " : this.user!.name!),
                               IconButton(
                                   icon: Icon(Icons.settings),
                                   onPressed: () {

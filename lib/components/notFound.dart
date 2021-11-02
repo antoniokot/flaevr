@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class NotFound extends StatelessWidget {
   @override
-  NotFound({this.text});
+  NotFound({required this.text});
 
   final String text;
 

@@ -4,9 +4,9 @@ class ProductIngredient {
   final int idIngredient;
 
   ProductIngredient({
-    this.id,
-    this.idProduct,
-    this.idIngredient,
+    required this.id,
+    required this.idProduct,
+    required this.idIngredient,
   });
 
   factory ProductIngredient.fromJson(Map<String, dynamic> json) {

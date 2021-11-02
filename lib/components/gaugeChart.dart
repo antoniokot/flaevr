@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class GaugeChart extends StatelessWidget {
   @override
-  GaugeChart(this.value, {@required this.color, @required this.animate});
+  GaugeChart(this.value, {required this.color, required this.animate});
 
   final Color color;
   final double value;

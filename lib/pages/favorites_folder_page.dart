@@ -6,7 +6,7 @@ import 'package:flaevr/utils/styles.dart';
 import 'package:flaevr/components/folder_item.dart';
 
 class FolderPage extends StatefulWidget {
-  const FolderPage({Key key, this.folder}) : super(key: key);
+  const FolderPage({Key? key, required this.folder}) : super(key: key);
 
   final Folder folder;
 

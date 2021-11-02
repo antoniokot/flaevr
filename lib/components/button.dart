@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class Button extends StatelessWidget {
   @override
   Button(
-      {@required this.padding,
-      @required this.constraints,
-      @required this.width,
-      @required this.height,
-      @required this.text,
-      @required this.onPressed,
-      @required this.textStyle,
-      @required this.backgroundColor});
+      {required this.padding,
+      required this.constraints,
+      required this.width,
+      required this.height,
+      required this.text,
+      required this.onPressed,
+      required this.textStyle,
+      required this.backgroundColor});
 
   final EdgeInsets padding;
   final BoxConstraints constraints;

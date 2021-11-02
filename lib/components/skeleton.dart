@@ -8,7 +8,7 @@ class Skeleton extends StatefulWidget {
   final EdgeInsets padding;
 
   Skeleton(
-      {Key key,
+      {Key? key,
       this.height = 20,
       this.width = 200,
       this.radius = 8,
@@ -20,9 +20,9 @@ class Skeleton extends StatefulWidget {
 
 class SkeletonState extends State<Skeleton>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController? _controller;
 
-  Animation gradientPosition;
+  Animation? gradientPosition;
 
   @override
   void initState() {
@@ -34,17 +34,17 @@ class SkeletonState extends State<Skeleton>
       begin: -3,
       end: 10,
     ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.linear),
+      CurvedAnimation(parent: _controller!, curve: Curves.linear),
     )..addListener(() {
         setState(() {});
       });
 
-    _controller.repeat();
+    _controller!.repeat();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -58,7 +58,7 @@ class SkeletonState extends State<Skeleton>
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
               gradient: LinearGradient(
-                  begin: Alignment(gradientPosition.value, 0),
+                  begin: Alignment(gradientPosition!.value, 0),
                   end: Alignment(-1, 0),
                   colors: [
                     Styles.ultraLightMutedGrey,

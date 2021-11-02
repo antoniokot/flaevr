@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flaevr/utils/styles.dart';
 
 class Search extends StatefulWidget {
-  Search({Key key}) : super(key: key);
+  Search({Key? key}) : super(key: key);
 
   @override
   SearchState createState() => SearchState();

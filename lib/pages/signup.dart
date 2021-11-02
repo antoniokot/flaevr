@@ -6,10 +6,10 @@ import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/button.dart';
-import 'package:flutter_session/flutter_session.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 
 class Signup extends StatefulWidget {
-  Signup({Key key}) : super(key: key);
+  Signup({Key? key}) : super(key: key);
 
   @override
   SignupState createState() => SignupState();
@@ -51,7 +51,9 @@ class SignupState extends State<Signup> {
                   id: 1,
                   name: _name.text,
                   email: _email.text,
-                  password: _pass.text))
+                  password: _pass.text,
+                  rememberMeToken: "",
+                  avatar: ""))
           .then((res) async {
         print(res);
         if (res != null) {
@@ -63,6 +65,7 @@ class SignupState extends State<Signup> {
                   name: res.name,
                   email: res.email,
                   avatar: res.avatar,
+                  password: "",
                   rememberMeToken: res.rememberMeToken));
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Origin()));
