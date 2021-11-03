@@ -2,6 +2,10 @@ import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class Allergen extends StatelessWidget {
+  String allergen;
+  @override
+  Allergen(this.allergen);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +31,7 @@ class Allergen extends StatelessWidget {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Nozes:", style: Styles.smallTitle),
+                    Text(allergen, style: Styles.smallTitle),
                     SizedBox(
                       height: 5,
                     ),

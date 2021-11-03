@@ -68,8 +68,8 @@ class Ingredients extends StatelessWidget {
                           height: 12,
                           decoration: BoxDecoration(
                             color: ingredients[i].isVegan == 1
-                                ? Styles.textBlack
-                                : Styles.lightMutedGrey,
+                                ? Styles.lightMutedGrey
+                                : Styles.textBlack,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ))),
                 ],
