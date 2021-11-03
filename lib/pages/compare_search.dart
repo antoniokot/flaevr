@@ -20,7 +20,6 @@ class CompareSearchState extends State<CompareSearch> {
   // mudar depois para pesquisa por nome
   void getProducts() async {
     this.products = ProductService.getAllProducts();
-    //print(this.products);
     setState(() {});
   }
 

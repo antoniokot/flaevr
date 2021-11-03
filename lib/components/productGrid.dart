@@ -39,7 +39,7 @@ class ProductGridState extends State<ProductGrid> {
       return 2;
   }
 
-  var _tapPosition;
+  //var _tapPosition;
 
   // void _showCustomMenu(int index) {
   //   focused = true;
@@ -157,7 +157,6 @@ class ProductGridState extends State<ProductGrid> {
                                   built: true,
                                   folders: userFolders ?? [],
                                   onClick: () {
-                                    print("malignoo");
                                     Navigator.pop(context);
                                   },
                                 )),
@@ -169,6 +168,7 @@ class ProductGridState extends State<ProductGrid> {
                       trailingIcon: Icon(Icons.compare_arrows_outlined),
                       onPressed: () {
                         globalCompareList.list.add(this.widget.products[index]);
+                        print("productGrid.dart: " + globalCompareList.list.toString());
                       }),
                   FocusedMenuItem(
                       title: Text("Compartilhar"),
@@ -186,7 +186,8 @@ class ProductGridState extends State<ProductGrid> {
                   product: this.widget.products[index],
                   heightAspectRatio: new AspectRatio(aspectRatio: 2.3),
                   width: 190,
-                ));
+                )
+            );
           else
             return Skeleton(
                 width: 190,

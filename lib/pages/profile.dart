@@ -119,7 +119,6 @@ class ProfileState extends State<Profile> {
                                 child: FutureBuilder<List<ProductModel>?>(
                                   future: recents,
                                   builder: (context, snapshot) {
-                                    print(snapshot.data.toString());
                                     if (snapshot.hasData) {
                                       if (snapshot.data == null ||
                                           snapshot.data?.length == 0)

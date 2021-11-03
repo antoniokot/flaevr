@@ -316,12 +316,15 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   40, (index) => Text('line: $index'))
                             ],
                           ),
-                        ][_tabController!.index],
+                        ]
+                      [_tabController!.index],
                       ),
                     ],
                   ),
                 ),
               ],
-            )));
+            )
+        )
+    );
   }
 }
