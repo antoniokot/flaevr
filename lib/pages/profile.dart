@@ -1,3 +1,4 @@
+import 'package:flaevr/components/modalHeader.dart';
 import 'package:flaevr/components/notFound.dart';
 import 'package:flaevr/components/productCard.dart';
 import 'package:flaevr/components/profilePicturePicker.dart';
@@ -30,6 +31,8 @@ class ProfileState extends State<Profile> {
   bool isVisible = true;
   bool isOpaque = true;
   double _borderRadius = 20.0;
+  final _newFolderName = TextEditingController();
+
   _onUpdateScroll(ScrollMetrics metrics) {
     if (metrics.pixels > -1 && metrics.pixels < 20) {
       setState(() {
@@ -232,6 +235,9 @@ class ProfileState extends State<Profile> {
                                                 builder:
                                                     (BuildContext context) {
                                                   return Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 19),
                                                     decoration: new BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
@@ -244,7 +250,132 @@ class ProfileState extends State<Profile> {
                                                                 .size
                                                                 .height -
                                                             100,
-                                                    child: Column(children: []),
+                                                    child: Column(children: [
+                                                      ModalHeader(
+                                                        title:
+                                                            "Criar uma pasta",
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 12),
+                                                        actions: [
+                                                          InkWell(
+                                                              onTap: () => {
+                                                                    FolderService.postNewFolder(
+                                                                            _newFolderName.text.isEmpty
+                                                                                ? "Nova Pasta"
+                                                                                : _newFolderName
+                                                                                    .text,
+                                                                            this
+                                                                                .user!
+                                                                                .id!)
+                                                                        .then((value) =>
+                                                                            Navigator.pop(context))
+                                                                  },
+                                                              child: Container(
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical:
+                                                                        8.0,
+                                                                    horizontal:
+                                                                        15.0),
+                                                                decoration: BoxDecoration(
+                                                                    color: Color(
+                                                                        0xFFFF4646),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            18)),
+                                                                child: Text(
+                                                                  "Criar",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                                ),
+                                                              ))
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    bottom: 12,
+                                                                    top: 12),
+                                                            child: Text(
+                                                              "Nome da Pasta",
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF3d3d4e),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 14),
+                                                            ),
+                                                          ),
+                                                          TextField(
+                                                            controller:
+                                                                _newFolderName,
+                                                            autofocus: false,
+                                                            style: TextStyle(
+                                                                fontSize: 15.0,
+                                                                color: Color(
+                                                                    0xFF3d3d4e)),
+                                                            decoration:
+                                                                InputDecoration(
+                                                                    filled:
+                                                                        true,
+                                                                    fillColor: Color
+                                                                        .fromRGBO(
+                                                                            241,
+                                                                            241,
+                                                                            242,
+                                                                            1),
+                                                                    contentPadding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            14.0,
+                                                                        bottom:
+                                                                            8.0,
+                                                                        top:
+                                                                            8.0),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .all(
+                                                                        const Radius.circular(
+                                                                            8.0),
+                                                                      ),
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        width:
+                                                                            0,
+                                                                        style: BorderStyle
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                    focusedBorder:
+                                                                        OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                              color: Colors.grey),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8),
+                                                                    )),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ]),
                                                   );
                                                 })
                                           },
@@ -260,7 +391,6 @@ class ProfileState extends State<Profile> {
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     return Favorites(
-                                      onClick: () => {},
                                       built: true,
                                       folders: snapshot.data!,
                                     );

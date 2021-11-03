@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flaevr/utils/compareList.dart' as globalCompareList;
 import 'dart:ui';
 
+import 'modalHeader.dart';
+
 class ProductGrid extends StatefulWidget {
   @override
   ProductGrid(
@@ -146,20 +148,26 @@ class ProductGridState extends State<ProductGrid> {
                             context: context,
                             builder: (BuildContext context) {
                               return Container(
+                                padding: EdgeInsets.symmetric(horizontal: 19),
                                 decoration: new BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.vertical(
                                         top: Radius.circular(20))),
                                 height:
                                     MediaQuery.of(context).size.height - 100,
-                                child: Center(
-                                    child: Favorites(
-                                  built: true,
-                                  folders: userFolders ?? [],
-                                  onClick: () {
-                                    Navigator.pop(context);
-                                  },
-                                )),
+                                child: Column(children: [
+                                  ModalHeader(
+                                      title: "Selecione uma pasta",
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 12)),
+                                  Favorites(
+                                    built: true,
+                                    folders: userFolders ?? [],
+                                    onClick: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ]),
                               );
                             });
                       }),
@@ -168,7 +176,8 @@ class ProductGridState extends State<ProductGrid> {
                       trailingIcon: Icon(Icons.compare_arrows_outlined),
                       onPressed: () {
                         globalCompareList.list.add(this.widget.products[index]);
-                        print("productGrid.dart: " + globalCompareList.list.toString());
+                        print("productGrid.dart: " +
+                            globalCompareList.list.toString());
                       }),
                   FocusedMenuItem(
                       title: Text("Compartilhar"),
@@ -186,8 +195,7 @@ class ProductGridState extends State<ProductGrid> {
                   product: this.widget.products[index],
                   heightAspectRatio: new AspectRatio(aspectRatio: 2.3),
                   width: 190,
-                )
-            );
+                ));
           else
             return Skeleton(
                 width: 190,

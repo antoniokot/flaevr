@@ -59,13 +59,12 @@ class FolderService {
     }
   }
 
-  static Future<Response?> postNewFolder(
-      context, String name, int idUser) async {
+  static Future<Response?> postNewFolder(String name, int idUser) async {
     try {
       final response = await http
           .post(Uri.parse(SharedAssets.apiURL + '/folders/post'), body: {
-        "name": name,
-        "idUSer": idUser,
+        "name": name.toString(),
+        "idUser": idUser.toString(),
       });
       return response;
     } catch (e) {
