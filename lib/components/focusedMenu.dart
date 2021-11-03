@@ -172,7 +172,7 @@ class FocusedMenuDetails extends StatelessWidget {
                 )),
             Positioned(
               top: topOffset,
-              left: leftOffset,
+              left: leftOffset + 10,
               child: TweenAnimationBuilder(
                 duration: Duration(milliseconds: 200),
                 builder: (BuildContext context, dynamic value, Widget? child) {
@@ -207,13 +207,12 @@ class FocusedMenuDetails extends StatelessWidget {
                         int i = 0;
                         for (var item in menuItems) {
                           Widget curr = InkWell(
-                              onHover: (v) => {print("hoverrr")},
+                              // onHover: (v) => {print("hoverrr")},
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                               child: Container(
-                                  decoration: new BoxDecoration(
-                                      color: Color(0xFFFF4646),
-                                      shape: BoxShape.circle),
+                                  decoration:
+                                      new BoxDecoration(shape: BoxShape.circle),
                                   height: 40,
                                   width: 40,
                                   child: Center(child: item.trailingIcon)),

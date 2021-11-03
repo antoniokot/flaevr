@@ -2,9 +2,15 @@ import 'package:flaevr/components/focusedMenu.dart';
 import 'package:flaevr/components/popup.dart';
 import 'package:flaevr/components/productCard.dart';
 import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/models/ProductModel.dart';
+import 'package:flaevr/models/User.dart';
+import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/pages/product.dart';
+import 'package:flaevr/services/FolderService.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 import 'package:flutter/material.dart';
+import 'package:flaevr/utils/compareList.dart' as globalCompareList;
 import 'dart:ui';
 
 class ProductGrid extends StatefulWidget {
@@ -71,8 +77,23 @@ class ProductGridState extends State<ProductGrid> {
   //   // void _showCustomMenu() async { ... }
   // }
 
-  void _storePosition(TapDownDetails details) {
-    _tapPosition = details.globalPosition;
+  // void _storePosition(TapDownDetails details) {
+  //   _tapPosition = details.globalPosition;
+  // }
+  List<Folder>? userFolders;
+
+  @override
+  void initState() {
+    getAllFolders();
+    super.initState();
+  }
+
+  void getAllFolders() async {
+    User user = new User();
+    await FlutterSession().get("user").then((json) async {
+      user = User.fromJson(json);
+    });
+    this.userFolders = await FolderService.getAllFoldersByIdUser(user.id!);
   }
 
   @override
@@ -88,7 +109,7 @@ class ProductGridState extends State<ProductGrid> {
           if (this.widget.built)
             return FocusedMenuHolder(
                 menuWidth: MediaQuery.of(context).size.width * 0.50,
-                blurSize: 5.0,
+                blurSize: 0.5,
                 menuItemExtent: 35,
                 menuBoxDecoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(20.0)),
@@ -116,14 +137,42 @@ class ProductGridState extends State<ProductGrid> {
                   FocusedMenuItem(
                       title: Text("Salvar"),
                       trailingIcon: Icon(Icons.bookmark_border),
-                      onPressed: () {}),
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: new BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                height:
+                                    MediaQuery.of(context).size.height - 100,
+                                child: Center(
+                                    child: Favorites(
+                                  built: true,
+                                  folders: userFolders ?? [],
+                                  onClick: () {
+                                    print("malignoo");
+                                    Navigator.pop(context);
+                                  },
+                                )),
+                              );
+                            });
+                      }),
+                  FocusedMenuItem(
+                      title: Text("Comparar"),
+                      trailingIcon: Icon(Icons.compare_arrows_outlined),
+                      onPressed: () {
+                        globalCompareList.list.add(this.widget.products[index]);
+                      }),
                   FocusedMenuItem(
                       title: Text("Compartilhar"),
                       trailingIcon: Icon(Icons.share),
-                      onPressed: () {}),
-                  FocusedMenuItem(
-                      title: Text("Favorite"),
-                      trailingIcon: Icon(Icons.favorite_border),
                       onPressed: () {}),
                 ],
                 onPressed: () {
