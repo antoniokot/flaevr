@@ -17,11 +17,9 @@ class NutriotinalService {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
-        final mainResp = await http.get(Uri.parse(SharedAssets.apiURL != ""
-            ? SharedAssets.apiURL
-            : SharedAssets.staticLocalApiURL +
-                '/nutrientsNutritionalFacts/product/' +
-                id.toString()));
+        final mainResp = await http.get(Uri.parse(SharedAssets.apiURL +
+            '/nutrientsNutritionalFacts/product/' +
+            id.toString()));
         var listJson;
         if (mainResp.statusCode == 200) {
           listJson = jsonDecode(mainResp.body);

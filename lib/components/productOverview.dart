@@ -1,7 +1,9 @@
 import 'package:flaevr/components/allergens.dart';
 import 'package:flaevr/components/badges.dart';
 import 'package:flaevr/components/gaugeChart.dart';
+import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/ProductModel.dart';
+import 'package:flaevr/services/AllergensService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +11,10 @@ class ProductOverview extends StatelessWidget {
   final bool animate;
   final ProductModel product;
   final Color color;
+  final Composition? ingredients;
 
-  ProductOverview(this.product, {required this.animate, required this.color});
+  ProductOverview(this.product,
+      {required this.animate, required this.color, this.ingredients});
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +118,8 @@ class ProductOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-        Allergens()
+        Allergens(
+            AllergenService.getListOfAllergens(this.ingredients!.ingredients))
       ],
     );
   }

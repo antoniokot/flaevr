@@ -1,7 +1,9 @@
+import 'package:flaevr/services/AllergensService.dart';
+
 class Ingredient {
   final int id;
   final String name;
-  final int isAllergen;
+  int? isAllergen;
   final int isVegan;
   final int hasMilk;
   final int hasEgg;
@@ -15,7 +17,7 @@ class Ingredient {
   Ingredient(
       {required this.id,
       required this.name,
-      required this.isAllergen,
+      this.isAllergen,
       required this.isVegan,
       required this.hasMilk,
       required this.hasEgg,
@@ -24,7 +26,12 @@ class Ingredient {
       required this.hasFish,
       required this.hasSugar,
       required this.hasSoy,
-      required this.hasNuts});
+      required this.hasNuts}) {
+    if (AllergenService.getListOfAllergens([this]).isNotEmpty)
+      this.isAllergen = 1;
+
+    print(this.isAllergen.toString());
+  }
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(

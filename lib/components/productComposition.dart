@@ -22,7 +22,7 @@ class ProductComposition extends StatelessWidget {
         child: SliderCustom(
           children: [
             NutritionalValues(nutritionalFacts: this.nutritionalFacts),
-            Ingredients(ingredients: this.ingredients)
+            Ingredients(ingredients: this.ingredients),
           ],
           borderRadius: 20,
           overlap: false,

@@ -19,14 +19,13 @@ class IngredientService {
         print(decodeJson.toString());
         decodeJson.forEach((json) => {
               ingredients.add(new Ingredient(
-                  id: json['idStamp'],
+                  id: json['idIngredient'],
                   name: json['name'],
-                  isAllergen: json['isAllergen'],
                   isVegan: json['isVegan'],
                   hasMilk: json['hasMilk'],
                   hasEgg: json['hasEgg'],
                   hasGluten: json['hasGluten'],
-                  hasSeafood: json['hasSeafood'],
+                  hasSeafood: json['hasSeaFood'],
                   hasFish: json['hasFish'],
                   hasSugar: json['hasSugar'],
                   hasSoy: json['hasSoy'],

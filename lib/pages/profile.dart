@@ -221,7 +221,33 @@ class ProfileState extends State<Profile> {
                                               ),
                                             ),
                                           ),
-                                          onTap: () => {},
+                                          onTap: () => {
+                                            showModalBottomSheet<void>(
+                                                isScrollControlled: true,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Container(
+                                                    decoration: new BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.vertical(
+                                                                top: Radius
+                                                                    .circular(
+                                                                        20))),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height -
+                                                            100,
+                                                    child: Column(children: []),
+                                                  );
+                                                })
+                                          },
                                         ),
                                       )
                                     ],

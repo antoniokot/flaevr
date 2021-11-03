@@ -1,6 +1,8 @@
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
+import 'package:flaevr/models/Ingredient.dart';
+import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/services/IngredientService.dart';
 import 'package:flaevr/services/NutritionalService.dart';
@@ -84,11 +86,11 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   }
 
   Future<Composition> fetchComposition(int id) async {
-    var c = new Composition(
-        nutritionalFacts: await NutriotinalService.getByID(id),
-        ingredients: await IngredientService.getByID(id));
-
-    return c;
+    return new Composition(
+        nutritionalFacts: await NutriotinalService.getByID(id) ??
+            new NutritionalFacts(
+                id: -1, idProduct: -1, serving: "0g", nutrients: []),
+        ingredients: await IngredientService.getByID(id) ?? []);
   }
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
@@ -264,14 +266,19 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: [
-                          FutureBuilder<ProductModel?>(
-                            future: product,
-                            builder: (context, snapshot) {
+                          FutureBuilder(
+                            future: Future.wait([
+                              product as Future<dynamic>,
+                              composition as Future<dynamic>
+                            ]),
+                            builder: (context,
+                                AsyncSnapshot<List<dynamic>> snapshot) {
                               if (snapshot.hasData) {
                                 return ProductOverview(
-                                  snapshot.data!,
+                                  snapshot.data![0],
+                                  ingredients: snapshot.data![1],
                                   animate: true,
-                                  color: this._mainColor,
+                                  color: this._mainColor ?? Colors.blue,
                                 );
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
@@ -293,8 +300,8 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                               if (snapshot.hasData) {
                                 return ProductComposition(
                                     nutritionalFacts:
-                                        snapshot.data!.nutritionalFacts!,
-                                    ingredients: snapshot.data!.ingredients!);
+                                        snapshot.data!.nutritionalFacts,
+                                    ingredients: snapshot.data!.ingredients);
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
