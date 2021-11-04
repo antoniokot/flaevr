@@ -18,10 +18,8 @@ class _LoadingPageState extends State<LoadingPage> {
       user = await FlutterSession().get("user");
       //print(user);
     } catch (exception) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MainPage()));
-      });
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MainPage()));
     }
     if (user == null)
       return false;
@@ -37,10 +35,8 @@ class _LoadingPageState extends State<LoadingPage> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MainPage()));
       } else {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Origin()));
-        });
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Origin()));
       }
     });
   }

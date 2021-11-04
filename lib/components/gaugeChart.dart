@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 class GaugeChart extends StatelessWidget {
   @override
-  GaugeChart(this.value, {required this.color, required this.animate});
+  GaugeChart(this.value,
+      {required this.color, required this.animate, this.width = 0.15});
 
   final Color color;
   final double value;
   final bool animate;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +20,18 @@ class GaugeChart extends StatelessWidget {
         maximum: 100,
         pointers: <GaugePointer>[
           RangePointer(
-            enableAnimation: true,
+            enableAnimation: animate,
             value: this.value,
             color: this.color,
             cornerStyle: CornerStyle.bothCurve,
-            width: 0.15,
+            width: this.width,
             sizeUnit: GaugeSizeUnit.factor,
           )
         ],
         showLabels: false,
         showTicks: false,
         axisLineStyle: AxisLineStyle(
-          thickness: 0.15,
+          thickness: this.width,
           cornerStyle: CornerStyle.bothCurve,
           color: Styles.ultraLightMutedGrey,
           thicknessUnit: GaugeSizeUnit.factor,
