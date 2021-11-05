@@ -1,7 +1,13 @@
 import 'package:flaevr/components/categoryCard.dart';
 import 'package:flaevr/components/gaugeChart.dart';
+import 'package:flaevr/components/notFound.dart';
 import 'package:flaevr/components/ripple.dart';
+import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/ProductModel.dart';
+import 'package:flaevr/models/Stamp.dart';
 import 'package:flaevr/models/User.dart';
+import 'package:flaevr/services/ProductService.dart';
+import 'package:flaevr/services/StampService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flaevr/utils/utility.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +23,20 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   User? user;
+  List<ProductModel>? recents;
+  int numberOfItems = 0;
 
   void getUser() async {
-    dynamic json = await FlutterSession().get("user");
-    setState(() {
-      this.user = User.fromJson(json);
-    });
+    this.user = User.fromJson(await FlutterSession().get("user"));
+    this.numberOfItems = await getNumberOfItems();
+    setState(() {});
+  }
+
+  Future<int> getNumberOfItems() async {
+    print(this.user!.toString());
+    this.recents =
+        await ProductService.getAllRecentProducts(this.user!.id as int);
+    return recents!.length;
   }
 
   String getFormattedDate() {
@@ -163,7 +177,7 @@ class HomeState extends State<Home> {
                                           height: 45,
                                           child: Center(
                                               child: Text(
-                                            "5",
+                                            numberOfItems.toString(),
                                             style: TextStyle(
                                                 fontSize: 27.0,
                                                 color: Colors.white,
@@ -191,7 +205,11 @@ class HomeState extends State<Home> {
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 12),
                                               child: Text(
-                                                  "Você escaneou 21 produtos essa semana!",
+                                                  "Você escaneou " +
+                                                      this
+                                                          .numberOfItems
+                                                          .toString() +
+                                                      " produtos essa semana!",
                                                   style: TextStyle(
                                                       fontSize: 13.0,
                                                       color: Styles.mutedGrey,
@@ -205,8 +223,8 @@ class HomeState extends State<Home> {
                       )),
                   Center(
                       child: Container(
-                          width: 220,
-                          height: 82,
+                          width: 280,
+                          height: 102,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -214,16 +232,16 @@ class HomeState extends State<Home> {
                                   alignment: Alignment.center,
                                   children: [
                                     Container(
-                                      width: 60,
-                                      height: 82,
+                                      width: 80,
+                                      height: 102,
                                       child: GaugeChart(
-                                        50.0,
-                                        color: Colors.green,
+                                        60.0,
+                                        color: Color(0xFF76e75a),
                                         animate: true,
                                         width: 0.21,
                                       ),
                                     ),
-                                    Icon(Icons.spa, color: Colors.green),
+                                    Icon(Icons.spa, color: Color(0xFF76e75a)),
                                     Positioned(
                                       bottom: 0,
                                       child: Text("Veganos",
@@ -235,19 +253,20 @@ class HomeState extends State<Home> {
                                   alignment: Alignment.center,
                                   children: [
                                     Container(
-                                      width: 60,
-                                      height: 82,
+                                      width: 80,
+                                      height: 102,
                                       child: GaugeChart(
-                                        50.0,
-                                        color: Colors.green,
+                                        60.0,
+                                        color: Color(0xFFff3858),
                                         animate: true,
                                         width: 0.21,
                                       ),
                                     ),
-                                    Icon(Icons.nature, color: Colors.green),
+                                    Icon(Icons.favorite,
+                                        color: Color(0xFFff3858)),
                                     Positioned(
                                       bottom: 0,
-                                      child: Text("Veganos",
+                                      child: Text("Saudáveis",
                                           style: Styles.smallText),
                                     ),
                                   ],
@@ -256,19 +275,19 @@ class HomeState extends State<Home> {
                                   alignment: Alignment.center,
                                   children: [
                                     Container(
-                                      width: 60,
-                                      height: 82,
+                                      width: 80,
+                                      height: 102,
                                       child: GaugeChart(
-                                        50.0,
-                                        color: Colors.green,
+                                        60.0,
+                                        color: Color(0xFF5dc9a9),
                                         animate: true,
                                         width: 0.21,
                                       ),
                                     ),
-                                    Icon(Icons.nature, color: Colors.green),
+                                    Icon(Icons.pets, color: Color(0xFF5dc9a9)),
                                     Positioned(
                                       bottom: 0,
-                                      child: Text("Veganos",
+                                      child: Text("Bem Animal",
                                           style: Styles.smallText),
                                     ),
                                   ],
@@ -299,21 +318,49 @@ class HomeState extends State<Home> {
                       ],
                     ),
                     child: Padding(
-                      padding: Styles.sidePaddingWithVerticalSpace,
-                      child: GridView.builder(
-                        physics: BouncingScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 30,
-                            crossAxisSpacing: 30,
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.9),
-                        controller: scrollController,
-                        itemCount: 25,
-                        itemBuilder: (BuildContext context, int index) {
-                          return CategoryCard(
-                              AssetImage("lib/assets/images/badges/Vegano.png"),
-                              "Veganos",
-                              24);
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 19, vertical: 16),
+                      child: FutureBuilder<List<Stamp>?>(
+                        future: StampService.getAllStamps(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return GridView.builder(
+                              physics: BouncingScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      mainAxisSpacing: 30,
+                                      crossAxisSpacing: 30,
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.87),
+                              controller: scrollController,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return CategoryCard(
+                                    AssetImage("lib/assets/images/badges/" +
+                                        snapshot.data![index].name +
+                                        ".png"),
+                                    snapshot.data![index].name,
+                                    24);
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return NotFound(text: "Que vazio!");
+                          }
+                          // By default, show a loading skeleton.
+                          return GridView.builder(
+                            physics: BouncingScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 30,
+                                    crossAxisSpacing: 30,
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 0.85),
+                            controller: scrollController,
+                            itemCount: 25,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Skeleton(height: 140);
+                            },
+                          );
                         },
                       ),
                     ));

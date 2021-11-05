@@ -52,8 +52,8 @@ class ProductService {
   //TERMINAR
   static Future<ProductModel?> getByBarcode(String code) async {
     try {
-      final response = await http.get(
-          Uri.parse(SharedAssets.apiURL + '/products/unique/barcode/' + code));
+      final response = await http
+          .get(Uri.parse(SharedAssets.apiURL + '/products/barcode/' + code));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);

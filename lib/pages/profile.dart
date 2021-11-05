@@ -8,6 +8,7 @@ import 'package:flaevr/models/User.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/pages/config.dart';
+import 'package:flaevr/pages/favorites_folder_page.dart';
 import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/services/FolderService.dart';
 import 'package:flaevr/services/ProductService.dart';
@@ -398,7 +399,6 @@ class ProfileState extends State<Profile> {
                                     return Text('${snapshot.error}');
                                   }
                                   return Favorites(
-                                    onClick: () => {},
                                     built: false,
                                     folders: [],
                                   );

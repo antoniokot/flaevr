@@ -13,11 +13,13 @@ class Favorites extends StatefulWidget {
       {Key? key,
       required this.built,
       required this.folders,
+      this.runDefault = true,
       this.onClick,
       this.topPadding})
       : super(key: key);
 
   final bool built;
+  final bool runDefault;
   final List<Folder> folders;
   final Function? onClick;
   final double? topPadding;
@@ -57,6 +59,7 @@ class _FavoritesState extends State<Favorites> {
                   return Skeleton();
                 else
                   return FavFolder(
+                      runDefault: widget.runDefault,
                       folder: widget.folders[index],
                       onClick: this.widget.onClick ??
                           () => {

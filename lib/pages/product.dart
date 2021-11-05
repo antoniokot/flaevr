@@ -44,18 +44,15 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     super.initState();
     String? imageUrlToFetch;
     if (widget.barcode != "" && widget.barcode != null) {
-      this.product =
-          ProductService.getByBarcode(widget.barcode!).then((ProductModel? p) {
-        imageUrlToFetch = p!.pictureUrl;
-        fetchAll(p.id!);
-        return p;
+      fetchAllByBarcode().then((v) {
+        imageUrlToFetch = v!.pictureUrl;
       });
-    } else if (widget.prod != null && widget.prod!.id! > 0) {
+    } else if (widget.prod != null) {
       this.product = getProductAsync();
       imageUrlToFetch = this.widget.prod!.pictureUrl;
       fetchAll(this.widget.prod!.id!);
     } else {
-      print("deu erroooo");
+      print("deu erro");
     }
 
     _tabController = TabController(length: 3, vsync: this);
@@ -81,16 +78,28 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     //fetch tabela nutricional, meio ambiente e selos
   }
 
+  Future<ProductModel?> fetchAllByBarcode() async {
+    ProductModel? prod;
+    this.product = ProductService.getByBarcode(widget.barcode!);
+    prod = await product;
+    print(prod!.name);
+    print("ID ID ID" + prod.id!.toString());
+    this.composition = fetchComposition(prod.id!);
+    setState(() {});
+    return prod;
+  }
+
   Future<ProductModel?> getProductAsync() async {
     return this.widget.prod;
   }
 
   Future<Composition> fetchComposition(int id) async {
-    return new Composition(
+    var a = new Composition(
         nutritionalFacts: await NutriotinalService.getByID(id) ??
             new NutritionalFacts(
                 id: -1, idProduct: -1, serving: "0g", nutrients: []),
         ingredients: await IngredientService.getByID(id) ?? []);
+    return a;
   }
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
@@ -269,7 +278,9 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                           FutureBuilder(
                             future: Future.wait([
                               product as Future<dynamic>,
-                              composition as Future<dynamic>
+                              composition == null
+                                  ? new Future.delayed(new Duration(days: 1))
+                                  : composition as Future<dynamic>
                             ]),
                             builder: (context,
                                 AsyncSnapshot<List<dynamic>> snapshot) {
@@ -323,15 +334,12 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   40, (index) => Text('line: $index'))
                             ],
                           ),
-                        ]
-                      [_tabController!.index],
+                        ][_tabController!.index],
                       ),
                     ],
                   ),
                 ),
               ],
-            )
-        )
-    );
+            )));
   }
 }

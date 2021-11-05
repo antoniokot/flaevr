@@ -5,13 +5,13 @@ import 'package:http/http.dart';
 import 'package:flaevr/utils/sharedAssets.dart';
 
 class FolderProductService {
-  
-  static Future<Response?> postNewFolderProduct(int idFolder, int idProduct) async {
+  static Future<Response?> postNewFolderProduct(
+      int idFolder, int idProduct) async {
     try {
       final response = await http
           .post(Uri.parse(SharedAssets.apiURL + '/folderProducts/post'), body: {
-        "idFolder": idFolder,
-        "idProduct": idProduct,
+        "idFolder": idFolder.toString(),
+        "idProduct": idProduct.toString(),
       });
       return response;
     } catch (e) {
