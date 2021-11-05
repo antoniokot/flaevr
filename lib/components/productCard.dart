@@ -1,5 +1,4 @@
 import 'package:flaevr/models/ProductModel.dart';
-import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
