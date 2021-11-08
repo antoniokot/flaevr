@@ -1,9 +1,6 @@
-import 'package:flaevr/components/folder.dart';
 import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/pages/products.dart';
 import 'package:flutter/material.dart';
-import 'package:flaevr/utils/styles.dart';
-import 'package:flaevr/components/folder_item.dart';
 
 class FolderPage extends StatefulWidget {
   const FolderPage({Key? key, required this.folder}) : super(key: key);

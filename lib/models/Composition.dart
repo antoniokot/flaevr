@@ -1,5 +1,3 @@
-import 'package:flaevr/models/NutritionalFactsRow.dart';
-
 import 'NutritionalFacts.dart';
 import 'Ingredient.dart';
 

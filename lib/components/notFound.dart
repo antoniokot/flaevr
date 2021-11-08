@@ -1,4 +1,3 @@
-import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class NotFound extends StatelessWidget {

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
 import 'dart:async';
 
-import 'package:palette_generator/palette_generator.dart';
-
 class ProductCard extends StatefulWidget {
   @override
   ProductCard(

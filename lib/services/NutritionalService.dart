@@ -1,9 +1,6 @@
-import 'package:flaevr/models/NutrientNutrionalFacts.dart';
 import 'package:flaevr/models/NutritionalFactsRow.dart';
-import 'package:flaevr/models/ProductModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flaevr/models/NutritionalFacts.dart';
-import 'package:http/http.dart';
 import 'package:flaevr/utils/sharedAssets.dart';
 import 'dart:convert';
 

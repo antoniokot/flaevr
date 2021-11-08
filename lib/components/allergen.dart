@@ -3,7 +3,7 @@ import 'package:flaevr/utils/utility.dart';
 import 'package:flutter/material.dart';
 
 class Allergen extends StatelessWidget {
-  String allergen;
+  final String allergen;
   @override
   Allergen(this.allergen);
 

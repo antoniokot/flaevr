@@ -1,4 +1,3 @@
-import 'package:flaevr/components/compareCard.dart';
 import 'package:flaevr/components/notFoundCompareCard.dart';
 import 'package:flaevr/components/productCard.dart';
 import 'package:flaevr/components/productGrid.dart';

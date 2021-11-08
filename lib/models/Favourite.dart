@@ -1,5 +1,3 @@
-import 'package:flaevr/models/ProductModel.dart';
-
 class Favourite {
   final int id;
   final int idProduct;

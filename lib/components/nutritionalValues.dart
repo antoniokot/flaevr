@@ -1,6 +1,4 @@
-import 'package:flaevr/models/NutrientNutrionalFacts.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
-import 'package:flaevr/models/NutritionalFactsRow.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 

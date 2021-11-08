@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/popup.dart';
-import 'dart:math';
-import 'package:vector_math/vector_math.dart' show radians, Vector3;
 
 class FocusedMenuHolder extends StatefulWidget {
   final Widget child;

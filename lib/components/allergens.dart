@@ -2,7 +2,7 @@ import 'package:flaevr/components/allergen.dart';
 import 'package:flutter/material.dart';
 
 class Allergens extends StatelessWidget {
-  List<String> allergens;
+  final List<String> allergens;
   @override
   Allergens(this.allergens);
 

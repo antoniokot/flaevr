@@ -2,9 +2,7 @@ import 'package:flaevr/components/ingredients.dart';
 import 'package:flaevr/components/nutritionalValues.dart';
 import 'package:flaevr/components/slider.dart';
 import 'package:flaevr/models/Ingredient.dart';
-import 'package:flaevr/models/NutrientNutrionalFacts.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
-import 'package:flaevr/models/NutritionalFactsRow.dart';
 import 'package:flutter/cupertino.dart';
 
 class ProductComposition extends StatelessWidget {

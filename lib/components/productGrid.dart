@@ -9,7 +9,6 @@ import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/pages/product.dart';
 import 'package:flaevr/services/FolderService.dart';
 import 'package:flaevr/services/FolderProductService.dart';
-import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/utils/sessionManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/utils/compareList.dart' as globalCompareList;

@@ -1,12 +1,8 @@
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Folder.dart';
-import 'package:flaevr/models/User.dart';
 import 'package:flaevr/pages/favorites_folder_page.dart';
-import 'package:flaevr/services/FolderService.dart';
-import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/components/folder.dart';
-import 'package:flaevr/utils/sessionManager.dart';
 
 class Favorites extends StatefulWidget {
   const Favorites(

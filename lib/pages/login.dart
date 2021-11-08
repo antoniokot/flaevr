@@ -1,13 +1,11 @@
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/models/User.dart';
 import 'package:flaevr/pages/signup.dart';
-import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/spa.dart';
 import 'package:flaevr/services/UserService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/utils/sessionManager.dart';
-import 'dart:async';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -23,7 +21,9 @@ class LoginState extends State<Login> {
 
   void _login() async {
     print("login started");
-    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains("."))
+    if (_email.text.isEmpty ||
+        !_email.text.contains("@") ||
+        !_email.text.contains("."))
       _errorShow = true;
     else
       _errorShow = false;
@@ -98,8 +98,7 @@ class LoginState extends State<Login> {
                         image: AssetImage(
                             'lib/assets/images/top_content_login.png')),
                     fit: BoxFit.fill,
-                  )
-              ),
+                  )),
               Positioned(
                   top: () {
                     double size;

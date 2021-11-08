@@ -1,16 +1,11 @@
 import 'dart:async';
-
 import 'package:flaevr/pages/compare.dart';
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/product.dart';
-import 'package:flaevr/pages/main_page.dart';
-import 'package:flaevr/pages/products.dart';
 import 'package:flaevr/pages/profile.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flaevr/pages/search.dart';
-import 'package:flaevr/pages/favorites.dart';
-import 'package:flaevr/pages/results.dart';
 import 'package:flutter/material.dart';
 
 class Origin extends StatefulWidget {

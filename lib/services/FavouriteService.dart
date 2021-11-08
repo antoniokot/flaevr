@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flaevr/utils/sharedAssets.dart';
 import 'package:flaevr/models/Favourite.dart';
 import 'package:http/http.dart' as http;

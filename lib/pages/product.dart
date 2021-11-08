@@ -1,7 +1,6 @@
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
-import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/services/IngredientService.dart';
