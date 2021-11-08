@@ -102,7 +102,6 @@ class ProductService {
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];
         var decodeJson = jsonDecode(response.body);
-        print(decodeJson);
 
         for (var item in decodeJson) {
           ret.add(ProductModel.fromJson(item));
@@ -115,5 +114,21 @@ class ProductService {
       print(e);
       return null;
     }
+  }
+
+  static Future<int> getCountOfAllScannedByStamp(int idStamp) async {
+    try {
+      final response = await http.get(Uri.parse(
+          SharedAssets.apiURL + '/products/user/' + idStamp.toString()));
+
+      if (response.statusCode == 200) {
+      } else {
+        return 0;
+      }
+    } catch (e) {
+      print(e);
+      return 0;
+    }
+    return 0;
   }
 }

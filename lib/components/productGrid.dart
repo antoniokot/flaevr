@@ -183,8 +183,6 @@ class ProductGridState extends State<ProductGrid> {
                       trailingIcon: Icon(Icons.compare_arrows_outlined),
                       onPressed: () {
                         globalCompareList.list.add(this.widget.products[index]);
-                        print("productGrid.dart: " +
-                            globalCompareList.list.toString());
                       }),
                   FocusedMenuItem(
                       title: Text("Compartilhar"),

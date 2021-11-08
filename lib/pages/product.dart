@@ -35,7 +35,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   final List<Widget> myTabs = [
     Tab(text: 'Resumo'),
     Tab(text: 'Composição'),
-    Tab(text: 'Sustentabilidade'),
+    Tab(text: 'Detalhes'),
   ];
   TabController? _tabController;
 
@@ -82,9 +82,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     ProductModel? prod;
     this.product = ProductService.getByBarcode(widget.barcode!);
     prod = await product;
-    print(prod!.name);
-    print("ID ID ID" + prod.id!.toString());
-    this.composition = fetchComposition(prod.id!);
+    this.composition = fetchComposition(prod!.id!);
     setState(() {});
     return prod;
   }
@@ -305,6 +303,13 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   )));
                             },
                           ),
+                          Column(
+                            children: [
+                              Text('third tab'),
+                              ...List.generate(
+                                  40, (index) => Text('line: $index'))
+                            ],
+                          ),
                           FutureBuilder<Composition?>(
                             future: composition,
                             builder: (context, snapshot) {
@@ -326,13 +331,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                             Color(0xFFFF4646)),
                                   )));
                             },
-                          ),
-                          Column(
-                            children: [
-                              Text('third tab'),
-                              ...List.generate(
-                                  40, (index) => Text('line: $index'))
-                            ],
                           ),
                         ][_tabController!.index],
                       ),

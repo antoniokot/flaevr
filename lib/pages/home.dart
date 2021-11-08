@@ -1,4 +1,5 @@
 import 'package:flaevr/components/categoryCard.dart';
+import 'package:flaevr/components/dataBar.dart';
 import 'package:flaevr/components/gaugeChart.dart';
 import 'package:flaevr/components/notFound.dart';
 import 'package:flaevr/components/ripple.dart';
@@ -25,15 +26,23 @@ class HomeState extends State<Home> {
   User? user;
   List<ProductModel>? recents;
   int numberOfItems = 0;
+  double vegPercentage = 0;
+  double healthyPercentage = 0;
+  double animalPercentage = 0;
 
   void getUser() async {
     this.user = User.fromJson(await FlutterSession().get("user"));
     this.numberOfItems = await getNumberOfItems();
+    this.vegPercentage =
+        percentage(await ProductService.getCountOfAllScannedByStamp(13), 20);
+    this.healthyPercentage =
+        percentage(await ProductService.getCountOfAllScannedByStamp(2), 20);
+    this.animalPercentage =
+        percentage(await ProductService.getCountOfAllScannedByStamp(6), 20);
     setState(() {});
   }
 
   Future<int> getNumberOfItems() async {
-    print(this.user!.toString());
     this.recents =
         await ProductService.getAllRecentProducts(this.user!.id as int);
     return recents!.length;
@@ -68,6 +77,10 @@ class HomeState extends State<Home> {
   void initState() {
     super.initState();
     getUser();
+  }
+
+  double percentage(int part, int total) {
+    return 0;
   }
 
   @override

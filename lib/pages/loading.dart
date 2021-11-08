@@ -16,7 +16,6 @@ class _LoadingPageState extends State<LoadingPage> {
     dynamic user;
     try {
       user = await FlutterSession().get("user");
-      //print(user);
     } catch (exception) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MainPage()));

@@ -207,7 +207,6 @@ class FocusedMenuDetails extends StatelessWidget {
                         int i = 0;
                         for (var item in menuItems) {
                           Widget curr = InkWell(
-                              // onHover: (v) => {print("hoverrr")},
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                               child: Container(

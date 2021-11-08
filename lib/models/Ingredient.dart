@@ -29,8 +29,6 @@ class Ingredient {
       required this.hasNuts}) {
     if (AllergenService.getListOfAllergens([this]).isNotEmpty)
       this.isAllergen = 1;
-
-    print(this.isAllergen.toString());
   }
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {

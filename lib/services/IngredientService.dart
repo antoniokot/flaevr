@@ -16,7 +16,6 @@ class IngredientService {
 
       if (response.statusCode == 200) {
         var decodeJson = jsonDecode(response.body);
-        print(decodeJson.toString());
         decodeJson.forEach((json) => {
               ingredients.add(new Ingredient(
                   id: json['idIngredient'],

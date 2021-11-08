@@ -3,7 +3,6 @@ import 'package:flaevr/models/Ingredient.dart';
 class AllergenService {
   static List<String> getListOfAllergens(List<Ingredient> items) {
     List<String> ret = [];
-    print(items.toString());
     for (var item in items) {
       if (item.hasEgg == 1 && !ret.contains("egg")) {
         ret.add("Ovo");
@@ -30,7 +29,6 @@ class AllergenService {
         ret.add("Açúcar");
       }
     }
-    print(ret.toString());
     return ret;
   }
 }

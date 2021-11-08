@@ -21,7 +21,6 @@ class ProductsState extends State<Products> {
         child: FutureBuilder<List<ProductModel>?>(
           future: ProductService.getAllProductsInFolder(this.widget.folder.id),
           builder: (context, snapshot) {
-            print(snapshot.data);
             if (snapshot.hasData) {
               return ProductGrid(
                   physics: new NeverScrollableScrollPhysics(),
