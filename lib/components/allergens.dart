@@ -1,5 +1,4 @@
 import 'package:flaevr/components/allergen.dart';
-import 'package:flaevr/models/Ingredient.dart';
 import 'package:flutter/material.dart';
 
 class Allergens extends StatelessWidget {

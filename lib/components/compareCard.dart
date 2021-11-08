@@ -1,7 +1,4 @@
-import 'package:flaevr/pages/compare_search.dart';
 import 'package:flaevr/pages/results.dart';
-import 'package:flaevr/pages/search.dart';
-import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class CompareCard extends StatefulWidget {
