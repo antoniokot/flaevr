@@ -23,9 +23,7 @@ class ResultsState extends State<Results> {
       this.allProducts = await ProductService.getAllProducts();
       return await ProductService.getAllProducts();
     }
-    return allProducts!
-        .where((p) => p.name!.toLowerCase().contains(this.nameSearched))
-        .toList();
+    return allProducts!.where((p) => p.name!.toLowerCase().contains(this.nameSearched)).toList();
   }
 
   @override

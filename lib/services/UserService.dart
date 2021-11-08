@@ -26,8 +26,7 @@ class UserService {
 
   static Future<User?> login(String email, String password) async {
     try {
-      final response = await http
-          .post(Uri.parse(SharedAssets.apiURL + '/users/login/'), body: {
+      final response = await http.post(Uri.parse(SharedAssets.apiURL + '/users/login/'), body: {
         "email": email,
         "password": password,
       });

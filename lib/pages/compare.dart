@@ -106,7 +106,8 @@ class CompareState extends State<Compare> {
                                         new AspectRatio(aspectRatio: 2.3),
                                     width: 140,
                                     product: compareList[index],
-                                  ))
+                                  )
+                          )
                           : NotFoundCompareCard(),
                     )
                   ]),

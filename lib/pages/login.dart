@@ -23,9 +23,7 @@ class LoginState extends State<Login> {
 
   void _login() async {
     print("login started");
-    if (_email.text.isEmpty ||
-        !_email.text.contains("@") ||
-        !_email.text.contains("."))
+    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains("."))
       _errorShow = true;
     else
       _errorShow = false;
@@ -100,7 +98,8 @@ class LoginState extends State<Login> {
                         image: AssetImage(
                             'lib/assets/images/top_content_login.png')),
                     fit: BoxFit.fill,
-                  )),
+                  )
+              ),
               Positioned(
                   top: () {
                     double size;
