@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class DataBar extends StatelessWidget {
-  const DataBar({
-    Key? key,
-    required this.max,
-    required this.data,
-    this.background = const Color(0xffE1E1E2),
-    this.radius = 10,
-    this.height = 10,
-    this.separatorStyle = "/",
-    this.colors = const [Color(0xFFFF4646)],
-    this.width = 200,
-  }) : super(key: key);
+  const DataBar(
+      {Key? key,
+      required this.max,
+      required this.data,
+      this.background = const Color(0xffE1E1E2),
+      this.radius = 10,
+      this.height = 10,
+      this.separatorStyle = "/",
+      this.colors = const [Color(0xFFFF4646)],
+      this.width = 200,
+      this.isDataInPercentage = false})
+      : super(key: key);
 
   final double radius;
   final double height;
@@ -24,6 +25,7 @@ class DataBar extends StatelessWidget {
   final List<Color> colors;
   final Color background;
   final String separatorStyle;
+  final bool isDataInPercentage;
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +59,13 @@ class DataBar extends StatelessWidget {
     return ret;
   }
 
-  double getWidth(data) {
-    var perc = (data * 100) / max;
-    return ((perc * width) / 100);
+  double getWidth(dynamic data) {
+    if (!this.isDataInPercentage) {
+      var perc = (data * 100) / max;
+      return ((perc * width) / 100);
+    } else {
+      print(data);
+      return (data * width) / 100;
+    }
   }
 }

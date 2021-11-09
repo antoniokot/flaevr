@@ -1,3 +1,6 @@
+import 'package:flaevr/models/AllCalories.dart';
+import 'package:flaevr/models/NutritionalQuantity.dart';
+
 class NutritionalCalculator {
   //years, kg, m, (1 - 4) developed for people in the ideal weight
   static double EER(int age, double weight, double height, int levelOfActivity,
@@ -59,4 +62,31 @@ class NutritionalCalculator {
   }
 
   static double? BEE() {}
+
+  static List<double> gramsCompositionPercentage(
+      double total, NutritionalQuantities qt) {
+    List<double> ret = [];
+    ret.add((100 * qt.carbs) / total);
+    ret.add((100 * qt.fats) / total);
+    ret.add((100 * qt.proteins) / total);
+    ret.add((100 * qt.other) / total);
+    return ret;
+  }
+
+  static AllCalories caloriesPercentage(double total, List<double> carbs,
+      List<double> fats, List<double> proteins) {
+    double tCarbs = 0;
+    double tFats = 0;
+    double tProteins = 0;
+
+    for (int a = 0; a < carbs.length; a++) tCarbs += carbs[a];
+    for (int b = 0; b < fats.length; b++) tFats += fats[b];
+    for (int c = 0; c < proteins.length; c++) tProteins += proteins[c];
+
+    return new AllCalories(
+        carbs: tCarbs,
+        fats: tFats,
+        proteins: tProteins,
+        other: total - (tCarbs + tProteins + tFats));
+  }
 }

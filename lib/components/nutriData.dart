@@ -1,4 +1,6 @@
 import 'package:flaevr/components/dataBar.dart';
+import 'package:flaevr/components/dataBarSubtitle.dart';
+import 'package:flaevr/models/NutritionalQuantity.dart';
 import 'package:flaevr/utils/nutritionalCalculator.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class NutriData extends StatelessWidget {
       child: Column(
         children: [
           Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding:
@@ -40,21 +43,37 @@ class NutriData extends StatelessWidget {
             ],
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:
-                    Styles.sidePadding.add(EdgeInsets.only(bottom: 7, top: 20)),
+                padding: EdgeInsets.only(bottom: 7, top: 20),
                 child: Text(
-                  "Calorias",
+                  "Composição",
                   style: Styles.smallTitle,
+                  textAlign: TextAlign.start,
                 ),
               ),
               DataBar(
-                max: 85,
-                data: [53, 16, 7.9],
+                max: 200,
+                isDataInPercentage: true,
+                data: NutritionalCalculator.gramsCompositionPercentage(
+                    200,
+                    new NutritionalQuantities(
+                        carbs: 120, fats: 40, proteins: 20, other: 20)),
                 width: size - 38,
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: DataBarSubtitle(
+                  data: ["Carboidratos", "Proteínas", "Gorduras"],
+                  colors: [
+                    Color(0xFFFF4646),
+                    Color(0xFFFF4646),
+                    Color(0xFFFF4646),
+                    Color(0xFFFF4646),
+                  ],
+                ),
+              )
             ],
           )
         ],
