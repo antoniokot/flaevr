@@ -10,4 +10,8 @@ class AllCalories {
     required this.proteins,
     required this.other,
   });
+
+  List<double> toDoubleList() {
+    return [this.carbs, this.fats, this.proteins, this.other];
+  }
 }

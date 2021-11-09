@@ -73,20 +73,12 @@ class NutritionalCalculator {
     return ret;
   }
 
-  static AllCalories caloriesPercentage(double total, List<double> carbs,
-      List<double> fats, List<double> proteins) {
-    double tCarbs = 0;
-    double tFats = 0;
-    double tProteins = 0;
-
-    for (int a = 0; a < carbs.length; a++) tCarbs += carbs[a];
-    for (int b = 0; b < fats.length; b++) tFats += fats[b];
-    for (int c = 0; c < proteins.length; c++) tProteins += proteins[c];
-
+  static AllCalories caloriesPercentage(
+      double total, double carbs, double fats, double proteins) {
     return new AllCalories(
-        carbs: tCarbs,
-        fats: tFats,
-        proteins: tProteins,
-        other: total - (tCarbs + tProteins + tFats));
+        carbs: carbs * 4,
+        fats: fats * 9,
+        proteins: proteins * 4,
+        other: total - ((carbs * 4) + (fats * 9) + (proteins * 4)));
   }
 }

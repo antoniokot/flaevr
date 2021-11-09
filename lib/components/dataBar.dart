@@ -8,6 +8,7 @@ class DataBar extends StatelessWidget {
       {Key? key,
       required this.max,
       required this.data,
+      this.padding = EdgeInsets.zero,
       this.background = const Color(0xffE1E1E2),
       this.radius = 10,
       this.height = 10,
@@ -26,10 +27,12 @@ class DataBar extends StatelessWidget {
   final Color background;
   final String separatorStyle;
   final bool isDataInPercentage;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+        margin: padding,
         width: width,
         decoration: BoxDecoration(
             color: this.background,
@@ -64,7 +67,6 @@ class DataBar extends StatelessWidget {
       var perc = (data * 100) / max;
       return ((perc * width) / 100);
     } else {
-      print(data);
       return (data * width) / 100;
     }
   }
