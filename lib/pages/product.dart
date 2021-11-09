@@ -1,3 +1,4 @@
+import 'package:flaevr/components/nutriData.dart';
 import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
@@ -302,13 +303,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   )));
                             },
                           ),
-                          Column(
-                            children: [
-                              Text('third tab'),
-                              ...List.generate(
-                                  40, (index) => Text('line: $index'))
-                            ],
-                          ),
+                          NutriData(),
                           FutureBuilder<Composition?>(
                             future: composition,
                             builder: (context, snapshot) {

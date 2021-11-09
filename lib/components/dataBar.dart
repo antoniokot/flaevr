@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -48,7 +50,7 @@ class DataBar extends StatelessWidget {
           width: getWidth(data[i]),
           color: colors.length == data.length
               ? colors[i]
-              : Colors.red[900 - 100 * i],
+              : Colors.primaries[Random().nextInt(Colors.primaries.length)],
         ),
       );
     }
@@ -57,6 +59,6 @@ class DataBar extends StatelessWidget {
 
   double getWidth(data) {
     var perc = (data * 100) / max;
-    return ((perc * max) / 100);
+    return ((perc * width) / 100);
   }
 }

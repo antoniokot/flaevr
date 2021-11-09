@@ -1,6 +1,6 @@
 class NutritionalCalculator {
   //years, kg, m, (1 - 4) developed for people in the ideal weight
-  static double? EER(int age, double weight, double height, int levelOfActivity,
+  static double EER(int age, double weight, double height, int levelOfActivity,
       String gender) {
     if (levelOfActivity > 3 || levelOfActivity < 0)
       throw new Exception("Level of activity must be in a range of 0 and 4.");

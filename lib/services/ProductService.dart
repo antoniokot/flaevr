@@ -117,10 +117,13 @@ class ProductService {
 
   static Future<int> getCountOfAllScannedByStamp(int idStamp) async {
     try {
-      final response = await http.get(Uri.parse(
-          SharedAssets.apiURL + '/products/user/' + idStamp.toString()));
-
+      final response =
+          await http.get(Uri.parse(SharedAssets.apiURL + '/scanns/count/13'));
+      print(response.statusCode);
       if (response.statusCode == 200) {
+        List<dynamic> values = json.decode(response.body);
+        Map<String, dynamic> map = values[0];
+        return 0;
       } else {
         return 0;
       }
