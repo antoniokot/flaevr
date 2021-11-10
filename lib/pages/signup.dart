@@ -1,4 +1,5 @@
 import 'package:flaevr/models/User.dart';
+import 'package:flaevr/pages/adittionalData.dart';
 import 'package:flaevr/pages/home.dart';
 import 'package:flaevr/pages/login.dart';
 import 'package:flaevr/pages/spa.dart';
@@ -68,7 +69,16 @@ class SignupState extends State<Signup> {
                   password: "",
                   rememberMeToken: res.rememberMeToken));
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Origin()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AdditionalData(
+                      buildAppBar: false,
+                      onSubmmit: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Origin()))
+                          })));
         } else
           print("deu ruim na australia");
       });

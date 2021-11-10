@@ -1,4 +1,8 @@
+import 'package:flaevr/models/User.dart';
 import 'package:flaevr/pages/adittionalData.dart';
+import 'package:flaevr/pages/main_page.dart';
+import 'package:flaevr/pages/spa.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 import 'package:flutter/material.dart';
 
 class Config extends StatefulWidget {
@@ -118,7 +122,14 @@ class ConfigState extends State<Config> {
                               fontSize: 14,
                               color: Color(0xFF9E9EA2)),
                         ),
-                        onPressed: () => {},
+                        onPressed: () async {
+                          dynamic session = new FlutterSession();
+
+                          await session.destroy().then(Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainPage())));
+                        },
                       ),
                       TextButton(
                         style: TextButton.styleFrom(

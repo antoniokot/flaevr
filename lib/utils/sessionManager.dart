@@ -29,6 +29,15 @@ class FlutterSession {
     }
   }
 
+  Future destroy() async {
+    await _initSharedPrefs();
+    try {
+      await prefs!.clear();
+    } catch (e) {
+      throw e;
+    }
+  }
+
   /// Item setter
   ///
   /// @param key String
