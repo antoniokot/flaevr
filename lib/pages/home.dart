@@ -32,13 +32,29 @@ class HomeState extends State<Home> {
   void getUser() async {
     this.user = User.fromJson(await FlutterSession().get("user"));
     this.numberOfItems = await getNumberOfItems();
-    this.vegPercentage =
-        percentage(await ProductService.getCountOfAllScannedByStamp(13), 20);
-    this.healthyPercentage =
-        percentage(await ProductService.getCountOfAllScannedByStamp(2), 20);
-    this.animalPercentage =
-        percentage(await ProductService.getCountOfAllScannedByStamp(6), 20);
+    getStampStats();
+    this.vegPercentage = percentage(
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 13),
+        numberOfItems);
+    this.healthyPercentage = percentage(
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 2),
+        numberOfItems);
+    this.animalPercentage = percentage(
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 6),
+        numberOfItems);
     setState(() {});
+  }
+
+  void getStampStats() async {
+    this.vegPercentage = percentage(
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 13),
+        numberOfItems);
+    this.healthyPercentage = percentage(
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 2),
+        numberOfItems);
+    this.animalPercentage = percentage(
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 6),
+        numberOfItems);
   }
 
   Future<int> getNumberOfItems() async {
@@ -79,7 +95,7 @@ class HomeState extends State<Home> {
   }
 
   double percentage(int part, int total) {
-    return 0;
+    return (part * 100) / total;
   }
 
   @override
@@ -247,7 +263,9 @@ class HomeState extends State<Home> {
                                       width: 80,
                                       height: 102,
                                       child: GaugeChart(
-                                        60.0,
+                                        this.vegPercentage == 0
+                                            ? 10.0
+                                            : this.vegPercentage,
                                         color: Color(0xFF76e75a),
                                         animate: true,
                                         width: 0.21,
@@ -268,7 +286,9 @@ class HomeState extends State<Home> {
                                       width: 80,
                                       height: 102,
                                       child: GaugeChart(
-                                        60.0,
+                                        this.healthyPercentage == 0
+                                            ? 10.0
+                                            : this.healthyPercentage,
                                         color: Color(0xFFff3858),
                                         animate: true,
                                         width: 0.21,
@@ -290,7 +310,9 @@ class HomeState extends State<Home> {
                                       width: 80,
                                       height: 102,
                                       child: GaugeChart(
-                                        60.0,
+                                        this.animalPercentage == 0
+                                            ? 10.0
+                                            : this.animalPercentage,
                                         color: Color(0xFF5dc9a9),
                                         animate: true,
                                         width: 0.21,
@@ -347,12 +369,31 @@ class HomeState extends State<Home> {
                               controller: scrollController,
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return CategoryCard(
-                                    AssetImage("lib/assets/images/badges/" +
-                                        snapshot.data![index].name +
-                                        ".png"),
-                                    snapshot.data![index].name,
-                                    24);
+                                return FutureBuilder<int>(
+                                    future: ProductService
+                                        .getCountOfAllScannedByStamp(
+                                            this.user!.id!,
+                                            snapshot.data![index].id),
+                                    builder: (context, snapshotp) {
+                                      if (snapshotp.hasData) {
+                                        return CategoryCard(
+                                            AssetImage(
+                                                "lib/assets/images/badges/" +
+                                                    snapshot.data![index].name +
+                                                    ".png"),
+                                            snapshot.data![index].name,
+                                            snapshotp.data!);
+                                      } else if (snapshotp.hasError) {
+                                        return NotFound(text: "Que vazio!");
+                                      }
+                                      return CategoryCard(
+                                          AssetImage(
+                                              "lib/assets/images/badges/" +
+                                                  snapshot.data![index].name +
+                                                  ".png"),
+                                          snapshot.data![index].name,
+                                          0);
+                                    });
                               },
                             );
                           } else if (snapshot.hasError) {

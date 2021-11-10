@@ -6,7 +6,7 @@ class CategoryCard extends StatelessWidget {
   CategoryCard(this.icon, this.title, this.stats);
 
   final ImageProvider icon;
-  final double stats;
+  final int stats;
   final String title;
 
   @override
@@ -55,14 +55,14 @@ class CategoryCard extends StatelessWidget {
                 height: 12,
               ),
               Text(
-                this.stats.toString() + "%",
+                this.stats.toString(),
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF3d3d4e)),
               ),
               Text(
-                "dos produtos escaneados.",
+                "selos encontrados.",
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
