@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 
 class IngredientTile extends StatelessWidget {
   IngredientTile(
-      {required this.title, required this.text, required this.imageTrailing});
+      {required this.title,
+      required this.text,
+      this.trailingColor,
+      this.imageTrailing});
 
   final String title;
   final String text;
-  final ImageProvider imageTrailing;
+  final ImageProvider? imageTrailing;
+  final Color? trailingColor;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +29,16 @@ class IngredientTile extends StatelessWidget {
               data: ThemeData().copyWith(dividerColor: Colors.transparent),
               child: ExpansionTile(
                 leading: Container(
-                  width: 30,
-                  height: 30,
+                  width: 18,
+                  height: 18,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: this.imageTrailing,
-                    ),
-                  ),
+                      shape: BoxShape.circle,
+                      color: trailingColor ?? Styles.ultraLightMutedGrey
+                      // image: DecorationImage(
+                      //   fit: BoxFit.contain,
+                      //   image: this.imageTrailing,
+                      // ),
+                      ),
                 ),
                 title: Text(
                   title,

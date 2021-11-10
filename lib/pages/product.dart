@@ -303,7 +303,28 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                   )));
                             },
                           ),
-                          NutriData(),
+                          FutureBuilder<Composition?>(
+                            future: composition,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return NutriData(
+                                    nutritionalFacts:
+                                        snapshot.data!.nutritionalFacts,
+                                    ingredients: snapshot.data!.ingredients);
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+                              return SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height - 200,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                    valueColor:
+                                        new AlwaysStoppedAnimation<Color>(
+                                            Color(0xFFFF4646)),
+                                  )));
+                            },
+                          ),
                           FutureBuilder<Composition?>(
                             future: composition,
                             builder: (context, snapshot) {

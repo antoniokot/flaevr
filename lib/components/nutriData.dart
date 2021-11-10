@@ -1,5 +1,7 @@
 import 'package:flaevr/components/dataBar.dart';
 import 'package:flaevr/components/dataBarSubtitle.dart';
+import 'package:flaevr/models/Ingredient.dart';
+import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/NutritionalQuantity.dart';
 import 'package:flaevr/utils/nutritionalCalculator.dart';
 import 'package:flaevr/utils/styles.dart';
@@ -9,7 +11,10 @@ import 'package:flutter/material.dart';
 import 'ingredientTile.dart';
 
 class NutriData extends StatelessWidget {
-  NutriData();
+  NutriData({required this.ingredients, required this.nutritionalFacts});
+
+  final NutritionalFacts nutritionalFacts;
+  final List<Ingredient> ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -60,18 +65,21 @@ class NutriData extends StatelessWidget {
                     title: Warnings.sugar[0],
                     text: Warnings.sugar[2],
                     imageTrailing: AssetImage(Warnings.sugar[1]),
+                    trailingColor: Colors.green,
                   ));
 
                   ret.add(IngredientTile(
                     title: Warnings.sodium[0],
                     text: Warnings.sodium[2],
                     imageTrailing: AssetImage(Warnings.sodium[1]),
+                    trailingColor: Colors.green,
                   ));
 
                   ret.add(IngredientTile(
                     title: Warnings.add[0],
                     text: Warnings.add[2],
                     imageTrailing: AssetImage(Warnings.add[1]),
+                    trailingColor: Colors.red,
                   ));
                   return ret;
                 }(),
