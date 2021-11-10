@@ -9,7 +9,7 @@ class DataBar extends StatelessWidget {
       required this.max,
       required this.data,
       this.padding = EdgeInsets.zero,
-      this.background = const Color(0xffE1E1E2),
+      this.background = const Color(0xffEFF3F5),
       this.radius = 10,
       this.height = 10,
       this.separatorStyle = "/",

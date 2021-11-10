@@ -3,7 +3,10 @@ import 'package:flaevr/components/dataBarSubtitle.dart';
 import 'package:flaevr/models/NutritionalQuantity.dart';
 import 'package:flaevr/utils/nutritionalCalculator.dart';
 import 'package:flaevr/utils/styles.dart';
+import 'package:flaevr/utils/warnings.dart';
 import 'package:flutter/material.dart';
+
+import 'ingredientTile.dart';
 
 class NutriData extends StatelessWidget {
   NutriData();
@@ -12,6 +15,12 @@ class NutriData extends StatelessWidget {
   Widget build(BuildContext context) {
     double maxCalories = NutritionalCalculator.EER(20, 65, 1.72, 2, 'M');
     double size = MediaQuery.of(context).size.width;
+    const List<Color> colorsList = [
+      Color(0xFF3BCCC5),
+      Color(0xFFFFF634),
+      Color(0xFFff3858),
+      Color(0xffE1E1E2),
+    ];
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -33,7 +42,7 @@ class NutriData extends StatelessWidget {
                       ),
                     ]),
                 DataBar(
-                  padding: EdgeInsets.only(top: 5),
+                  padding: EdgeInsets.only(top: 10),
                   max: maxCalories,
                   data: [200],
                   width: size - 38,
@@ -42,7 +51,33 @@ class NutriData extends StatelessWidget {
             ),
           ),
           Padding(
-              padding: Styles.sidePadding.add(EdgeInsets.only(top: 20)),
+              padding: EdgeInsets.only(top: 20),
+              child: Column(
+                children: () {
+                  List<Widget> ret = [];
+
+                  ret.add(IngredientTile(
+                    title: Warnings.sugar[0],
+                    text: Warnings.sugar[2],
+                    imageTrailing: AssetImage(Warnings.sugar[1]),
+                  ));
+
+                  ret.add(IngredientTile(
+                    title: Warnings.sodium[0],
+                    text: Warnings.sodium[2],
+                    imageTrailing: AssetImage(Warnings.sodium[1]),
+                  ));
+
+                  ret.add(IngredientTile(
+                    title: Warnings.add[0],
+                    text: Warnings.add[2],
+                    imageTrailing: AssetImage(Warnings.add[1]),
+                  ));
+                  return ret;
+                }(),
+              )),
+          Padding(
+              padding: Styles.sidePadding.add(EdgeInsets.only(top: 25)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,35 +91,30 @@ class NutriData extends StatelessWidget {
                         ),
                         Text(
                           "388 kCal",
-                          style:
-                              Styles.smallText.apply(color: Color(0xFFFF4646)),
+                          style: Styles.smallText,
                         ),
                       ]),
                   DataBar(
-                    padding: EdgeInsets.only(top: 5),
+                    padding: EdgeInsets.only(top: 10),
                     max: 388,
                     isDataInPercentage: false,
                     data: NutritionalCalculator.caloriesPercentage(
                             388, 53.0, 16.0, 7.9)
                         .toDoubleList(),
                     width: size - 38,
+                    colors: colorsList,
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 10),
                     child: DataBarSubtitle(
-                      data: ["Carboidratos", "Proteínas", "Gorduras", "Outros"],
-                      colors: [
-                        Color(0xFFFF4646),
-                        Color(0xFFFF4646),
-                        Color(0xFFFF4646),
-                        Styles.lightMutedGrey,
-                      ],
+                      data: ["Carboidratos", "Gorduras", "Proteínas"],
+                      colors: colorsList,
                     ),
                   )
                 ],
               )),
           Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -94,7 +124,8 @@ class NutriData extends StatelessWidget {
                     textAlign: TextAlign.start,
                   ),
                   DataBar(
-                    padding: EdgeInsets.only(top: 5),
+                    colors: colorsList,
+                    padding: EdgeInsets.only(top: 10),
                     max: 200,
                     isDataInPercentage: true,
                     data: NutritionalCalculator.gramsCompositionPercentage(
@@ -106,14 +137,8 @@ class NutriData extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 10),
                     child: DataBarSubtitle(
-                      data: ["Carboidratos", "Proteínas", "Gorduras", "Outros"],
-                      colors: [
-                        Color(0xFFFF4646),
-                        Color(0xFFFF4646),
-                        Color(0xFFFF4646),
-                        Styles.lightMutedGrey,
-                      ],
-                    ),
+                        data: ["Carboidratos", "Gorduras", "Proteínas"],
+                        colors: colorsList),
                   )
                 ],
               ))
