@@ -53,8 +53,10 @@ class ResultsState extends State<Results> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => Compare(),
-                              ))
-                        }),
+                              )
+                          )
+                        }
+                ),
               ),
               Container(
                   child: Container(

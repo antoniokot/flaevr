@@ -124,7 +124,9 @@ class FavFolderState extends State<FavFolder> {
                                     else
                                       return Image.asset(
                                           "lib/assets/images/flaevr_logo_rounded.png");
-                                  }())),
+                                  }()
+                              )
+                          ),
                         )),
                     Expanded(
                       flex: (numberOfItems != null ? numberOfItems! : 0) < 2

@@ -53,7 +53,8 @@ class NotFoundCompareCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => Results(),
-                  ))
+                  )
+              )
             },
           ),
         ],
