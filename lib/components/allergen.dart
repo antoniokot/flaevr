@@ -11,7 +11,7 @@ class Allergen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width - 20,
-        height: 66,
+        height: 70,
         decoration: BoxDecoration(
             color: Styles.ultraLightMutedGrey,
             borderRadius: BorderRadius.all(Radius.circular(12))),

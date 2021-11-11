@@ -329,6 +329,8 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                             future: composition,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
+                                print(
+                                    snapshot.data!.nutritionalFacts.nutrients);
                                 return ProductComposition(
                                     nutritionalFacts:
                                         snapshot.data!.nutritionalFacts,
