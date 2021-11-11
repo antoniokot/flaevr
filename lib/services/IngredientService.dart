@@ -21,7 +21,7 @@ class IngredientService {
                   hasMilk: json['hasMilk'],
                   hasEgg: json['hasEgg'],
                   hasGluten: json['hasGluten'],
-                  hasSeafood: json['hasSeaFood'],
+                  hasSeafood: json['hasSeafood'],
                   hasFish: json['hasFish'],
                   hasSugar: json['hasSugar'],
                   hasSoy: json['hasSoy'],

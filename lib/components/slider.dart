@@ -66,15 +66,15 @@ class SliderState extends State<SliderCustom> {
                 fit: StackFit.expand,
                 children: [
                   Positioned(
+                      top: this.widget.overlap == false ? 22.0 : 0.0,
+                      child: this.widget.children[i]),
+                  Positioned(
                     top: 14.0,
                     left: ((MediaQuery.of(context).size.width * 0.93) - 30) / 2,
                     child: Row(
                       children: generateIndexes(i),
                     ),
-                  ),
-                  Positioned(
-                      top: this.widget.overlap == false ? 22.0 : 0.0,
-                      child: this.widget.children[i])
+                  )
                 ],
               )),
         );
