@@ -71,14 +71,30 @@ class SearchState extends State<Search> {
                     child: SliderCustom(
                       borderRadius: 20,
                       children: [
-                        Image(
-                          image: AssetImage("lib/assets/images/slider1.png"),
-                          fit: BoxFit.cover,
-                        ),
-                        Image(
-                          image: AssetImage("lib/assets/images/slider2.png"),
-                          fit: BoxFit.cover,
-                        )
+                        Container(
+                            width: MediaQuery.of(context).size.width * 0.92,
+                            height: 180,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              image: DecorationImage(
+                                image:
+                                    AssetImage("lib/assets/images/slider1.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            )),
+                        Container(
+                            width: MediaQuery.of(context).size.width * 0.92,
+                            height: 180,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              image: DecorationImage(
+                                image:
+                                    AssetImage("lib/assets/images/slider2.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            )),
                       ],
                       overlap: true,
                       activeColor: Color(0xFFFF4646),
