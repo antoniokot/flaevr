@@ -70,7 +70,16 @@ class SearchState extends State<Search> {
                     height: 200, // card height
                     child: SliderCustom(
                       borderRadius: 20,
-                      children: [Text("1"), Text("2"), Text("3")],
+                      children: [
+                        Image(
+                          image: AssetImage("lib/assets/images/slider1.png"),
+                          fit: BoxFit.cover,
+                        ),
+                        Image(
+                          image: AssetImage("lib/assets/images/slider2.png"),
+                          fit: BoxFit.cover,
+                        )
+                      ],
                       overlap: true,
                       activeColor: Color(0xFFFF4646),
                       inactiveColor: Color(0XFFFF9D9D),

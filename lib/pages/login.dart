@@ -133,7 +133,7 @@ class LoginState extends State<Login> {
                       children: [
                         Container(
                             margin: EdgeInsets.only(
-                                left: 40, right: 40, bottom: 50, top: 30),
+                                left: 40, right: 40, bottom: 50),
                             child: Center(
                               child: Text(
                                 "Login",

@@ -1,5 +1,6 @@
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/components/togglePicker.dart';
+import 'package:flaevr/services/AdditionalInformationService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -180,18 +181,21 @@ class AdditionalDataState extends State<AdditionalData> {
                         }).toList(),
                       )),
                   Button(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
-                    width: double.infinity,
-                    height: 42,
-                    text: "Adicionar",
-                    textStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                    backgroundColor: Color(0xFFFF4646),
-                    onPressed: widget.onSubmmit ?? () => {},
-                  )
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
+                      width: double.infinity,
+                      height: 42,
+                      text: "Adicionar",
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                      backgroundColor: Color(0xFFFF4646),
+                      onPressed: widget.onSubmmit ?? () => {}
+//                     AdditionalInformationService.postNewAdditionalInformation(context, 1, this._currentAgeValue, this., this.dropdownValue, height, this._currentSliderValue, this._currentIdealSliderValue).then(
+// widget.onSubmmit ?? () => {}
+//                     ) ,
+                      )
                 ],
               )),
         ));
