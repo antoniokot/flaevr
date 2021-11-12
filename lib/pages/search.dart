@@ -16,19 +16,86 @@ class Search extends StatefulWidget {
   SearchState createState() => SearchState();
 }
 
-List<Widget> getHistoryChips(List<String>? searches) {
+List<Widget> getHistoryChips(List<String>? searches, dynamic context) {
   return [
-    Container(
-      decoration: BoxDecoration(
-        color: Styles.ultraLightMutedGrey,
+    InkWell(
+      customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      child: Text(
-        searches != null ? searches[0] : "Sem pesquisas recentes",
-        style: new TextStyle(color: Color(0XFFbababa)),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Styles.ultraLightMutedGrey,
+          borderRadius: BorderRadius.all(Radius.circular(50)),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        child: Text(
+          searches != null ? searches[0] : "Sem pesquisas recentes",
+          style: new TextStyle(color: Color(0XFFbababa)),
+        ),
       ),
-    )
+      onTap: () => {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Results(searched: searches != null ? searches[0] : null),
+            )
+        ),
+      },
+    ),
+    searches != null && searches.length > 1 ? Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5),
+    ) : Container(),
+    searches != null && searches.length > 1 ? InkWell(
+      customBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Styles.ultraLightMutedGrey,
+          borderRadius: BorderRadius.all(Radius.circular(50)),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        child: Text(
+          searches[1],
+          style: new TextStyle(color: Color(0XFFbababa)),
+        ),
+      ),
+      onTap: () => {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Results(searched: searches[1]),
+            )
+        ),
+      },
+    ) : Container(),
+    searches != null && searches.length > 1 ? Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5),
+    ) : Container(),
+    searches != null && searches.length > 2 ? InkWell(
+      customBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Styles.ultraLightMutedGrey,
+          borderRadius: BorderRadius.all(Radius.circular(50)),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        child: Text(
+          searches[2],
+          style: new TextStyle(color: Color(0XFFbababa)),
+        ),
+      ),
+      onTap: () => {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Results(searched: searches[2]),
+            )
+        ),
+      },
+    ) : Container(),
   ];
 }
 
@@ -57,8 +124,6 @@ List<Widget> getTrending() {
 }
 
 class SearchState extends State<Search> {
-  List<ProductModel>? allProducts;
-  String nameSearched = "";
   List<String>? searches;
 
   void getRecentSearches() async{
@@ -66,14 +131,6 @@ class SearchState extends State<Search> {
       this.searches = jsonDecode(json);
       print(this.searches);
     });
-  }
-
-  Future<List<ProductModel>?> getListsAsync() async {
-    if (allProducts == null) {
-      this.allProducts = await ProductService.getAllProducts();
-      return await ProductService.getAllProducts();
-    }
-    return allProducts!.where((p) => p.name!.toLowerCase().contains(this.nameSearched)).toList();
   }
 
   @override
@@ -133,29 +190,37 @@ class SearchState extends State<Search> {
                   child: SliderCustom(
                     borderRadius: 20,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.92,
-                        height: 180,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          image: DecorationImage(
-                            image: AssetImage("lib/assets/images/slider1.png"),
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      ),
-                      Container(
+                      GestureDetector(
+                        onTap: () {
+                        },
+                        child: Container(
                           width: MediaQuery.of(context).size.width * 0.92,
                           height: 180,
                           decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                             image: DecorationImage(
-                              image:
-                                  AssetImage("lib/assets/images/slider2.png"),
+                              image: AssetImage("lib/assets/images/slider1.png"),
                               fit: BoxFit.cover,
                             ),
-                          )),
+                          )
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                        },
+                        child: Container(
+                            width: MediaQuery.of(context).size.width * 0.92,
+                            height: 180,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              image: DecorationImage(
+                                image:
+                                    AssetImage("lib/assets/images/slider2.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            )),
+                      ),
                     ],
                     overlap: true,
                     activeColor: Color(0xFFFF4646),
@@ -186,7 +251,7 @@ class SearchState extends State<Search> {
                   margin: Styles.sidePaddingWithVerticalSpace,
                   child: Wrap(
                     children: () {
-                      return getHistoryChips(this.searches);
+                      return getHistoryChips(this.searches, context);
                     }(),
                   )
                 )
