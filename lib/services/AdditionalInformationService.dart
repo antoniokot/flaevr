@@ -33,7 +33,7 @@ class AdditionalInformationService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mAdditionalInformationService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -61,7 +61,7 @@ class AdditionalInformationService {
           });
       return response;
     } catch (e) {
-      print(e);
+      print("\x1B[33mAdditionalInformationService.dart: x1B[0m" + e.toString());
     }
     return new http.Response("error", 500);
   }

@@ -33,7 +33,7 @@ class IngredientService {
         return [];
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mIngredientService.dart: x1B[0m" + e.toString());
       return null;
     }
   }

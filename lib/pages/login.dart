@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/models/User.dart';
 import 'package:flaevr/pages/signup.dart';
@@ -20,13 +22,12 @@ class LoginState extends State<Login> {
   final _pass = TextEditingController();
 
   void _login() async {
-    print("login started");
-    if (_email.text.isEmpty ||
-        !_email.text.contains("@") ||
-        !_email.text.contains("."))
+    print("\x1B[33mlogin.dart: Login was started...\x1B[0m");
+    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains("."))
       _errorShow = true;
     else
       _errorShow = false;
+
     _pass.text.isEmpty ? _errorShow = true : _errorShow = false;
 
     if (_errorShow == true) {
@@ -45,12 +46,20 @@ class LoginState extends State<Login> {
                     email: res.email,
                     avatar: res.avatar,
                     rememberMeToken: res.rememberMeToken,
-                    password: ""));
+                    password: "")
+            );
+            
+            List<String> searches = [];
+            await session.set(
+              "searches",
+              jsonEncode(searches)
+            );
 
+            print("\x1B[33mlogin.dart: Login completed with success!\x1B[0m");
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Origin()));
           } else {
-            print("deu erro");
+            print("\x1B[33mlogin.dart: There was an error whilst logging in.\x1B[0m");
             setState(() {
               _errorShow = true;
             });
@@ -60,7 +69,7 @@ class LoginState extends State<Login> {
         setState(() {
           _errorShow = true;
         });
-        print(e);
+        //print(e);
       }
     }
   }

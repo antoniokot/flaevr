@@ -13,7 +13,7 @@ class FolderProductService {
       });
       return response;
     } catch (e) {
-      print(e);
+      print("\x1B[33mFolderProductService.dart: x1B[0m" + e.toString());
     }
   }
 }

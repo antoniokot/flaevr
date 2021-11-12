@@ -25,7 +25,7 @@ class FavouriteService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mFavouriteService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -37,7 +37,7 @@ class FavouriteService {
         "idUser": idUser,
       });
     } catch (e) {
-      print(e);
+      print("\x1B[33mFavouriteService.dart: x1B[0m" + e.toString());
     }
   }
 }

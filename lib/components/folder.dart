@@ -35,8 +35,7 @@ class FavFolderState extends State<FavFolder> {
   }
 
   void getProducts() async {
-    this.products =
-        await ProductService.getAllProductsInFolder(this.widget.folder.id);
+    this.products = await ProductService.getAllProductsInFolder(this.widget.folder.id);
     this.numberOfItems = products != null ? products!.length : 0;
     this.len = this.numberOfItems! > 3 ? 3 : this.numberOfItems;
     for (int i = 0; i < this.len!; i++) {

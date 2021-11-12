@@ -20,7 +20,7 @@ class UserService {
       } else
         return null;
     } catch (e) {
-      print(e);
+      print("\x1B[33mUserService.dart: x1B[0m" + e.toString());
     }
   }
 
@@ -54,7 +54,7 @@ class UserService {
       } else
         return null;
     } catch (e) {
-      print(e);
+      print("\x1B[33mUserService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -72,7 +72,7 @@ class UserService {
       } else
         return null;
     } catch (e) {
-      print(e);
+      print("\x1B[33mUserService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
