@@ -71,15 +71,16 @@ class SignupState extends State<Signup> {
                   rememberMeToken: res.rememberMeToken));
           Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => AdditionalData(
-                      buildAppBar: false,
-                      onSubmmit: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Origin()))
-                          })));
+              // MaterialPageRoute(
+              //     builder: (context) => AdditionalData(
+              //         buildAppBar: false,
+              //         onSubmmit: () => {
+              //               Navigator.push(
+              //                   context,
+              //                   MaterialPageRoute(
+              //                       builder: (context) => Origin()))
+              //             }))
+              MaterialPageRoute(builder: (context) => Origin()));
         } else
           print("deu ruim na australia");
       });
