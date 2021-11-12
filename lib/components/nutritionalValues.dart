@@ -61,7 +61,7 @@ class NutritionalValues extends StatelessWidget {
                               i++) {
                             row.add(new DataRow(cells: [
                               DataCell(Text(
-                                "Carboidratos",
+                                nutritionalFacts.nutrients[i].nutrient,
                                 style: Styles.smallText,
                               )),
                               DataCell(Text(
@@ -69,7 +69,7 @@ class NutritionalValues extends StatelessWidget {
                                 style: Styles.smallText,
                               )),
                               DataCell(Text(
-                                '10',
+                                nutritionalFacts.nutrients[i].dailyValue,
                                 style: Styles.smallText,
                               )),
                             ]));

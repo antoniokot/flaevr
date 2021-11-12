@@ -9,7 +9,7 @@ class NutriotinalService {
   static Future<NutritionalFacts?> getByID(int id) async {
     try {
       final response = await http.get(Uri.parse(
-          SharedAssets.apiURL + '/nutritionalFacts/' + id.toString()));
+          SharedAssets.apiURL + '/nutritionalFacts/product/' + id.toString()));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);

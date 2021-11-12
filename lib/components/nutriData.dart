@@ -2,6 +2,7 @@ import 'package:flaevr/components/dataBar.dart';
 import 'package:flaevr/components/dataBarSubtitle.dart';
 import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
+import 'package:flaevr/models/NutritionalFactsRow.dart';
 import 'package:flaevr/models/NutritionalQuantity.dart';
 import 'package:flaevr/utils/nutritionalCalculator.dart';
 import 'package:flaevr/utils/styles.dart';
@@ -15,6 +16,16 @@ class NutriData extends StatelessWidget {
 
   final NutritionalFacts nutritionalFacts;
   final List<Ingredient> ingredients;
+
+  double lookForItemInNutrients(String key) {
+    for (NutritionalFactsRow nutrient in nutritionalFacts.nutrients) {
+      if (nutrient.nutrient.toUpperCase() == key.toUpperCase()) {
+        return double.parse(
+            nutrient.value.replaceAll(new RegExp(r'[^0-9\.\,]'), ''));
+      }
+    }
+    return 0.0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +60,13 @@ class NutriData extends StatelessWidget {
                 DataBar(
                   padding: EdgeInsets.only(top: 10),
                   max: maxCalories,
-                  data: [200],
+                  data: () {
+                    try {
+                      return [lookForItemInNutrients("Valor energético")];
+                    } catch (e) {
+                      return [200.0];
+                    }
+                  }(),
                   width: size - 38,
                 ),
               ],
@@ -60,27 +77,53 @@ class NutriData extends StatelessWidget {
               child: Column(
                 children: () {
                   List<Widget> ret = [];
+                  double sugar = lookForItemInNutrients("Açúcares");
+                  if (sugar > 5) {
+                    ret.add(IngredientTile(
+                      title: Warnings.sugar[0],
+                      text: Warnings.sugar[2],
+                      trailingColor: Colors.red,
+                    ));
+                  }
+                  if (sugar < 5 && sugar > 0)
+                    ret.add(IngredientTile(
+                      title: "Baixo em açúcar",
+                      text: Warnings.sugar[2],
+                      trailingColor: Colors.green,
+                    ));
+                  if (sugar == 0)
+                    ret.add(IngredientTile(
+                      title: "Zero açúcar",
+                      text: Warnings.sugar[2],
+                      trailingColor: Colors.green,
+                    ));
 
-                  ret.add(IngredientTile(
-                    title: Warnings.sugar[0],
-                    text: Warnings.sugar[2],
-                    imageTrailing: AssetImage(Warnings.sugar[1]),
-                    trailingColor: Colors.green,
-                  ));
+                  double sodium = lookForItemInNutrients("Sódio");
+                  if (sodium > 200)
+                    ret.add(IngredientTile(
+                      title: Warnings.sodium[0],
+                      text: Warnings.sodium[2],
+                      trailingColor: Colors.red,
+                    ));
+                  if (sodium < 200 && sodium > 0)
+                    ret.add(IngredientTile(
+                      title: "Baixo em sódio",
+                      text: Warnings.sodium[2],
+                      trailingColor: Colors.green,
+                    ));
+                  if (sodium == 0)
+                    ret.add(IngredientTile(
+                      title: "Zero sódio",
+                      text: Warnings.sodium[2],
+                      trailingColor: Colors.green,
+                    ));
 
-                  ret.add(IngredientTile(
-                    title: Warnings.sodium[0],
-                    text: Warnings.sodium[2],
-                    imageTrailing: AssetImage(Warnings.sodium[1]),
-                    trailingColor: Colors.green,
-                  ));
-
-                  ret.add(IngredientTile(
-                    title: Warnings.add[0],
-                    text: Warnings.add[2],
-                    imageTrailing: AssetImage(Warnings.add[1]),
-                    trailingColor: Colors.red,
-                  ));
+                  // ret.add(IngredientTile(
+                  //   title: Warnings.add[0],
+                  //   text: Warnings.add[2],
+                  //   imageTrailing: AssetImage(Warnings.add[1]),
+                  //   trailingColor: Colors.red,
+                  // ));
                   return ret;
                 }(),
               )),
@@ -98,7 +141,9 @@ class NutriData extends StatelessWidget {
                           style: Styles.smallTitle,
                         ),
                         Text(
-                          "388 kCal",
+                          lookForItemInNutrients("Valor energético")
+                                  .toString() +
+                              " kCal",
                           style: Styles.smallText,
                         ),
                       ]),
@@ -107,7 +152,10 @@ class NutriData extends StatelessWidget {
                     max: 388,
                     isDataInPercentage: false,
                     data: NutritionalCalculator.caloriesPercentage(
-                            388, 53.0, 16.0, 7.9)
+                            388,
+                            lookForItemInNutrients("Carboidratos"),
+                            lookForItemInNutrients("Gorduras Totais"),
+                            lookForItemInNutrients("Proteínas"))
                         .toDoubleList(),
                     width: size - 38,
                     colors: colorsList,
@@ -134,12 +182,17 @@ class NutriData extends StatelessWidget {
                   DataBar(
                     colors: colorsList,
                     padding: EdgeInsets.only(top: 10),
-                    max: 200,
+                    max: double.parse(
+                        this.nutritionalFacts.serving.replaceAll("g", '')),
                     isDataInPercentage: true,
                     data: NutritionalCalculator.gramsCompositionPercentage(
-                        200,
+                        double.parse(
+                            this.nutritionalFacts.serving.replaceAll("g", '')),
                         new NutritionalQuantities(
-                            carbs: 120, fats: 40, proteins: 20, other: 20)),
+                            carbs: lookForItemInNutrients("Carboidratos"),
+                            fats: lookForItemInNutrients("Gorduras totais"),
+                            proteins: lookForItemInNutrients("Prteínas"),
+                            other: 0)),
                     width: size - 38,
                   ),
                   Padding(
