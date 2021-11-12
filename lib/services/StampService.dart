@@ -25,7 +25,7 @@ class StampService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mStamptService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -49,7 +49,7 @@ class StampService {
       } else
         return null;
     } catch (e) {
-      print(e);
+      print("\x1B[33mStamptService.dart: x1B[0m" + e.toString());
       return null;
     }
   }

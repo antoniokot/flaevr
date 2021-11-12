@@ -25,7 +25,7 @@ class ProductService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -43,7 +43,7 @@ class ProductService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -62,7 +62,7 @@ class ProductService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -88,7 +88,7 @@ class ProductService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -110,7 +110,7 @@ class ProductService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -132,7 +132,7 @@ class ProductService {
         return 0;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
       return 0;
     }
   }

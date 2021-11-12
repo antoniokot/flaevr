@@ -23,7 +23,6 @@ class CompareState extends State<Compare> {
   @override
   void initState() {
     super.initState();
-    print("initState(): " + globalCompareList.list.length.toString());
     this.compareList = globalCompareList.list;
   }
 

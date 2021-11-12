@@ -52,7 +52,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
       imageUrlToFetch = this.widget.prod!.pictureUrl;
       fetchAll(this.widget.prod!.id!);
     } else {
-      print("deu erro");
+      print("\x1B[33mproduct.dart: An error appeared while fetching a product.\x1B[0m");
     }
 
     _tabController = TabController(length: 3, vsync: this);
@@ -163,7 +163,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                     built: false,
                                     folders: [],
                                     onClick: () {
-                                      print("malignoo");
                                       Navigator.pop(context);
                                     },
                                   )),
@@ -329,24 +328,22 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                             future: composition,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                print(
-                                    snapshot.data!.nutritionalFacts.nutrients);
                                 return ProductComposition(
-                                    nutritionalFacts:
-                                        snapshot.data!.nutritionalFacts,
-                                    ingredients: snapshot.data!.ingredients);
+                                  nutritionalFacts: snapshot.data!.nutritionalFacts,
+                                  ingredients: snapshot.data!.ingredients
+                                );
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
                               return SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height - 200,
-                                  child: Center(
-                                      child: CircularProgressIndicator(
+                                height: MediaQuery.of(context).size.height - 200,
+                                child: Center(
+                                  child: CircularProgressIndicator(
                                     valueColor:
-                                        new AlwaysStoppedAnimation<Color>(
-                                            Color(0xFFFF4646)),
-                                  )));
+                                    new AlwaysStoppedAnimation<Color>(Color(0xFFFF4646)),
+                                  )
+                                )
+                              );
                             },
                           ),
                         ][_tabController!.index],

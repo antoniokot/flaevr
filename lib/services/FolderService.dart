@@ -27,7 +27,7 @@ class FolderService {
         return [];
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mFolderService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -54,7 +54,7 @@ class FolderService {
         return null;
       }
     } catch (e) {
-      print(e);
+      print("\x1B[33mFolderService.dart: x1B[0m" + e.toString());
       return null;
     }
   }
@@ -68,7 +68,7 @@ class FolderService {
       });
       return response;
     } catch (e) {
-      print(e);
+      print("\x1B[33mFolderService.dart: x1B[0m" + e.toString());
     }
   }
 }

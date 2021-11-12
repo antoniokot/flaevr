@@ -215,10 +215,13 @@ class ProductGridState extends State<ProductGrid> {
                   width: 190,
                 ));
           else
-            return Skeleton(
-                width: 190,
-                height: 190 * 2.3,
-                padding: EdgeInsets.symmetric(horizontal: 10.0));
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Skeleton(
+                  width: 190,
+                  height: 190 * 2.3,
+                  padding: EdgeInsets.symmetric(horizontal: 10.0)),
+            );
         });
   }
 }
