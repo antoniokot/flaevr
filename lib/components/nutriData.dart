@@ -182,8 +182,10 @@ class NutriData extends StatelessWidget {
                   DataBar(
                     colors: colorsList,
                     padding: EdgeInsets.only(top: 10),
-                    max: double.parse(
-                        this.nutritionalFacts.serving.replaceAll("g", '')),
+                    max: this.nutritionalFacts.serving.isNotEmpty
+                        ? double.parse(
+                            this.nutritionalFacts.serving.replaceAll("g", ''))
+                        : 100,
                     isDataInPercentage: true,
                     data: NutritionalCalculator.gramsCompositionPercentage(
                         double.parse(

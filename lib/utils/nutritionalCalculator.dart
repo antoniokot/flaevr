@@ -65,6 +65,7 @@ class NutritionalCalculator {
 
   static List<double> gramsCompositionPercentage(
       double total, NutritionalQuantities qt) {
+    if (total < 1) return [0.0, 0.0, 0.0, 0.0];
     List<double> ret = [];
     ret.add((100 * qt.carbs) / total);
     ret.add((100 * qt.fats) / total);

@@ -37,12 +37,13 @@ class SignupState extends State<Signup> {
     _passErr = false;
     _confPassErr = false;
 
-    if (_name.text.isEmpty || _name.text.length > 30) 
-      _nameErr = true;
-    if (_email.text.isEmpty || !_email.text.contains("@") || !_email.text.contains(".")) 
-      _emailErr = true;
-    if (_pass.text.isEmpty || _pass.text.length < 8 || !_pass.text.contains(new RegExp(r'[0-9]'))) 
-      _passErr = true;
+    if (_name.text.isEmpty || _name.text.length > 30) _nameErr = true;
+    if (_email.text.isEmpty ||
+        !_email.text.contains("@") ||
+        !_email.text.contains(".")) _emailErr = true;
+    if (_pass.text.isEmpty ||
+        _pass.text.length < 8 ||
+        !_pass.text.contains(new RegExp(r'[0-9]'))) _passErr = true;
     if (_confPass.text.isEmpty || _pass.text != _confPass.text)
       _confPassErr = true;
 
@@ -51,40 +52,34 @@ class SignupState extends State<Signup> {
       return;
     } else {
       UserService.postNewUser(
-        context,
-        new User(
-          id: 1,
-          name: _name.text,
-          email: _email.text,
-          password: _pass.text,
-          rememberMeToken: "",
-          avatar: ""
-        )
-      ).then((res) async {
+              context,
+              new User(
+                  id: 1,
+                  name: _name.text,
+                  email: _email.text,
+                  password: _pass.text,
+                  rememberMeToken: "",
+                  avatar: ""))
+          .then((res) async {
         if (res != null) {
           var session = FlutterSession();
           await session.set(
-            "user",
-            new User(
-              id: res.id,
-              name: res.name, 
-              email: res.email,
-              avatar: res.avatar,
-              password: "",
-              rememberMeToken: res.rememberMeToken
-            )
-          );
+              "user",
+              new User(
+                  id: res.id,
+                  name: res.name,
+                  email: res.email,
+                  avatar: res.avatar,
+                  password: "",
+                  rememberMeToken: res.rememberMeToken));
 
           List<String> searches = [];
-          await session.set(
-            "searches",
-            jsonEncode(searches)
-          );
+          await session.set("searches", jsonEncode(searches));
 
           print("\x1B[33msignup.dart: Sign up completed with success!.\x1B[0m");
           Navigator.push(
-            context,
-            // MaterialPageRoute(
+              context,
+              // MaterialPageRoute(
               //     builder: (context) => AdditionalData(
               //         buildAppBar: false,
               //         onSubmmit: () => {
@@ -94,9 +89,9 @@ class SignupState extends State<Signup> {
               //                       builder: (context) => Origin()))
               //             }))
               MaterialPageRoute(builder: (context) => Origin()));
-          );
         } else
-          print("\x1B[33msignup.dart: There was an error whilst signing up.\x1B[0m");
+          print(
+              "\x1B[33msignup.dart: There was an error whilst signing up.\x1B[0m");
       });
     }
   }
