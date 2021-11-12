@@ -83,9 +83,8 @@ class SignupState extends State<Signup> {
 
           print("\x1B[33msignup.dart: Sign up completed with success!.\x1B[0m");
           Navigator.push(
-<<<<<<< HEAD
-              context,
-              // MaterialPageRoute(
+            context,
+            // MaterialPageRoute(
               //     builder: (context) => AdditionalData(
               //         buildAppBar: false,
               //         onSubmmit: () => {
@@ -95,18 +94,7 @@ class SignupState extends State<Signup> {
               //                       builder: (context) => Origin()))
               //             }))
               MaterialPageRoute(builder: (context) => Origin()));
-=======
-            context,
-            MaterialPageRoute(
-              builder: (context) => AdditionalData(
-                buildAppBar: false,
-                onSubmmit: () => {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Origin()))
-                }
-              )
-            )
           );
->>>>>>> 85200b220d77433adf36a2bea8fd7252a1ca3fc3
         } else
           print("\x1B[33msignup.dart: There was an error whilst signing up.\x1B[0m");
       });
