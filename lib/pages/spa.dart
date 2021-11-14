@@ -143,12 +143,12 @@ class OriginState extends State<Origin> {
                     IconButton(icon: () {
                       if (_currentIndex != 3)
                         return Icon(
-                          Icons.favorite,
+                          Icons.compare_arrows_outlined,
                           color: Color(0xFFAEAEB2),
                         );
                       else
                         return Icon(
-                          Icons.favorite,
+                          Icons.compare_arrows_outlined,
                           color: Color(0xFF3d3d4e),
                         );
                     }(), onPressed: () {
