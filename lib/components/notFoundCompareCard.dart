@@ -15,7 +15,7 @@ class NotFoundCompareCard extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(105.0),
-            child: Image.network(
+            child: Image.asset(
               'lib/assets/images/404.gif',
               height: 210.0,
               width: 210.0,
@@ -53,8 +53,7 @@ class NotFoundCompareCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => Results(),
-                  )
-              )
+                  ))
             },
           ),
         ],

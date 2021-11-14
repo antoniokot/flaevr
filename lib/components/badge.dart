@@ -73,7 +73,7 @@ class Badge extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(34.0),
           child: Image(
-            image: NetworkImage("lib/assets/images/badges/" + text + ".png"),
+            image: AssetImage("lib/assets/images/badges/" + text + ".png"),
             fit: BoxFit.contain,
           ),
         ));
