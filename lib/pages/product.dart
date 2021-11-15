@@ -306,7 +306,9 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                           child: [
                             FutureBuilder(
                               future: Future.wait([
-                                product as Future<dynamic>,
+                                product == null
+                                    ? new Future.delayed(new Duration(days: 1))
+                                    : product as Future<dynamic>,
                                 composition == null
                                     ? new Future.delayed(new Duration(days: 1))
                                     : composition as Future<dynamic>

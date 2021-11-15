@@ -98,14 +98,17 @@ class ProductCardState extends State<ProductCard> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 8),
-                      child: Text(
-                        this.widget.product.name!.split(',')[0],
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: Color(0xff3d3d4e),
-                            fontWeight: FontWeight.w500),
+                    Flexible(
+                      child: Container(
+                        padding: EdgeInsets.only(top: 8),
+                        child: Text(
+                          this.widget.product.name!.split(',')[0],
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Color(0xff3d3d4e),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                     Padding(
