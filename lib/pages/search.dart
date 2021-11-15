@@ -189,19 +189,18 @@ class SearchState extends State<Search> {
                                       searches != null
                                           ? searches!.insert(0, value)
                                           : searches = [value];
-                                      FlutterSession().set("searches", jsonEncode(searches));
+                                      FlutterSession().set(
+                                          "searches", jsonEncode(searches));
                                     }),
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Results(searched: value),
-                                        )
-                                    ),
-                                  }
-                          ),
+                                          builder: (context) =>
+                                              Results(searched: value),
+                                        )),
+                                  }),
                           height: 45,
-                        )
-                    ),
+                        )),
                     SizedBox(height: 20),
                     SizedBox(
                         height: 200, // card height

@@ -171,7 +171,7 @@ class NutriData extends StatelessWidget {
                 ],
               )),
           Padding(
-              padding: EdgeInsets.only(top: 25),
+              padding: Styles.sidePadding.add(EdgeInsets.only(top: 25)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
