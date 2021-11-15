@@ -80,7 +80,16 @@ class OriginState extends State<Origin> {
         ),
       ),
       body: Stack(alignment: Alignment.center, children: [
-        _children[_currentIndex],
+        IndexedStack(
+            index: _currentIndex,
+            alignment: Alignment.center,
+            children: [
+              _children[0],
+              _children[1],
+              _children[2],
+              _children[3],
+              _children[4],
+            ]),
         Positioned(
             width: () {
               if (MediaQuery.of(context).size.width < 500)
