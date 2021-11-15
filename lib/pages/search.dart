@@ -139,6 +139,10 @@ class SearchState extends State<Search> {
     });
   }
 
+  Future<void> refresh() async {
+    setState(() {});
+  }
+
   @override
   void initState() {
     getRecentSearches();
@@ -150,114 +154,119 @@ class SearchState extends State<Search> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                Padding(
-                    padding: Styles.sidePadding,
-                    child: Container(
-                      child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xffF1F1F2),
-                            prefixIcon: Icon(Icons.search),
-                            labelText: "Pesquise algo",
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide.none,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                          onSubmitted: (String value) => {
-                                setState(() {
-                                  searches != null
-                                      ? searches!.insert(0, value)
-                                      : searches = [value];
-                                  FlutterSession()
-                                      .set("searches", jsonEncode(searches));
-                                }),
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          Results(searched: value),
-                                    )),
-                              }),
-                      height: 45,
-                    )),
-                SizedBox(height: 20),
-                SizedBox(
-                    height: 200, // card height
-                    child: SliderCustom(
-                      borderRadius: 20,
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                              width: MediaQuery.of(context).size.width * 0.92,
-                              height: 180,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "lib/assets/images/slider1.png"),
-                                  fit: BoxFit.cover,
+          body: RefreshIndicator(
+              color: Color(0xFFFF4646),
+              onRefresh: () => refresh(),
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20),
+                    Padding(
+                        padding: Styles.sidePadding,
+                        child: Container(
+                          child: TextField(
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xffF1F1F2),
+                                prefixIcon: Icon(Icons.search),
+                                labelText: "Pesquise algo",
+                                enabledBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8.0)),
+                                  borderSide: BorderSide.none,
                                 ),
-                              )),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                              width: MediaQuery.of(context).size.width * 0.92,
-                              height: 180,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "lib/assets/images/slider2.png"),
-                                  fit: BoxFit.cover,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide.none,
                                 ),
-                              )),
-                        ),
-                      ],
-                      overlap: true,
-                      activeColor: Color(0xFFFF4646),
-                      inactiveColor: Color(0XFFFF9D9D),
-                    )),
-                Padding(
-                    padding: EdgeInsets.only(top: 10, left: 19, right: 19),
-                    child: Text("Trending",
-                        style: TextStyle(color: Styles.textBlack))),
-                Container(
-                    margin: Styles.sidePaddingWithVerticalSpace,
-                    child: Column(
-                      children: getTrending(),
-                    )),
-                Padding(
-                    padding: EdgeInsets.only(top: 20, left: 19, right: 19),
-                    child: Text("Buscas recentes",
-                        style: TextStyle(color: Styles.textBlack))),
-                Container(
-                    margin: Styles.sidePaddingWithVerticalSpace,
-                    child: Wrap(
-                      children: () {
-                        return getHistoryChips(this.searches, context);
-                      }(),
-                    ))
-              ],
-            ),
-          )),
+                              ),
+                              onSubmitted: (String value) => {
+                                    setState(() {
+                                      searches != null
+                                          ? searches!.insert(0, value)
+                                          : searches = [value];
+                                      FlutterSession().set(
+                                          "searches", jsonEncode(searches));
+                                    }),
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              Results(searched: value),
+                                        )),
+                                  }),
+                          height: 45,
+                        )),
+                    SizedBox(height: 20),
+                    SizedBox(
+                        height: 200, // card height
+                        child: SliderCustom(
+                          borderRadius: 20,
+                          children: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.92,
+                                  height: 180,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "lib/assets/images/slider1.png"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )),
+                            ),
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.92,
+                                  height: 180,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "lib/assets/images/slider2.png"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )),
+                            ),
+                          ],
+                          overlap: true,
+                          activeColor: Color(0xFFFF4646),
+                          inactiveColor: Color(0XFFFF9D9D),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(top: 10, left: 19, right: 19),
+                        child: Text("Trending",
+                            style: TextStyle(color: Styles.textBlack))),
+                    Container(
+                        margin: Styles.sidePaddingWithVerticalSpace,
+                        child: Column(
+                          children: getTrending(),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(top: 20, left: 19, right: 19),
+                        child: Text("Buscas recentes",
+                            style: TextStyle(color: Styles.textBlack))),
+                    Container(
+                        margin: Styles.sidePaddingWithVerticalSpace,
+                        child: Wrap(
+                          children: () {
+                            return getHistoryChips(this.searches, context);
+                          }(),
+                        ))
+                  ],
+                ),
+              ))),
     );
   }
 }
