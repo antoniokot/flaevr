@@ -1,4 +1,5 @@
 import 'package:flaevr/models/ProductModel.dart';
+import 'package:flaevr/pages/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:flaevr/utils/sharedAssets.dart';
 import 'dart:convert';
@@ -134,6 +135,24 @@ class ProductService {
     } catch (e) {
       print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
       return 0;
+    }
+  }
+
+  static Future<http.Response?> postScannedItem(
+      int idUser, int idProduct) async {
+    try {
+      final response = await http
+          .post(Uri.parse(SharedAssets.apiURL + '/scanns/post'), body: {
+        "idUser": idUser.toString(),
+        "idProduct": idProduct.toString(),
+      });
+
+      if (response.statusCode == 200) {
+        return response;
+      } else
+        return null;
+    } catch (e) {
+      print("\x1B[33mUserService.dart: x1B[0m" + e.toString());
     }
   }
 }

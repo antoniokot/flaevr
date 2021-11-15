@@ -34,6 +34,7 @@ class CompareSearchState extends State<CompareSearch> {
       child: Scaffold(
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

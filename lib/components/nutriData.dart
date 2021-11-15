@@ -38,6 +38,7 @@ class NutriData extends StatelessWidget {
       Color(0xffE1E1E2),
     ];
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         children: [
           Padding(
