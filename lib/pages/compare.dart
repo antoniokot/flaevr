@@ -78,6 +78,8 @@ class CompareState extends State<Compare> {
                                                 ))),
                                         this.compareList.length > 0
                                             ? SingleChildScrollView(
+                                                physics:
+                                                    BouncingScrollPhysics(),
                                                 child: Column(
                                                   children: [
                                                     ProductGrid(

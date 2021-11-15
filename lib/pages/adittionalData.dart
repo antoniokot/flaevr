@@ -32,6 +32,7 @@ class AdditionalDataState extends State<AdditionalData> {
           elevation: 0.0,
         ),
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 29.0),
               child: Column(

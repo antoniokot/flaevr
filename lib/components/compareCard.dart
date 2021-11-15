@@ -33,7 +33,7 @@ class CompareCardState extends State<CompareCard> {
   }
 
   Future<void> getMainColors(ImageProvider img, Size size) async {
-    await ColorGenerator.getMainColors(img, size, 1).then((value) => {
+    await ColorGenerator.getMainColors(img, size, 4).then((value) => {
           _mainColor = ColorGenerator.getColorByImportance(value)?.color,
           if (mounted) setState(() {})
         });
@@ -88,8 +88,7 @@ class CompareCardState extends State<CompareCard> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16)),
-                  color: Colors.white
-              ),
+                  color: Colors.white),
               //width: double.infinity,
               //height: 65,
               width: 175,

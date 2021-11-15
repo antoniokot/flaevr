@@ -4,6 +4,7 @@ import 'package:flaevr/components/productComposition.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
+import 'package:flaevr/models/User.dart';
 import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/services/IngredientService.dart';
 import 'package:flaevr/services/NutritionalService.dart';
@@ -12,6 +13,7 @@ import 'package:flaevr/components/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -85,7 +87,14 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     ProductModel? prod;
     this.product = ProductService.getByBarcode(widget.barcode!);
     prod = await product;
-    if (prod == null) this.empty = true;
+    if (prod == null)
+      this.empty = true;
+    else {
+      User user = User.fromJson(await FlutterSession().get("user"));
+      print("createeeeeeeedd");
+      ProductService.postScannedItem(user.id!, prod.id!);
+    }
+
     this.composition = fetchComposition(prod!.id!);
     setState(() {});
     return prod;

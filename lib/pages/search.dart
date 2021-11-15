@@ -37,65 +37,71 @@ List<Widget> getHistoryChips(List<String>? searches, dynamic context) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Results(searched: searches != null ? searches[0] : null),
-            )
-        ),
+              builder: (context) =>
+                  Results(searched: searches != null ? searches[0] : null),
+            )),
       },
     ),
-    searches != null && searches.length > 1 ? Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5),
-    ) : Container(),
-    searches != null && searches.length > 1 ? InkWell(
-      customBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Styles.ultraLightMutedGrey,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-        ),
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        child: Text(
-          searches[1],
-          style: new TextStyle(color: Color(0XFFbababa)),
-        ),
-      ),
-      onTap: () => {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Results(searched: searches[1]),
-            )
-        ),
-      },
-    ) : Container(),
-    searches != null && searches.length > 1 ? Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5),
-    ) : Container(),
-    searches != null && searches.length > 2 ? InkWell(
-      customBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Styles.ultraLightMutedGrey,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-        ),
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        child: Text(
-          searches[2],
-          style: new TextStyle(color: Color(0XFFbababa)),
-        ),
-      ),
-      onTap: () => {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Results(searched: searches[2]),
-            )
-        ),
-      },
-    ) : Container(),
+    searches != null && searches.length > 1
+        ? Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+          )
+        : Container(),
+    searches != null && searches.length > 1
+        ? InkWell(
+            customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Styles.ultraLightMutedGrey,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              child: Text(
+                searches[1],
+                style: new TextStyle(color: Color(0XFFbababa)),
+              ),
+            ),
+            onTap: () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Results(searched: searches[1]),
+                  )),
+            },
+          )
+        : Container(),
+    searches != null && searches.length > 1
+        ? Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+          )
+        : Container(),
+    searches != null && searches.length > 2
+        ? InkWell(
+            customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Styles.ultraLightMutedGrey,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              child: Text(
+                searches[2],
+                style: new TextStyle(color: Color(0XFFbababa)),
+              ),
+            ),
+            onTap: () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Results(searched: searches[2]),
+                  )),
+            },
+          )
+        : Container(),
   ];
 }
 
@@ -126,7 +132,7 @@ List<Widget> getTrending() {
 class SearchState extends State<Search> {
   List<String>? searches;
 
-  void getRecentSearches() async{
+  void getRecentSearches() async {
     await FlutterSession().get("searches").then((json) async {
       this.searches = jsonDecode(json);
       print(this.searches);
@@ -135,7 +141,7 @@ class SearchState extends State<Search> {
 
   @override
   void initState() {
-    getRecentSearches();    
+    getRecentSearches();
     super.initState();
   }
 
@@ -145,120 +151,113 @@ class SearchState extends State<Search> {
       child: Scaffold(
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20),
                 Padding(
-                  padding: Styles.sidePadding,
-                  child: Container(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffF1F1F2),
-                        prefixIcon: Icon(Icons.search),
-                        labelText: "Pesquise algo",
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      onSubmitted: (String value) => {
-                        setState(() {
-                          searches != null ? searches!.insert(0, value) : searches = [value];
-                          FlutterSession().set("searches", jsonEncode(searches));
-                        }),
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Results(searched: value),
-                            )
-                        ),
-                      }
-                    ),
-                    height: 45,
-                  )
-                ),
+                    padding: Styles.sidePadding,
+                    child: Container(
+                      child: TextField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Color(0xffF1F1F2),
+                            prefixIcon: Icon(Icons.search),
+                            labelText: "Pesquise algo",
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          onSubmitted: (String value) => {
+                                setState(() {
+                                  searches != null
+                                      ? searches!.insert(0, value)
+                                      : searches = [value];
+                                  FlutterSession()
+                                      .set("searches", jsonEncode(searches));
+                                }),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Results(searched: value),
+                                    )),
+                              }),
+                      height: 45,
+                    )),
                 SizedBox(height: 20),
                 SizedBox(
-                  height: 200, // card height
-                  child: SliderCustom(
-                    borderRadius: 20,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.92,
-                          height: 180,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            image: DecorationImage(
-                              image: AssetImage("lib/assets/images/slider1.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          )
+                    height: 200, // card height
+                    child: SliderCustom(
+                      borderRadius: 20,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                              width: MediaQuery.of(context).size.width * 0.92,
+                              height: 180,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      "lib/assets/images/slider1.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                              )),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                        },
-                        child: Container(
-                            width: MediaQuery.of(context).size.width * 0.92,
-                            height: 180,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              image: DecorationImage(
-                                image:
-                                    AssetImage("lib/assets/images/slider2.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            )),
-                      ),
-                    ],
-                    overlap: true,
-                    activeColor: Color(0xFFFF4646),
-                    inactiveColor: Color(0XFFFF9D9D),
-                  )
-                ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                              width: MediaQuery.of(context).size.width * 0.92,
+                              height: 180,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      "lib/assets/images/slider2.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                              )),
+                        ),
+                      ],
+                      overlap: true,
+                      activeColor: Color(0xFFFF4646),
+                      inactiveColor: Color(0XFFFF9D9D),
+                    )),
                 Padding(
-                  padding: EdgeInsets.only(top: 10, left: 19, right: 19),
-                  child: Text(
-                    "Trending",
-                    style: TextStyle(color: Styles.textBlack)
-                  )
-                ),
+                    padding: EdgeInsets.only(top: 10, left: 19, right: 19),
+                    child: Text("Trending",
+                        style: TextStyle(color: Styles.textBlack))),
                 Container(
-                  margin: Styles.sidePaddingWithVerticalSpace,
-                  child: Column(
-                    children: getTrending(),
-                  )
-                ),
+                    margin: Styles.sidePaddingWithVerticalSpace,
+                    child: Column(
+                      children: getTrending(),
+                    )),
                 Padding(
-                  padding: EdgeInsets.only(top: 20, left: 19, right: 19),
-                  child: Text(
-                    "Buscas recentes",
-                    style: TextStyle(color: Styles.textBlack)
-                  )
-                ),
+                    padding: EdgeInsets.only(top: 20, left: 19, right: 19),
+                    child: Text("Buscas recentes",
+                        style: TextStyle(color: Styles.textBlack))),
                 Container(
-                  margin: Styles.sidePaddingWithVerticalSpace,
-                  child: Wrap(
-                    children: () {
-                      return getHistoryChips(this.searches, context);
-                    }(),
-                  )
-                )
+                    margin: Styles.sidePaddingWithVerticalSpace,
+                    child: Wrap(
+                      children: () {
+                        return getHistoryChips(this.searches, context);
+                      }(),
+                    ))
               ],
             ),
-          )
-      ),
+          )),
     );
   }
 }

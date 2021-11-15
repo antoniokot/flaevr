@@ -35,7 +35,8 @@ class FavFolderState extends State<FavFolder> {
   }
 
   void getProducts() async {
-    this.products = await ProductService.getAllProductsInFolder(this.widget.folder.id);
+    this.products =
+        await ProductService.getAllProductsInFolder(this.widget.folder.id);
     this.numberOfItems = products != null ? products!.length : 0;
     this.len = this.numberOfItems! > 3 ? 3 : this.numberOfItems;
     for (int i = 0; i < this.len!; i++) {
@@ -52,7 +53,7 @@ class FavFolderState extends State<FavFolder> {
   }
 
   Future<void> getMainColors(ImageProvider img, Size size, int index) async {
-    await ColorGenerator.getMainColors(img, size, 1).then((value) => {
+    await ColorGenerator.getMainColors(img, size, 4).then((value) => {
           colors![index] = ColorGenerator.getColorByImportance(value)?.color,
           if (mounted) setState(() {})
         });
@@ -173,12 +174,115 @@ class FavFolderState extends State<FavFolder> {
                                         ? Image.network(this.products![2].pictureUrl!)
                                         : Image.asset("lib/assets/images/flaevr_logo_rounded.png");
                                     else
+<<<<<<< HEAD
                                       return Image.asset("lib/assets/images/flaevr_logo_rounded.png");
                                   }()
                                 )
                                 : null
                             )
                           ),
+=======
+                                      return Image.asset(
+                                          "lib/assets/images/flaevr_logo_rounded.png");
+                                  }())),
+                        )),
+                    Expanded(
+                      flex: (numberOfItems != null ? numberOfItems! : 0) < 2
+                          ? 0
+                          : 1,
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                              flex: (numberOfItems != null
+                                          ? numberOfItems!
+                                          : 0) >=
+                                      2
+                                  ? 1
+                                  : 0,
+                              child: Padding(
+                                padding: (numberOfItems != null
+                                            ? numberOfItems!
+                                            : 0) >=
+                                        3
+                                    ? const EdgeInsets.only(bottom: 3.0)
+                                    : EdgeInsets.all(0),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      color: (this.colors != null
+                                          ? this.colors![1]
+                                          : Styles.lightMutedGrey),
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(18.0),
+                                          topLeft: Radius.circular(0),
+                                          bottomRight: (numberOfItems != null
+                                                      ? numberOfItems!
+                                                      : 0) <
+                                                  3
+                                              ? Radius.circular(18.0)
+                                              : Radius.circular(0),
+                                          bottomLeft: Radius.circular(0)),
+                                    ),
+                                    child: (numberOfItems != null
+                                                ? numberOfItems!
+                                                : 0) >=
+                                            2
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: () {
+                                              if (this.products != null)
+                                                return this
+                                                            .products![1]
+                                                            .pictureUrl !=
+                                                        null
+                                                    ? Image.network(this
+                                                        .products![1]
+                                                        .pictureUrl!)
+                                                    : Image.asset(
+                                                        "lib/assets/images/flaevr_logo_rounded.png");
+                                              else
+                                                return Image.asset(
+                                                    "lib/assets/images/flaevr_logo_rounded.png");
+                                            }())
+                                        : null),
+                              )),
+                          Expanded(
+                              flex: (numberOfItems != null
+                                          ? numberOfItems!
+                                          : 0) ==
+                                      3
+                                  ? 1
+                                  : 0,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    color: (this.colors != null
+                                        ? this.colors![2]
+                                        : Styles.lightMutedGrey),
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(18.0)),
+                                  ),
+                                  child: (numberOfItems != null
+                                              ? numberOfItems!
+                                              : 0) >=
+                                          3
+                                      ? Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: () {
+                                            if (this.products != null)
+                                              return this
+                                                          .products![2]
+                                                          .pictureUrl !=
+                                                      null
+                                                  ? Image.network(this
+                                                      .products![2]
+                                                      .pictureUrl!)
+                                                  : Image.asset(
+                                                      "lib/assets/images/flaevr_logo_rounded.png");
+                                            else
+                                              return Image.asset(
+                                                  "lib/assets/images/flaevr_logo_rounded.png");
+                                          }())
+                                      : null)),
+>>>>>>> c3c343ec3bbc0d6d9bb39b62903c3867122830d4
                         ],
                       ),
                     ),
