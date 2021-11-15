@@ -37,7 +37,7 @@ class NutriotinalService {
         return null;
       }
     } catch (e) {
-      print("\x1B[33mNutritionalService.dart: x1B[0m" + e.toString());
+      print("\x1B[33mNutritionalService.dart: \x1B[0m" + e.toString());
       return null;
     }
   }

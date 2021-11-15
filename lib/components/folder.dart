@@ -131,63 +131,44 @@ class FavFolderState extends State<FavFolder> {
                       child: Column(
                         children: <Widget>[
                           Expanded(
-                              flex: (numberOfItems != null
-                                          ? numberOfItems!
-                                          : 0) >=
-                                      2
-                                  ? 1
-                                  : 0,
+                              flex: (numberOfItems != null ? numberOfItems! : 0) >= 2 ? 1 : 0,
                               child: Padding(
-                                padding: (numberOfItems != null
-                                            ? numberOfItems!
-                                            : 0) >=
-                                        3
+                                padding: (numberOfItems != null ? numberOfItems! : 0) >= 3
                                     ? const EdgeInsets.only(bottom: 3.0)
                                     : EdgeInsets.all(0),
                                 child: Container(
-                                    decoration: BoxDecoration(
-                                      color: (this.colors != null
-                                          ? this.colors![1]
-                                          : Styles.lightMutedGrey),
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(18.0),
-                                          topLeft: Radius.circular(0),
-                                          bottomRight: (numberOfItems != null
-                                                      ? numberOfItems!
-                                                      : 0) <
-                                                  3
-                                              ? Radius.circular(18.0)
-                                              : Radius.circular(0),
-                                          bottomLeft: Radius.circular(0)),
+                                  decoration: BoxDecoration(
+                                    color: (this.colors != null
+                                      ? this.colors![1]
+                                      : Styles.lightMutedGrey
                                     ),
-                                    child: (numberOfItems != null
-                                                ? numberOfItems!
-                                                : 0) >=
-                                            2
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: () {
-                                              if (this.products != null)
-                                                return this
-                                                            .products![1]
-                                                            .pictureUrl !=
-                                                        null
-                                                    ? Image.network(this
-                                                        .products![1]
-                                                        .pictureUrl!)
-                                                    : Container();
-                                              else
-                                                return Container();
-                                            }())
-                                        : null),
-                              )),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(18.0),
+                                      topLeft: Radius.circular(0),
+                                      bottomRight: (numberOfItems != null ? numberOfItems! : 0) < 3
+                                        ? Radius.circular(18.0)
+                                        : Radius.circular(0),
+                                      bottomLeft: Radius.circular(0)
+                                    ),
+                                  ),
+                                  child: (numberOfItems != null ? numberOfItems! : 0) >= 2
+                                    ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: () {
+                                        if (this.products != null)
+                                        return this.products![1].pictureUrl != null
+                                          ? Image.network(this.products![1].pictureUrl!)
+                                          : Container();
+                                        else
+                                          return Container();
+                                      }()
+                                    )
+                                    : null
+                                ),
+                              )
+                          ),
                           Expanded(
-                              flex: (numberOfItems != null
-                                          ? numberOfItems!
-                                          : 0) ==
-                                      3
-                                  ? 1
-                                  : 0,
+                              flex: (numberOfItems != null ? numberOfItems! : 0) == 3 ? 1 : 0,
                               child: Container(
                                   decoration: BoxDecoration(
                                     color: (this.colors != null
