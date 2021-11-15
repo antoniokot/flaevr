@@ -48,11 +48,13 @@ class OriginState extends State<Origin> {
     if (!mounted)
       return;
     else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Product(barcode: barcodeScanRes)),
-      );
+      if (barcodeScanRes != "" && barcodeScanRes != "-1") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Product(barcode: barcodeScanRes)),
+        );
+      }
     }
   }
 
