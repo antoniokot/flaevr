@@ -105,6 +105,7 @@ class ProfileState extends State<Profile> {
                         return false;
                       },
                       child: RefreshIndicator(
+                          color: Color(0xFFFF4646),
                           onRefresh: () => refresh(),
                           child: SingleChildScrollView(
                             physics: BouncingScrollPhysics(),
