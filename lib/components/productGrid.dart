@@ -201,7 +201,8 @@ class ProductGridState extends State<ProductGrid> {
                           return;
                         }
                         globalCompareList.list.add(this.widget.products[index]);
-                        //globalCompareList.list.add(this.widget.products[index+1]);
+                        globalCompareList.list
+                            .add(this.widget.products[index + 1]);
                       }),
                   FocusedMenuItem(
                       title: Text("Compartilhar"),

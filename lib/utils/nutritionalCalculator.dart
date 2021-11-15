@@ -70,16 +70,12 @@ class NutritionalCalculator {
     ret.add((100 * qt.carbs) / total);
     ret.add((100 * qt.fats) / total);
     ret.add((100 * qt.proteins) / total);
-    ret.add((100 * qt.other) / total);
     return ret;
   }
 
   static AllCalories caloriesPercentage(
       double total, double carbs, double fats, double proteins) {
     return new AllCalories(
-        carbs: carbs * 4,
-        fats: fats * 9,
-        proteins: proteins * 4,
-        other: total - ((carbs * 4) + (fats * 9) + (proteins * 4)));
+        carbs: carbs * 4, fats: fats * 9, proteins: proteins * 4);
   }
 }

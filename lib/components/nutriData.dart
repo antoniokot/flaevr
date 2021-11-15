@@ -35,7 +35,6 @@ class NutriData extends StatelessWidget {
       Color(0xFF3BCCC5),
       Color(0xFFFFF634),
       Color(0xFFff3858),
-      Color(0xffE1E1E2),
     ];
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
@@ -194,8 +193,7 @@ class NutriData extends StatelessWidget {
                         new NutritionalQuantities(
                             carbs: lookForItemInNutrients("Carboidratos"),
                             fats: lookForItemInNutrients("Gorduras totais"),
-                            proteins: lookForItemInNutrients("Prteínas"),
-                            other: 0)),
+                            proteins: lookForItemInNutrients("Prteínas"))),
                     width: size - 38,
                   ),
                   Padding(

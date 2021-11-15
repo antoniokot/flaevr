@@ -1,4 +1,5 @@
 import 'package:flaevr/components/nutriData.dart';
+import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/ProductModel.dart';
@@ -54,6 +55,7 @@ class CompareCardState extends State<CompareCard> {
             new NutritionalFacts(
                 id: -1, idProduct: -1, serving: "0g", nutrients: []),
         ingredients: await IngredientService.getByID(id) ?? []);
+    setState(() {});
     //fetch tabela nutricional, meio ambiente e selos
   }
 
@@ -141,7 +143,13 @@ class CompareCardState extends State<CompareCard> {
               ? NutriData(
                   ingredients: this.composition!.ingredients,
                   nutritionalFacts: this.composition!.nutritionalFacts)
-              : Container(),
+              : Container(
+                  alignment: Alignment.center,
+                  height: 400,
+                  child: CircularProgressIndicator(
+                    valueColor:
+                        new AlwaysStoppedAnimation<Color>(Color(0xFFFF4646)),
+                  )),
         ],
       ),
     );
