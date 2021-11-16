@@ -149,10 +149,10 @@ class NutriData extends StatelessWidget {
                       ]),
                   DataBar(
                     padding: EdgeInsets.only(top: 10),
-                    max: 388,
+                    max: lookForItemInNutrients("Valor energético"),
                     isDataInPercentage: false,
                     data: NutritionalCalculator.caloriesPercentage(
-                            388,
+                            lookForItemInNutrients("Valor energético"),
                             lookForItemInNutrients("Carboidratos"),
                             lookForItemInNutrients("Gorduras Totais"),
                             lookForItemInNutrients("Proteínas"))

@@ -46,10 +46,12 @@ class IngredientTile extends StatelessWidget {
                 ),
                 children: <Widget>[
                   ListTile(
-                    title: Text(
-                      text,
-                      style: Styles.smallText,
-                    ),
+                    title: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          text,
+                          style: Styles.smallText,
+                        )),
                   )
                 ],
               ),
