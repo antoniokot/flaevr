@@ -113,7 +113,7 @@ class ConfigState extends State<Config> {
                           TextButton(
                             style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
-                                minimumSize: Size(50, 30),
+                                minimumSize: Size(50, 15),
                                 alignment: Alignment.centerLeft),
                             child: Text(
                               "Sair da sessão",
@@ -135,7 +135,7 @@ class ConfigState extends State<Config> {
                           TextButton(
                             style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
-                                minimumSize: Size(50, 30),
+                                minimumSize: Size(50, 15),
                                 alignment: Alignment.centerLeft),
                             child: Text(
                               "Desativar minha conta",
@@ -147,7 +147,7 @@ class ConfigState extends State<Config> {
                           TextButton(
                             style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
-                                minimumSize: Size(50, 30),
+                                minimumSize: Size(50, 15),
                                 alignment: Alignment.centerLeft),
                             child: Text(
                               "Apagar minha conta",

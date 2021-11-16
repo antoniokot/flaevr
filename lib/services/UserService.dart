@@ -13,8 +13,9 @@ class UserService {
         "password": u.password,
       });
 
+      print(response.body);
       if (response.statusCode == 200) {
-        Map<String, dynamic> map = json.decode(response.body);
+        Map<String, dynamic> map = json.decode(response.body)[0];
 
         return User.fromJson(map);
       } else
@@ -26,7 +27,8 @@ class UserService {
 
   static Future<User?> login(String email, String password) async {
     try {
-      final response = await http.post(Uri.parse(SharedAssets.apiURL + '/users/login/'), body: {
+      final response = await http
+          .post(Uri.parse(SharedAssets.apiURL + '/users/login/'), body: {
         "email": email,
         "password": password,
       });

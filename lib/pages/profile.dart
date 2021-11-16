@@ -392,7 +392,7 @@ class ProfileState extends State<Profile> {
                                                       )
                                                     ]),
                                                   );
-                                                })
+                                                }).then((value) => {refresh()})
                                           },
                                         ),
                                       )
@@ -493,18 +493,23 @@ class ProfileState extends State<Profile> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: this.user == null
-                                            ? AssetImage(
-                                                "lib/assets/images/avatars/prof1.png")
-                                            : Utility.isNumeric(
-                                                        this.user!.avatar) ==
-                                                    false
-                                                ? NetworkImage(
-                                                    this.user!.avatar!)
-                                                : AssetImage(
-                                                    "lib/assets/images/avatars/prof" +
-                                                        this.user!.avatar! +
-                                                        ".png") as ImageProvider,
+                                        image: this.user != null
+                                            ? this.user!.avatar == null
+                                                ? AssetImage(
+                                                    "lib/assets/images/avatars/prof1.png")
+                                                : Utility.isNumeric(this
+                                                            .user!
+                                                            .avatar) ==
+                                                        false
+                                                    ? NetworkImage(
+                                                        this.user!.avatar!)
+                                                    : AssetImage(
+                                                            "lib/assets/images/avatars/prof" +
+                                                                this.user!.avatar! +
+                                                                ".png")
+                                                        as ImageProvider
+                                            : AssetImage(
+                                                "lib/assets/images/avatars/prof1.png"),
                                         fit: BoxFit.fill),
                                   ),
                                 ),

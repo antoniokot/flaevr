@@ -91,7 +91,7 @@ class NutriData extends StatelessWidget {
                       text: Warnings.sugar[2],
                       trailingColor: Colors.green,
                     ));
-                  if (sugar == 0)
+                  if (sugar == 0 && this.nutritionalFacts.idProduct > 0)
                     ret.add(IngredientTile(
                       title: "Zero açúcar",
                       text: Warnings.sugar[2],
@@ -111,7 +111,7 @@ class NutriData extends StatelessWidget {
                       text: Warnings.sodium[2],
                       trailingColor: Colors.green,
                     ));
-                  if (sodium == 0)
+                  if (sodium == 0 && this.nutritionalFacts.idProduct > 0)
                     ret.add(IngredientTile(
                       title: "Zero sódio",
                       text: Warnings.sodium[2],

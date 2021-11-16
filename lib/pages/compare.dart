@@ -35,7 +35,8 @@ class CompareState extends State<Compare> {
       body: Column(
         children: [
           Container(
-            padding: Styles.sidePaddingWithVerticalSpace,
+            padding: Styles.sidePaddingWithVerticalSpace
+                .add(EdgeInsets.only(top: 20)),
             height: 70,
             width: double.infinity,
             child: Row(
@@ -66,6 +67,8 @@ class CompareState extends State<Compare> {
                               return Container(
                                 height: 400,
                                 child: Center(
+                                    child: SingleChildScrollView(
+                                  physics: BouncingScrollPhysics(),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
@@ -138,7 +141,7 @@ class CompareState extends State<Compare> {
                                           : NotFoundCompareCard()
                                     ],
                                   ),
-                                ),
+                                )),
                               );
                             }).then((_) => setState(() {})),
                     icon: new Icon(Icons.folder_open))
@@ -151,6 +154,7 @@ class CompareState extends State<Compare> {
             width: MediaQuery.of(context).size.width,
             child: compareList.length > 0
                 ? RefreshIndicator(
+                    color: Color(0xFFFF4646),
                     child: ListView.builder(
                         physics: BouncingScrollPhysics(),
                         itemCount: compareList.length,

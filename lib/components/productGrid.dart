@@ -194,15 +194,13 @@ class ProductGridState extends State<ProductGrid> {
                             i < globalCompareList.list.length;
                             i++) {
                           if (globalCompareList.list[i].id ==
-                              this.widget.products[index].id)
+                              this.widget.products[index].id) {
                             globalCompareList.list
                                 .remove(this.widget.products[index]);
-                          setState(() {});
-                          return;
+                            return;
+                          }
                         }
                         globalCompareList.list.add(this.widget.products[index]);
-                        globalCompareList.list
-                            .add(this.widget.products[index + 1]);
                       }),
                   FocusedMenuItem(
                       title: Text("Compartilhar"),
