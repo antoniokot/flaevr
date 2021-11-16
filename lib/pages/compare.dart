@@ -149,9 +149,8 @@ class CompareState extends State<Compare> {
             ),
           ),
           Container(
-            padding: Styles.sidePadding,
             height: MediaQuery.of(context).size.height - 70,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width - 19,
             child: compareList.length > 0
                 ? RefreshIndicator(
                     color: Color(0xFFFF4646),
@@ -160,9 +159,7 @@ class CompareState extends State<Compare> {
                         itemCount: compareList.length,
                         itemBuilder: (BuildContext context, int index) =>
                             CompareCard(
-                              heightAspectRatio:
-                                  new AspectRatio(aspectRatio: 2.3),
-                              width: MediaQuery.of(context).size.width - 62,
+                              width: MediaQuery.of(context).size.width - 57,
                               product: compareList[index],
                             )),
                     onRefresh: () => refresh())

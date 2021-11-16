@@ -11,13 +11,8 @@ import 'dart:async';
 
 class CompareCard extends StatefulWidget {
   @override
-  CompareCard(
-      {required this.heightAspectRatio,
-      required this.width,
-      required this.product})
-      : assert(heightAspectRatio.aspectRatio > 0 && width > 0);
+  CompareCard({required this.width, required this.product}) : assert(width > 0);
 
-  final AspectRatio heightAspectRatio;
   final double width;
   final ProductModel product;
   @override
@@ -60,7 +55,6 @@ class CompareCardState extends State<CompareCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width,
       margin: EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -78,63 +72,66 @@ class CompareCardState extends State<CompareCard> {
         children: [
           Row(
             children: [
-              Container(
-                width: widget.width / 2,
-                height: 125,
-                decoration: BoxDecoration(
+              Expanded(
+                flex: 1,
+                child: Container(
+                  height: 125,
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(16)),
+                      color: _mainColor),
+                  child: ClipRRect(
                     borderRadius:
                         BorderRadius.only(topLeft: Radius.circular(16)),
-                    color: _mainColor),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(16)),
-                  child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      child: Image.network(
-                        this.widget.product.pictureUrl != null
-                            ? this.widget.product.pictureUrl as String
-                            : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612",
-                        fit: BoxFit.contain,
-                      )),
+                    child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        child: Image.network(
+                          this.widget.product.pictureUrl != null
+                              ? this.widget.product.pictureUrl as String
+                              : "https://media.istockphoto.com/photos/doing-business-with-a-smile-picture-id1330547068?s=612x612",
+                          fit: BoxFit.contain,
+                        )),
+                  ),
                 ),
               ),
-              Container(
-                width: widget.width / 2,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                height: 125,
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(16)),
-                    color: Colors.white),
-                //width: double.infinity,
-                //height: 65,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 8),
-                      child: Text(
-                        this.widget.product.name!.split(',')[0],
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Color(0xff3d3d4e),
-                            fontWeight: FontWeight.w500),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  height: 125,
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(topRight: Radius.circular(16)),
+                      color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8),
+                        child: Text(
+                          this.widget.product.name!.split(',')[0],
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xff3d3d4e),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 8),
-                      child: Text(
-                        this.widget.product.name!.split(',')[1],
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: Styles.mutedGrey,
-                            fontWeight: FontWeight.normal),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Text(
+                          this.widget.product.name!.split(',')[1],
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Styles.mutedGrey,
+                              fontWeight: FontWeight.normal),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              )
             ],
           ),
           this.composition != null
@@ -143,7 +140,7 @@ class CompareCardState extends State<CompareCard> {
                   child: NutriData(
                     ingredients: this.composition!.ingredients,
                     nutritionalFacts: this.composition!.nutritionalFacts,
-                    dataBarSize: MediaQuery.of(context).size.width - 24,
+                    dataBarSize: widget.width - 24,
                   ))
               : Container(
                   alignment: Alignment.center,
