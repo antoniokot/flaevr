@@ -158,8 +158,8 @@ class ProductService {
 
   static Future<List<ProductModel>?> getAllTrendingProducts() async {
     try {
-      final response = await http
-          .get(Uri.parse(SharedAssets.apiURL + '/products/trending/'));
+      final response =
+          await http.get(Uri.parse(SharedAssets.apiURL + '/products/'));
 
       if (response.statusCode == 200) {
         List<ProductModel> ret = [];

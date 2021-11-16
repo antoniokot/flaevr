@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flaevr/components/searchBar.dart';
+import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/components/slider.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/pages/results.dart';
@@ -105,28 +106,42 @@ List<Widget> getHistoryChips(List<String>? searches, dynamic context) {
   ];
 }
 
-List<Widget> getTrending() {
-  return [
-    Row(
-      children: [
-        Container(
-          width: 13,
-          height: 13,
-          decoration: BoxDecoration(
-              color: Color.fromRGBO(255, 70, 70, 1),
-              borderRadius: BorderRadius.all(Radius.circular(3))),
-          child: Text(
-            "1",
-            style: TextStyle(fontSize: 11, color: Colors.white),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        Padding(
-            padding: EdgeInsets.only(left: 6),
-            child: Text("Iogurte Grego Vigor"))
-      ],
-    )
-  ];
+List<Widget> getTrending(List<ProductModel>? products) {
+  List<Widget> ret = [];
+  if (products != null) {
+    for (int i = 0; i < 5; i++) {
+      ret.add(Padding(
+          padding: EdgeInsets.symmetric(vertical: 3),
+          child: Row(
+            children: [
+              Container(
+                width: 13,
+                height: 13,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(255, 70, 70, 1),
+                    borderRadius: BorderRadius.all(Radius.circular(3))),
+                child: Text(
+                  (i + 1).toString(),
+                  style: TextStyle(fontSize: 11, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.only(left: 6),
+                  child: Text(products[i].name ?? "Teste"))
+            ],
+          )));
+    }
+  } else {
+    for (int i = 0; i < 5; i++) {
+      ret.add(Skeleton(
+        height: 14,
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 9),
+      ));
+    }
+  }
+  return ret;
 }
 
 class SearchState extends State<Search> {
@@ -250,8 +265,20 @@ class SearchState extends State<Search> {
                             style: TextStyle(color: Styles.textBlack))),
                     Container(
                         margin: Styles.sidePaddingWithVerticalSpace,
-                        child: Column(
-                          children: getTrending(),
+                        child: FutureBuilder<List<ProductModel>?>(
+                          future: ProductService.getAllTrendingProducts(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Column(
+                                children: getTrending(snapshot.data),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text('${snapshot.error}');
+                            }
+                            return Column(
+                              children: getTrending(null),
+                            );
+                          },
                         )),
                     Padding(
                         padding: EdgeInsets.only(top: 20, left: 19, right: 19),

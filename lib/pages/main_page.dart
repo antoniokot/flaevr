@@ -68,21 +68,21 @@ class MainPage extends StatelessWidget {
                           backgroundColor: Color.fromRGBO(255, 70, 70, 1),
                           onPressed: _redirectRegister,
                         ),
-                        Button(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 11),
-                          constraints:
-                              BoxConstraints(minWidth: 100, maxWidth: 300),
-                          width: double.infinity,
-                          height: 42,
-                          text: "Entrar com o Facebook",
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14),
-                          backgroundColor: Color.fromRGBO(24, 119, 242, 1),
-                          onPressed: _redirectRegister,
-                        ),
+                        // Button(
+                        //   padding: EdgeInsets.symmetric(
+                        //       horizontal: 40, vertical: 11),
+                        //   constraints:
+                        //       BoxConstraints(minWidth: 100, maxWidth: 300),
+                        //   width: double.infinity,
+                        //   height: 42,
+                        //   text: "Entrar com o Facebook",
+                        //   textStyle: TextStyle(
+                        //       color: Colors.white,
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: 14),
+                        //   backgroundColor: Color.fromRGBO(24, 119, 242, 1),
+                        //   onPressed: _redirectRegister,
+                        // ),
                       ]),
                     ))
               ],

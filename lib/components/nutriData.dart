@@ -29,7 +29,7 @@ class NutriData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double maxCalories = NutritionalCalculator.EER(20, 65, 1.72, 2, 'M');
+    double maxCalories = 2000.000;
     double size = MediaQuery.of(context).size.width;
     const List<Color> colorsList = [
       Color(0xFF3BCCC5),
@@ -53,7 +53,7 @@ class NutriData extends StatelessWidget {
                         style: Styles.smallTitle,
                       ),
                       Text(
-                        maxCalories.toString().substring(0, 7) + " kCal",
+                        maxCalories.toString().substring(0, 6) + " kCal",
                         style: Styles.smallText.apply(color: Color(0xFFFF4646)),
                       ),
                     ]),

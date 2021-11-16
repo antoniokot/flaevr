@@ -45,18 +45,38 @@ class ProfileState extends State<Profile> {
   Future<List<Folder>?>? allFolders;
   User? user;
   Color? userColor;
+  bool isRecentsEmpty = false;
+  bool isFavoritesEmpty = false;
 
   void getUser() async {
     await FlutterSession().get("user").then((json) async {
       this.user = User.fromJson(json);
-      this.allFolders = FolderService.getAllFoldersByIdUser(this.user!.id!);
-      this.recents = ProductService.getAllRecentProducts(this.user!.id!);
+      this.allFolders =
+          FolderService.getAllFoldersByIdUser(this.user!.id!).then((value) {
+        if (value == null || value.length <= 0) {
+          this.isFavoritesEmpty = true;
+          setState(() {});
+        }
+        return value;
+      });
+      this.recents =
+          ProductService.getAllRecentProducts(this.user!.id!).then((value) {
+        if (value == null || value.length <= 0) {
+          this.isRecentsEmpty = true;
+          setState(() {});
+        }
+        return value;
+      });
+      setState(() {});
       ImageProvider imgToGet;
-      if (Utility.isNumeric(this.user!.avatar!))
-        imgToGet = new AssetImage(
-            "lib/assets/images/avatars/prof" + this.user!.avatar! + ".png");
-      else
-        imgToGet = new NetworkImage(this.user!.avatar!);
+      if (this.user!.avatar != null) {
+        if (Utility.isNumeric(this.user!.avatar!))
+          imgToGet = new AssetImage(
+              "lib/assets/images/avatars/prof" + this.user!.avatar! + ".png");
+        else
+          imgToGet = new NetworkImage(this.user!.avatar!);
+      } else
+        imgToGet = new AssetImage("lib/assets/images/avatars/prof1.png");
 
       PaletteGenerator color =
           await ColorGenerator.getMainColors(imgToGet, new Size(100, 100), 3);
@@ -67,6 +87,8 @@ class ProfileState extends State<Profile> {
   }
 
   Future<void> refresh() async {
+    this.isRecentsEmpty = false;
+    this.isFavoritesEmpty = false;
     setState(() {
       getUser();
     });
@@ -132,6 +154,11 @@ class ProfileState extends State<Profile> {
                                     child: FutureBuilder<List<ProductModel>?>(
                                       future: recents,
                                       builder: (context, snapshot) {
+                                        if (isRecentsEmpty) {
+                                          return NotFound(
+                                            text: "Que vazio!",
+                                          );
+                                        }
                                         if (snapshot.hasData) {
                                           if (snapshot.data == null ||
                                               snapshot.data?.length == 0)
@@ -405,6 +432,16 @@ class ProfileState extends State<Profile> {
                                   child: FutureBuilder<List<Folder>?>(
                                     future: allFolders,
                                     builder: (context, snapshot) {
+                                      if (isFavoritesEmpty) {
+                                        return Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                2,
+                                            child: NotFound(
+                                              text: "Que vazio!",
+                                            ));
+                                      }
                                       if (snapshot.hasData) {
                                         return Favorites(
                                           built: true,
