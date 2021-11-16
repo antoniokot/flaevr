@@ -30,7 +30,8 @@ class NutriotinalService {
               id: json[0]['idNutritionalFacts'],
               idProduct: json[0]['idProduct'],
               serving: json[0]['serving'],
-              nutrients: nutrients);
+              nutrients: nutrients
+          );
         } else
           return null;
       } else {
