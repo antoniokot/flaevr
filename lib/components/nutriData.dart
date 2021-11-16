@@ -53,7 +53,7 @@ class NutriData extends StatelessWidget {
                         style: Styles.smallTitle,
                       ),
                       Text(
-                        maxCalories.toString().substring(0, 6) + " kCal",
+                        maxCalories.toStringAsFixed(1) + " kCal",
                         style: Styles.smallText.apply(color: Color(0xFFFF4646)),
                       ),
                     ]),
