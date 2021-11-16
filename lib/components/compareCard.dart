@@ -1,11 +1,9 @@
 import 'package:flaevr/components/nutriData.dart';
-import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/services/IngredientService.dart';
 import 'package:flaevr/services/NutritionalService.dart';
-import 'package:flaevr/services/ProductService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flaevr/utils/colorGenerator.dart';

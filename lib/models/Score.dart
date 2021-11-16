@@ -11,9 +11,9 @@ class Score {
 
   factory Score.fromJson(Map<String, dynamic> json) {
     return Score(
-      health: json['health'],
-      natural: json['natural'],
-      environment: json['environment'],
+      health: double.parse(json['health'].toString()),
+      natural: double.parse(json['natural'].toString()),
+      environment: double.parse(json['environment'].toString()),
     );
   }
 }

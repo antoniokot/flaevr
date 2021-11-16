@@ -3,12 +3,13 @@ import 'package:flaevr/models/Score.dart';
 import 'package:flaevr/utils/sharedAssets.dart';
 import 'package:http/http.dart' as http;
 
-// 
+//
 
 class ScoresService {
-  Future<Score?> getScoresById(int id) async {
+  static Future<Score?> getScoresById(int id) async {
     try {
-      final response = await http.get(Uri.parse(SharedAssets.apiURL + "/scores/product/" + id.toString()));
+      final response = await http.get(
+          Uri.parse(SharedAssets.apiURL + "/scores/product/" + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> values = json.decode(response.body);
@@ -17,10 +18,9 @@ class ScoresService {
       } else {
         return null;
       }
-     } catch (e) {
+    } catch (e) {
       print("\x1B[33mScoresService.dart: \x1B[0m" + e.toString());
       return null;
     }
   }
 }
-

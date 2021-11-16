@@ -3,7 +3,9 @@ import 'package:flaevr/components/badges.dart';
 import 'package:flaevr/components/gaugeChart.dart';
 import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/ProductModel.dart';
+import 'package:flaevr/models/Score.dart';
 import 'package:flaevr/services/AllergensService.dart';
+import 'package:flaevr/services/ScoresService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +24,20 @@ class ProductOverview extends StatefulWidget {
 
 class ProductOverviewState extends State<ProductOverview> {
   List<double> scores = [];
-
+  Score scr = new Score(health: 10.0, natural: 10.0, environment: 10.0);
   @override
   void initState() {
-    this.scores = [20.0, 40.0, 90.0];
+    getScores().then((value) {
+      this.scores = [scr.health, scr.natural, scr.environment];
+      print(scores.toString());
+      setState(() {});
+    });
     super.initState();
+  }
+
+  Future<void> getScores() async {
+    this.scr = await ScoresService.getScoresById(this.widget.product.id!) ??
+        new Score(health: 10.0, natural: 10.0, environment: 10.0);
   }
 
   @override
@@ -74,11 +85,11 @@ class ProductOverviewState extends State<ProductOverview> {
                       width: chartSize,
                       height: chartSize,
                       child: GaugeChart(
-                          this.scores.length > 0 ? this.scores[0] : 10.0,
+                          this.scores.length > 0 ? this.scores[0] * 10 : 10.0,
                           color: widget.color,
                           animate: this.widget.animate)),
                   Text(this.scores.length > 0
-                      ? (this.scores[0] / 10).toString().substring(0, 3) + "/10"
+                      ? this.scores[0].toStringAsFixed(1) + "/10"
                       : "/"),
                   Positioned(
                     bottom: 0,
@@ -93,16 +104,16 @@ class ProductOverviewState extends State<ProductOverview> {
                     width: chartSize,
                     height: chartSize,
                     child: GaugeChart(
-                        this.scores.length > 0 ? this.scores[1] : 10.0,
+                        this.scores.length > 0 ? this.scores[1] * 10 : 10.0,
                         color: widget.color,
                         animate: this.widget.animate),
                   ),
                   Text(this.scores.length > 0
-                      ? (this.scores[1] / 10).toString().substring(0, 3) + "/10"
+                      ? this.scores[1].toStringAsFixed(1) + "/10"
                       : "/"),
                   Positioned(
                     bottom: 0,
-                    child: Text("Nutrientes", style: Styles.smallText),
+                    child: Text("Natural", style: Styles.smallText),
                   ),
                 ],
               ),
@@ -113,16 +124,16 @@ class ProductOverviewState extends State<ProductOverview> {
                     width: chartSize,
                     height: chartSize,
                     child: GaugeChart(
-                        this.scores.length > 0 ? this.scores[2] : 10.0,
+                        this.scores.length > 0 ? this.scores[2] * 10 : 10.0,
                         color: widget.color,
                         animate: this.widget.animate),
                   ),
                   Text(this.scores.length > 0
-                      ? (this.scores[2] / 10).toString().substring(0, 3) + "/10"
+                      ? this.scores[2].toStringAsFixed(1) + "/10"
                       : "/"),
                   Positioned(
                     bottom: 0,
-                    child: Text("Meio-ambiente", style: Styles.smallText),
+                    child: Text("Embalagem", style: Styles.smallText),
                   ),
                 ],
               ),

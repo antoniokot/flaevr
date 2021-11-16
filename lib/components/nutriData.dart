@@ -193,7 +193,7 @@ class NutriData extends StatelessWidget {
                         new NutritionalQuantities(
                             carbs: lookForItemInNutrients("Carboidratos"),
                             fats: lookForItemInNutrients("Gorduras totais"),
-                            proteins: lookForItemInNutrients("Prteínas"))),
+                            proteins: lookForItemInNutrients("Proteínas"))),
                     width: size - 38,
                   ),
                   Padding(
