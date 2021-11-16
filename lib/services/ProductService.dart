@@ -155,4 +155,30 @@ class ProductService {
       print("\x1B[33mUserService.dart: x1B[0m" + e.toString());
     }
   }
+
+  static Future<List<ProductModel>?> getAllTrendingProducts() async {
+    try {
+      final response = await http
+          .get(Uri.parse(SharedAssets.apiURL + '/products/trending/'));
+
+      if (response.statusCode == 200) {
+        List<ProductModel> ret = [];
+        var decodeJson = jsonDecode(response.body);
+
+        decodeJson.forEach((item) => {
+              ret.add(new ProductModel(
+                  id: item['idProduct'],
+                  name: item['name'],
+                  barcode: item['barcode'],
+                  pictureUrl: item['pictureUrl']))
+            });
+        return ret;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("\x1B[33mProductService.dart: x1B[0m" + e.toString());
+      return null;
+    }
+  }
 }
