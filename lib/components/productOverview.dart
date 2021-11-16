@@ -7,14 +7,27 @@ import 'package:flaevr/services/AllergensService.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
-class ProductOverview extends StatelessWidget {
+class ProductOverview extends StatefulWidget {
+  const ProductOverview(this.product,
+      {required this.animate, required this.color, this.ingredients});
+
   final bool animate;
   final ProductModel product;
   final Color color;
   final Composition? ingredients;
 
-  ProductOverview(this.product,
-      {required this.animate, required this.color, this.ingredients});
+  @override
+  ProductOverviewState createState() => ProductOverviewState();
+}
+
+class ProductOverviewState extends State<ProductOverview> {
+  List<double> scores = [];
+
+  @override
+  void initState() {
+    this.scores = [20.0, 40.0, 90.0];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +49,7 @@ class ProductOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-        Badges(id: this.product.id!),
+        Badges(id: this.widget.product.id!),
         Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 19),
           child: Row(
@@ -60,9 +73,13 @@ class ProductOverview extends StatelessWidget {
                   Container(
                       width: chartSize,
                       height: chartSize,
-                      child: GaugeChart(30.0,
-                          color: color, animate: this.animate)),
-                  Text("8/10"),
+                      child: GaugeChart(
+                          this.scores.length > 0 ? this.scores[0] : 10.0,
+                          color: widget.color,
+                          animate: this.widget.animate)),
+                  Text(this.scores.length > 0
+                      ? (this.scores[0] / 10).toString().substring(0, 3) + "/10"
+                      : "/"),
                   Positioned(
                     bottom: 0,
                     child: Text("Saúde", style: Styles.smallText),
@@ -75,10 +92,14 @@ class ProductOverview extends StatelessWidget {
                   Container(
                     width: chartSize,
                     height: chartSize,
-                    child:
-                        GaugeChart(60.0, color: color, animate: this.animate),
+                    child: GaugeChart(
+                        this.scores.length > 0 ? this.scores[1] : 10.0,
+                        color: widget.color,
+                        animate: this.widget.animate),
                   ),
-                  Text("8/10"),
+                  Text(this.scores.length > 0
+                      ? (this.scores[1] / 10).toString().substring(0, 3) + "/10"
+                      : "/"),
                   Positioned(
                     bottom: 0,
                     child: Text("Nutrientes", style: Styles.smallText),
@@ -91,10 +112,14 @@ class ProductOverview extends StatelessWidget {
                   Container(
                     width: chartSize,
                     height: chartSize,
-                    child:
-                        GaugeChart(80.0, color: color, animate: this.animate),
+                    child: GaugeChart(
+                        this.scores.length > 0 ? this.scores[2] : 10.0,
+                        color: widget.color,
+                        animate: this.widget.animate),
                   ),
-                  Text("8/10"),
+                  Text(this.scores.length > 0
+                      ? (this.scores[2] / 10).toString().substring(0, 3) + "/10"
+                      : "/"),
                   Positioned(
                     bottom: 0,
                     child: Text("Meio-ambiente", style: Styles.smallText),
@@ -118,8 +143,8 @@ class ProductOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-        Allergens(
-            AllergenService.getListOfAllergens(this.ingredients!.ingredients))
+        Allergens(AllergenService.getListOfAllergens(
+            this.widget.ingredients!.ingredients))
       ],
     );
   }
