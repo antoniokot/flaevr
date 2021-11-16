@@ -42,47 +42,6 @@ class ProductGridState extends State<ProductGrid> {
       return 2;
   }
 
-  //var _tapPosition;
-
-  // void _showCustomMenu(int index) {
-  //   focused = true;
-  //   final RenderBox overlay = Overlay.of(context).context.findRenderObject();
-  //   setState(() {
-  //     focused = true;
-  //     currentTapped = index;
-  //   });
-  //   showMenu(
-  //           context: context,
-  //           items: <PopupMenuEntry<int>>[PopUpCustom()],
-  //           position: RelativeRect.fromRect(
-  //               _tapPosition &
-  //                   const Size(40, 40), // smaller rect, the touch area
-  //               Offset.zero & overlay.size // Bigger rect, the entire screen
-  //               ))
-  //       // This is how you handle user selection
-  //       .then<void>((int op) {
-  //     setState(() {
-  //       focused = false;
-  //       currentTapped = -1;
-  //     });
-  //     // delta would be null if user taps on outside the popup menu
-  //     // (causing it to close without making selection)
-  //     if (op == null) return;
-  //   });
-
-  //   // Another option:
-  //   //
-  //   // final delta = await showMenu(...);
-  //   //
-  //   // Then process `delta` however you want.
-  //   // Remember to make the surrounding function `async`, that is:
-  //   //
-  //   // void _showCustomMenu() async { ... }
-  // }
-
-  // void _storePosition(TapDownDetails details) {
-  //   _tapPosition = details.globalPosition;
-  // }
   List<Folder>? userFolders;
 
   @override
@@ -222,10 +181,7 @@ class ProductGridState extends State<ProductGrid> {
           else
             return Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Skeleton(
-                  width: 190,
-                  height: 190 * 2.3,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0)),
+              child: Skeleton(width: 190, height: 190 * 2.3),
             );
         });
   }

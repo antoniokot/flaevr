@@ -42,7 +42,9 @@ class Ingredients extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                ingredients[i].name,
+                ingredients[i].name.length < 20
+                    ? ingredients[i].name
+                    : ingredients[i].name.substring(0, 20) + "...",
                 style: Styles.smallText,
               ),
               Row(
