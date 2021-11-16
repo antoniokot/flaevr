@@ -12,10 +12,14 @@ import 'package:flutter/material.dart';
 import 'ingredientTile.dart';
 
 class NutriData extends StatelessWidget {
-  NutriData({required this.ingredients, required this.nutritionalFacts});
+  NutriData(
+      {required this.ingredients,
+      required this.nutritionalFacts,
+      required this.dataBarSize});
 
   final NutritionalFacts nutritionalFacts;
   final List<Ingredient> ingredients;
+  final double dataBarSize;
 
   double lookForItemInNutrients(String key) {
     for (NutritionalFactsRow nutrient in nutritionalFacts.nutrients) {
@@ -30,7 +34,6 @@ class NutriData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double maxCalories = 2000.000;
-    double size = MediaQuery.of(context).size.width;
     const List<Color> colorsList = [
       Color(0xFF3BCCC5),
       Color(0xFFFFF634),
@@ -67,7 +70,7 @@ class NutriData extends StatelessWidget {
                       return [200.0];
                     }
                   }(),
-                  width: size - 38,
+                  width: dataBarSize,
                 ),
               ],
             ),
@@ -157,7 +160,7 @@ class NutriData extends StatelessWidget {
                             lookForItemInNutrients("Gorduras Totais"),
                             lookForItemInNutrients("Proteínas"))
                         .toDoubleList(),
-                    width: size - 38,
+                    width: dataBarSize,
                     colors: colorsList,
                   ),
                   Padding(
@@ -194,7 +197,7 @@ class NutriData extends StatelessWidget {
                             carbs: lookForItemInNutrients("Carboidratos"),
                             fats: lookForItemInNutrients("Gorduras totais"),
                             proteins: lookForItemInNutrients("Proteínas"))),
-                    width: size - 38,
+                    width: dataBarSize,
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 10),

@@ -141,8 +141,10 @@ class CompareCardState extends State<CompareCard> {
               ? Padding(
                   padding: EdgeInsets.only(bottom: 60),
                   child: NutriData(
-                      ingredients: this.composition!.ingredients,
-                      nutritionalFacts: this.composition!.nutritionalFacts))
+                    ingredients: this.composition!.ingredients,
+                    nutritionalFacts: this.composition!.nutritionalFacts,
+                    dataBarSize: MediaQuery.of(context).size.width - 24,
+                  ))
               : Container(
                   alignment: Alignment.center,
                   height: 400,

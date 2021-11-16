@@ -56,7 +56,8 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
       imageUrlToFetch = this.widget.prod!.pictureUrl;
       fetchAll(this.widget.prod!.id!);
     } else {
-      print("\x1B[33mproduct.dart: An error appeared while fetching a product.\x1B[0m");
+      print(
+          "\x1B[33mproduct.dart: An error appeared while fetching a product.\x1B[0m");
     }
 
     _tabController = TabController(length: 3, vsync: this);
@@ -340,6 +341,9 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   return NutriData(
+                                      dataBarSize:
+                                          MediaQuery.of(context).size.width -
+                                              38,
                                       nutritionalFacts:
                                           snapshot.data!.nutritionalFacts,
                                       ingredients: snapshot.data!.ingredients);
