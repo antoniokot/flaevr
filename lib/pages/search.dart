@@ -200,7 +200,7 @@ class SearchState extends State<Search> {
                               ),
                               onSubmitted: (String value) => {
                                     setState(() {
-                                      searches != null && value.trim() != ""
+                                      searches != null && value.replaceAll(" ", '') != ""
                                           ? searches.insert(0, value)
                                           : searches = [value];
                                       FlutterSession().set("searches", searches);
