@@ -31,21 +31,15 @@ class HomeState extends State<Home> {
 
   void getUser() async {
     this.user = User.fromJson(await FlutterSession().get("user"));
-    this.numberOfItems = await getNumberOfItems();
-    getStampStats();
-    this.vegPercentage = percentage(
-        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 13),
-        numberOfItems);
-    this.healthyPercentage = percentage(
-        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 2),
-        numberOfItems);
-    this.animalPercentage = percentage(
-        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 6),
-        numberOfItems);
-    setState(() {});
+    getNumberOfItems().then((v) {
+      setState(() {});
+    });
+    getStampStats().then((v) {
+      setState(() {});
+    });
   }
 
-  void getStampStats() async {
+  Future<void> getStampStats() async {
     this.vegPercentage = percentage(
         await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 13),
         numberOfItems);
@@ -57,10 +51,10 @@ class HomeState extends State<Home> {
         numberOfItems);
   }
 
-  Future<int> getNumberOfItems() async {
+  Future<void> getNumberOfItems() async {
     this.recents =
         await ProductService.getAllRecentProducts(this.user!.id as int);
-    return recents!.length;
+    this.numberOfItems = recents!.length;
   }
 
   String getFormattedDate() {

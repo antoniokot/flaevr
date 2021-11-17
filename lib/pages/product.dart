@@ -91,7 +91,6 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
       this.empty = true;
     else {
       User user = User.fromJson(await FlutterSession().get("user"));
-      print("createeeeeeeedd");
       ProductService.postScannedItem(user.id!, prod.id!);
     }
 

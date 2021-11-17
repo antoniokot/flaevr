@@ -17,7 +17,7 @@ class Search extends StatefulWidget {
   SearchState createState() => SearchState();
 }
 
-List<Widget> getHistoryChips(List<String>? searches, dynamic context) {
+List<Widget> getHistoryChips(List<String> searches, dynamic context) {
   return [
     InkWell(
       customBorder: RoundedRectangleBorder(
@@ -30,7 +30,7 @@ List<Widget> getHistoryChips(List<String>? searches, dynamic context) {
         ),
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         child: Text(
-          searches != null ? searches[0] : "Sem pesquisas recentes",
+          searches.length > 0 ? searches[0] : "Sem pesquisas recentes",
           style: new TextStyle(color: Color(0XFFbababa)),
         ),
       ),
@@ -39,7 +39,7 @@ List<Widget> getHistoryChips(List<String>? searches, dynamic context) {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  Results(searched: searches != null ? searches[0] : null),
+                  Results(searched: searches.length > 0 ? searches[0] : null),
             )),
       },
     ),
@@ -145,12 +145,11 @@ List<Widget> getTrending(List<ProductModel>? products) {
 }
 
 class SearchState extends State<Search> {
-  List<String>? searches;
+  List<String> searches = [];
 
   void getRecentSearches() async {
     await FlutterSession().get("searches").then((json) async {
-      this.searches = jsonDecode(json);
-      print(this.searches);
+      this.searches = json.cast<String>();
     });
   }
 
@@ -202,10 +201,10 @@ class SearchState extends State<Search> {
                               onSubmitted: (String value) => {
                                     setState(() {
                                       searches != null
-                                          ? searches!.insert(0, value)
+                                          ? searches.insert(0, value)
                                           : searches = [value];
-                                      FlutterSession().set(
-                                          "searches", jsonEncode(searches));
+                                      FlutterSession()
+                                          .set("searches", searches);
                                     }),
                                     Navigator.push(
                                         context,

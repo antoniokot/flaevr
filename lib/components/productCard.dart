@@ -25,7 +25,6 @@ class ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     super.initState();
-    print(this.widget.product.pictureUrl);
     getMainColors(
         new NetworkImage(this.widget.product.pictureUrl != null
             ? this.widget.product.pictureUrl.toString()

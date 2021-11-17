@@ -29,7 +29,6 @@ class ProductOverviewState extends State<ProductOverview> {
   void initState() {
     getScores().then((value) {
       this.scores = [scr.health, scr.natural, scr.environment];
-      print(scores.toString());
       setState(() {});
     });
     super.initState();
