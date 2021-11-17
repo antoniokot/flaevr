@@ -200,11 +200,10 @@ class SearchState extends State<Search> {
                               ),
                               onSubmitted: (String value) => {
                                     setState(() {
-                                      searches != null
+                                      searches != null && value.trim() != ""
                                           ? searches.insert(0, value)
                                           : searches = [value];
-                                      FlutterSession()
-                                          .set("searches", searches);
+                                      FlutterSession().set("searches", searches);
                                     }),
                                     Navigator.push(
                                         context,

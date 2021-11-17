@@ -128,13 +128,9 @@ class ProductGridState extends State<ProductGrid> {
                         return Icon(Icons.compare_arrows_outlined);
                       }(),
                       onPressed: () {
-                        for (int i = 0;
-                            i < globalCompareList.list.length;
-                            i++) {
-                          if (globalCompareList.list[i].id ==
-                              this.widget.products[index].id) {
-                            globalCompareList.list
-                                .remove(this.widget.products[index]);
+                        for (int i = 0; i < globalCompareList.list.length; i++) {
+                          if (globalCompareList.list[i].id == this.widget.products[index].id) {
+                            globalCompareList.list.remove(this.widget.products[index]);
                             return;
                           }
                         }
