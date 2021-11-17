@@ -44,10 +44,10 @@ class HomeState extends State<Home> {
         await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 13),
         numberOfItems);
     this.healthyPercentage = percentage(
-        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 2),
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 6),
         numberOfItems);
     this.animalPercentage = percentage(
-        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 6),
+        await ProductService.getCountOfAllScannedByStamp(this.user!.id!, 2),
         numberOfItems);
   }
 
