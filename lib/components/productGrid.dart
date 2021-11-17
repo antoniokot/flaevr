@@ -1,3 +1,4 @@
+import 'package:flaevr/components/favoriteSelectionModal.dart';
 import 'package:flaevr/components/focusedMenu.dart';
 import 'package:flaevr/components/popup.dart';
 import 'package:flaevr/components/productCard.dart';
@@ -30,6 +31,7 @@ class ProductGrid extends StatefulWidget {
 class ProductGridState extends State<ProductGrid> {
   bool focused = false;
   int currentTapped = -1;
+  User user = new User();
 
   int getGridCount(s) {
     if (s.width > 600 && s.width < 750)
@@ -51,9 +53,8 @@ class ProductGridState extends State<ProductGrid> {
   }
 
   void getAllFolders() async {
-    User user = new User();
     await FlutterSession().get("user").then((json) async {
-      user = User.fromJson(json);
+      this.user = User.fromJson(json);
     });
     this.userFolders = await FolderService.getAllFoldersByIdUser(user.id!);
   }
@@ -107,32 +108,10 @@ class ProductGridState extends State<ProductGrid> {
                             ),
                             context: context,
                             builder: (BuildContext context) {
-                              return Container(
-                                padding: EdgeInsets.symmetric(horizontal: 19),
-                                decoration: new BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                height:
-                                    MediaQuery.of(context).size.height - 100,
-                                child: Column(children: [
-                                  ModalHeader(
-                                      title: "Selecione uma pasta",
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 12)),
-                                  Favorites(
-                                    built: true,
-                                    folders: userFolders ?? [],
-                                    runDefault: false,
-                                    onClick: (v) {
-                                      FolderProductService.postNewFolderProduct(
-                                          v,
-                                          this.widget.products[index].id
-                                              as int);
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ]),
+                              return FavoriteSelectionModal(
+                                idUser: this.user.id!,
+                                idProduct:
+                                    this.widget.products[index].id as int,
                               );
                             });
                       }),

@@ -109,7 +109,7 @@ List<Widget> getHistoryChips(List<String> searches, dynamic context) {
 List<Widget> getTrending(List<ProductModel>? products) {
   List<Widget> ret = [];
   if (products != null) {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < (products.length >= 5 ? 5 : products.length); i++) {
       ret.add(Padding(
           padding: EdgeInsets.symmetric(vertical: 3),
           child: Row(

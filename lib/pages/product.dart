@@ -1,3 +1,4 @@
+import 'package:flaevr/components/favoriteSelectionModal.dart';
 import 'package:flaevr/components/notFound.dart';
 import 'package:flaevr/components/nutriData.dart';
 import 'package:flaevr/components/productComposition.dart';
@@ -14,6 +15,7 @@ import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/colorGenerator.dart';
 import 'package:flaevr/utils/sessionManager.dart';
+import 'package:flaevr/utils/statefulWrapper.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -30,8 +32,10 @@ class Product extends StatefulWidget {
 class ProductState extends State<Product> with SingleTickerProviderStateMixin {
   //will be fetched on initState
   Future<ProductModel?>? product;
+  ProductModel? prodProp;
   Future<Composition?>? composition;
   bool empty = false;
+  User? user;
 
   var top = 0.0;
   var _mainColor;
@@ -42,11 +46,15 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     Tab(text: 'Detalhes'),
   ];
   TabController? _tabController;
+  void getUser() async {
+    this.user = User.fromJson(await FlutterSession().get("user"));
+  }
 
   @override
   void initState() {
     super.initState();
     String? imageUrlToFetch;
+    getUser();
     if (widget.barcode != "" && widget.barcode != null) {
       fetchAllByBarcode().then((v) {
         imageUrlToFetch = v!.pictureUrl;
@@ -59,6 +67,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
       print(
           "\x1B[33mproduct.dart: An error appeared while fetching a product.\x1B[0m");
     }
+    getProduct();
 
     _tabController = TabController(length: 3, vsync: this);
     _tabController!.addListener(_handleTabSelection);
@@ -90,8 +99,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     if (prod == null)
       this.empty = true;
     else {
-      User user = User.fromJson(await FlutterSession().get("user"));
-      ProductService.postScannedItem(user.id!, prod.id!);
+      ProductService.postScannedItem(this.user!.id!, prod.id!);
     }
 
     this.composition = fetchComposition(prod!.id!);
@@ -126,6 +134,10 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
     textColor = ThemeData.estimateBrightnessForColor(color) == Brightness.light
         ? Color(0xFF3d3d4e)
         : Colors.white;
+  }
+
+  void getProduct() async {
+    this.prodProp = await product;
   }
 
   _handleTabSelection() {
@@ -181,21 +193,9 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                                 ),
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return Container(
-                                    decoration: new BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    height: MediaQuery.of(context).size.height -
-                                        100,
-                                    child: Center(
-                                        child: Favorites(
-                                      built: false,
-                                      folders: [],
-                                      onClick: () {
-                                        Navigator.pop(context);
-                                      },
-                                    )),
+                                  return FavoriteSelectionModal(
+                                    idUser: this.user!.id!,
+                                    idProduct: this.prodProp!.id ?? 1,
                                   );
                                 });
                           },
