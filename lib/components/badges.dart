@@ -6,14 +6,15 @@ import 'package:flutter/material.dart';
 
 class Badges extends StatelessWidget {
   @override
-  Badges({required this.id});
+  Badges({required this.id, this.showLabels = false});
 
   final int id;
+  final bool showLabels;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 67,
+        height: this.showLabels == true ? 100 : 67,
         margin: EdgeInsets.symmetric(horizontal: 19),
         child: FutureBuilder<List<Stamp>?>(
           future: StampService.getAllStampsByProductID(id),
@@ -25,10 +26,11 @@ class Badges extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: snapshot.data!
                     .map((item) => Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Padding(
-                            padding: EdgeInsets.only(right: 14),
-                            child: Badge(text: item.name))))
+                        padding: EdgeInsets.only(right: 21),
+                        child: Badge(
+                          badge: item,
+                          showLabel: this.showLabels,
+                        )))
                     .toList()
                     .cast<Widget>(),
               );
@@ -42,7 +44,7 @@ class Badges extends StatelessWidget {
                     height: 67,
                     width: 67,
                     radius: 34,
-                    padding: EdgeInsets.only(right: 14));
+                    padding: EdgeInsets.only(right: 21));
               },
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,

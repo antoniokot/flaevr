@@ -1,11 +1,15 @@
 import 'package:flaevr/components/curvedText.dart';
+import 'package:flaevr/models/Stamp.dart';
+import 'package:flaevr/pages/badgeDetails.dart';
+import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class Badge extends StatelessWidget {
   @override
-  Badge({required this.text});
+  Badge({required this.badge, required this.showLabel});
 
-  final String text;
+  final Stamp badge;
+  final bool showLabel;
   List<Widget> getCustomCurvedText(String txt) {
     double textSize = txt.length * 20.0;
     int iteration = (360 / (textSize + 5)).round();
@@ -41,41 +45,36 @@ class Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return Container(
-        height: 85,
-        width: 85,
-        decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.all(Radius.circular(50))),
-        child: Stack(
+    return InkWell(
+        onLongPress: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BadgeDetails(badge: this.badge))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              height: 85,
-              width: 85,
-              child: Center(
-                child: Icon(
-                  Icons.local_drink,
-                  color: Colors.white,
-                  size: 24,
-                ),
-              ),
-            ),
-            Center(
-              child: Stack(children: getCustomCurvedText("Orgânicoooo")),
-            )
+            Container(
+                height: 67,
+                width: 67,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(34.0),
+                  child: Image(
+                    image: AssetImage(
+                        "lib/assets/images/badges/" + this.badge.name + ".png"),
+                    fit: BoxFit.contain,
+                  ),
+                )),
+            this.showLabel
+                ? Container(
+                    width: 67,
+                    padding: EdgeInsets.only(top: 5),
+                    child: Text(
+                      this.badge.name,
+                      style: Styles.smallText,
+                      textAlign: TextAlign.center,
+                    ))
+                : Container()
           ],
-        ));*/
-    return Container(
-        height: 67,
-        width: 67,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(34.0),
-          child: Image(
-            image: AssetImage("lib/assets/images/badges/" + text + ".png"),
-            fit: BoxFit.contain,
-          ),
         ));
   }
 }

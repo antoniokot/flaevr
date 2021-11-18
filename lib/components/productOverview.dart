@@ -25,6 +25,8 @@ class ProductOverview extends StatefulWidget {
 class ProductOverviewState extends State<ProductOverview> {
   List<double> scores = [];
   Score scr = new Score(health: 10.0, natural: 10.0, environment: 10.0);
+  bool isBadgeLabelsVisible = false;
+
   @override
   void initState() {
     getScores().then((value) {
@@ -54,12 +56,26 @@ class ProductOverviewState extends State<ProductOverview> {
                 "Selos",
                 style: Styles.mediumTitle,
               ),
-              Icon(Icons.more_horiz, color: Styles.textBlack)
+              GestureDetector(
+                onTap: () => setState(() {
+                  this.isBadgeLabelsVisible = !isBadgeLabelsVisible;
+                }),
+                child: Icon(
+                  this.isBadgeLabelsVisible
+                      ? Icons.expand_more_rounded
+                      : Icons.expand_less_rounded,
+                  color: Styles.textBlack,
+                  size: 24,
+                ),
+              )
             ],
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-        Badges(id: this.widget.product.id!),
+        Badges(
+          id: this.widget.product.id!,
+          showLabels: this.isBadgeLabelsVisible,
+        ),
         Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 19),
           child: Row(
