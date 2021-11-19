@@ -1,7 +1,7 @@
 import 'package:flaevr/components/favoriteSelectionModal.dart';
 import 'package:flaevr/components/notFound.dart';
-import 'package:flaevr/components/nutriData.dart';
-import 'package:flaevr/components/productComposition.dart';
+import 'package:flaevr/components/product/nutriData.dart';
+import 'package:flaevr/components/product/productComposition.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
@@ -10,7 +10,7 @@ import 'package:flaevr/pages/favorites.dart';
 import 'package:flaevr/services/IngredientService.dart';
 import 'package:flaevr/services/NutritionalService.dart';
 import 'package:flaevr/services/ProductService.dart';
-import 'package:flaevr/components/productOverview.dart';
+import 'package:flaevr/components/product/productOverview.dart';
 import 'package:flaevr/components/sliverScaffold.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/utils/colorGenerator.dart';

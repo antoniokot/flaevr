@@ -1,4 +1,4 @@
-import 'package:flaevr/components/productGrid.dart';
+import 'package:flaevr/components/product/productGrid.dart';
 import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/services/ProductService.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:flaevr/components/badge.dart';
+import 'package:flaevr/components/badges/badge.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Stamp.dart';
 import 'package:flaevr/services/StampService.dart';

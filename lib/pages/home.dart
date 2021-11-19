@@ -1,5 +1,5 @@
 import 'package:flaevr/components/categoryCard.dart';
-import 'package:flaevr/components/gaugeChart.dart';
+import 'package:flaevr/components/charts/gaugeChart.dart';
 import 'package:flaevr/components/notFound.dart';
 import 'package:flaevr/components/ripple.dart';
 import 'package:flaevr/components/skeleton.dart';

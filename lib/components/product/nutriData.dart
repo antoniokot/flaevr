@@ -1,5 +1,5 @@
-import 'package:flaevr/components/dataBar.dart';
-import 'package:flaevr/components/dataBarSubtitle.dart';
+import 'package:flaevr/components/charts/dataBar.dart';
+import 'package:flaevr/components/charts/dataBarSubtitle.dart';
 import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/NutritionalFactsRow.dart';

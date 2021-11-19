@@ -1,6 +1,6 @@
 import 'package:flaevr/components/modalHeader.dart';
 import 'package:flaevr/components/notFound.dart';
-import 'package:flaevr/components/productCard.dart';
+import 'package:flaevr/components/product/productCard.dart';
 import 'package:flaevr/components/profilePicturePicker.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Folder.dart';

@@ -1,5 +1,5 @@
-import 'package:flaevr/components/ingredients.dart';
-import 'package:flaevr/components/nutritionalValues.dart';
+import 'package:flaevr/components/product/ingredients.dart';
+import 'package:flaevr/components/product/nutritionalValues.dart';
 import 'package:flaevr/components/slider.dart';
 import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';

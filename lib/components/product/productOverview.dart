@@ -1,6 +1,6 @@
 import 'package:flaevr/components/allergens.dart';
-import 'package:flaevr/components/badges.dart';
-import 'package:flaevr/components/gaugeChart.dart';
+import 'package:flaevr/components/badges/badges.dart';
+import 'package:flaevr/components/charts/gaugeChart.dart';
 import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/ProductModel.dart';
 import 'package:flaevr/models/Score.dart';

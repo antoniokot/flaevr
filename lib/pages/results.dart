@@ -1,4 +1,4 @@
-import 'package:flaevr/components/productGrid.dart';
+import 'package:flaevr/components/product/productGrid.dart';
 import 'package:flaevr/pages/compare.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,24 +25,28 @@ class ResultsState extends State<Results> {
     print("nameSearched: " + this.nameSearched);
     if (allProducts == null) {
       this.allProducts = await ProductService.getAllProducts();
-      if(this.nameSearched != "")
-        return this.allProducts!.where((p) => p.name!.toLowerCase().contains(this.nameSearched)).toList();
-      else 
+      if (this.nameSearched != "")
+        return this
+            .allProducts!
+            .where((p) => p.name!.toLowerCase().contains(this.nameSearched))
+            .toList();
+      else
         return await ProductService.getAllProducts();
     }
-    return allProducts!.where((p) => p.name!.toLowerCase().contains(this.nameSearched)).toList();
+    return allProducts!
+        .where((p) => p.name!.toLowerCase().contains(this.nameSearched))
+        .toList();
   }
 
   @override
   void initState() {
     super.initState();
-    if(this.widget.searched != null) {
+    if (this.widget.searched != null) {
       this.nameSearched = this.widget.searched!;
     } else {
       this.nameSearched = "";
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,50 +64,44 @@ class ResultsState extends State<Results> {
                     icon: new Icon(Icons.arrow_back),
                     color: Color(0xFF000000),
                     onPressed: () => {
-                      Navigator.pop(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Compare(),
-                        )
-                      )
-                    }
-                ),
+                          Navigator.pop(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Compare(),
+                              ))
+                        }),
               ),
               Container(
-                child: Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xffF1F1F2),
-                      prefixIcon: Icon(Icons.search),
-                      labelText: (){
-                        if(this.widget.searched != null && !searchFieldUpdate)
-                          return this.widget.searched!;
-                        else  
-                          return "Pesquise algo";
-                      }(),
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide.none,
-                      ),
+                  child: Container(
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xffF1F1F2),
+                    prefixIcon: Icon(Icons.search),
+                    labelText: () {
+                      if (this.widget.searched != null && !searchFieldUpdate)
+                        return this.widget.searched!;
+                      else
+                        return "Pesquise algo";
+                    }(),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      borderSide: BorderSide.none,
                     ),
-                    onTap: (){
-                      setState(() => {
-                        searchFieldUpdate = true
-                      });
-                    },
-                    onChanged: (String value) =>
-                        setState(() => {
-                          this.nameSearched = value.toLowerCase(),
-                        }),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
-                  height: 45,
-                )
-              ),
+                  onTap: () {
+                    setState(() => {searchFieldUpdate = true});
+                  },
+                  onChanged: (String value) => setState(() => {
+                        this.nameSearched = value.toLowerCase(),
+                      }),
+                ),
+                height: 45,
+              )),
               FutureBuilder<List<ProductModel>?>(
                 future: getListsAsync(),
                 builder: (context, snapshot) {

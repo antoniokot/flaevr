@@ -1,4 +1,4 @@
-import 'package:flaevr/components/nutriData.dart';
+import 'package:flaevr/components/product/nutriData.dart';
 import 'package:flaevr/models/Composition.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/ProductModel.dart';

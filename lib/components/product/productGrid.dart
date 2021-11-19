@@ -1,7 +1,7 @@
 import 'package:flaevr/components/favoriteSelectionModal.dart';
 import 'package:flaevr/components/focusedMenu.dart';
 import 'package:flaevr/components/popup.dart';
-import 'package:flaevr/components/productCard.dart';
+import 'package:flaevr/components/product/productCard.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/Folder.dart';
 import 'package:flaevr/models/ProductModel.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flaevr/utils/compareList.dart' as globalCompareList;
 import 'dart:ui';
 
-import 'modalHeader.dart';
+import '../modalHeader.dart';
 
 class ProductGrid extends StatefulWidget {
   @override
@@ -128,9 +128,13 @@ class ProductGridState extends State<ProductGrid> {
                         return Icon(Icons.compare_arrows_outlined);
                       }(),
                       onPressed: () {
-                        for (int i = 0; i < globalCompareList.list.length; i++) {
-                          if (globalCompareList.list[i].id == this.widget.products[index].id) {
-                            globalCompareList.list.remove(this.widget.products[index]);
+                        for (int i = 0;
+                            i < globalCompareList.list.length;
+                            i++) {
+                          if (globalCompareList.list[i].id ==
+                              this.widget.products[index].id) {
+                            globalCompareList.list
+                                .remove(this.widget.products[index]);
                             return;
                           }
                         }

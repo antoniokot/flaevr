@@ -1,5 +1,5 @@
 import 'package:flaevr/components/notFound.dart';
-import 'package:flaevr/components/productCard.dart';
+import 'package:flaevr/components/product/productCard.dart';
 import 'package:flaevr/components/searchBar.dart';
 import 'package:flaevr/components/skeleton.dart';
 import 'package:flaevr/models/ProductModel.dart';
