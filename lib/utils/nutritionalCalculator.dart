@@ -78,4 +78,8 @@ class NutritionalCalculator {
     return new AllCalories(
         carbs: carbs * 4, fats: fats * 9, proteins: proteins * 4);
   }
+
+  static double toHundredGramsBase(double serving, double itemQt) {
+    return itemQt * (100 / serving);
+  }
 }

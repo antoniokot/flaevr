@@ -80,18 +80,29 @@ class NutriData extends StatelessWidget {
               child: Column(
                 children: () {
                   List<Widget> ret = [];
-                  double sugar = lookForItemInNutrients("Açúcares");
+                  double sugar = NutritionalCalculator.toHundredGramsBase(
+                      double.parse(this
+                          .nutritionalFacts
+                          .serving
+                          .replaceAll(new RegExp(r'[^0-9\.\,]'), '')),
+                      lookForItemInNutrients("Açúcares"));
                   if (sugar > 5) {
                     ret.add(IngredientTile(
                       title: Warnings.sugar[0],
-                      text: Warnings.sugar[2],
+                      text: "Contém " +
+                          sugar.toStringAsFixed(1) +
+                          "g de açucar para cada 100 gramas de produto. " +
+                          Warnings.sugar[2],
                       trailingColor: Colors.red,
                     ));
                   }
                   if (sugar < 5 && sugar > 0)
                     ret.add(IngredientTile(
                       title: "Baixo em açúcar",
-                      text: Warnings.sugar[2],
+                      text: "Contém " +
+                          sugar.toStringAsFixed(1) +
+                          "g de açucar para cada 100 gramas de produto. " +
+                          Warnings.sugar[2],
                       trailingColor: Colors.green,
                     ));
                   if (sugar == 0 && this.nutritionalFacts.idProduct > 0)
@@ -101,17 +112,37 @@ class NutriData extends StatelessWidget {
                       trailingColor: Colors.green,
                     ));
 
-                  double sodium = lookForItemInNutrients("Sódio");
-                  if (sodium > 200)
+                  double sodium = NutritionalCalculator.toHundredGramsBase(
+                      double.parse(this
+                          .nutritionalFacts
+                          .serving
+                          .replaceAll(new RegExp(r'[^0-9\.\,]'), '')),
+                      lookForItemInNutrients("Sódio"));
+                  if (sodium > 400)
                     ret.add(IngredientTile(
                       title: Warnings.sodium[0],
-                      text: Warnings.sodium[2],
+                      text: "Contém " +
+                          sodium.toStringAsFixed(1) +
+                          "g de sódio para cada 100 gramas de produto. " +
+                          Warnings.sodium[2],
                       trailingColor: Colors.red,
+                    ));
+                  if (sodium <= 400 && sodium >= 200)
+                    ret.add(IngredientTile(
+                      title: "Médio em sódio",
+                      text: "Contém " +
+                          sodium.toStringAsFixed(1) +
+                          " de sódio para cada 100 gramas de produto. " +
+                          Warnings.sodium[2],
+                      trailingColor: Colors.yellow,
                     ));
                   if (sodium < 200 && sodium > 0)
                     ret.add(IngredientTile(
                       title: "Baixo em sódio",
-                      text: Warnings.sodium[2],
+                      text: "Contém " +
+                          sodium.toStringAsFixed(1) +
+                          " de sódio para cada 100 gramas de produto. " +
+                          Warnings.sodium[2],
                       trailingColor: Colors.green,
                     ));
                   if (sodium == 0 && this.nutritionalFacts.idProduct > 0)

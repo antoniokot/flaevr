@@ -27,7 +27,7 @@ class NutritionalValues extends StatelessWidget {
                         DataColumn(
                           label: Container(
                             child: Text(
-                              'Porção de 20g',
+                              'Porção de ' + this.nutritionalFacts.serving,
                               style: Styles.mediumTitle,
                             ),
                           ),

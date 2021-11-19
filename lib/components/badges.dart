@@ -14,7 +14,7 @@ class Badges extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: this.showLabels == true ? 100 : 67,
+        height: this.showLabels == true ? 115 : 67,
         margin: EdgeInsets.symmetric(horizontal: 19),
         child: FutureBuilder<List<Stamp>?>(
           future: StampService.getAllStampsByProductID(id),

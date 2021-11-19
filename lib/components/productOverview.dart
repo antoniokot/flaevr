@@ -170,7 +170,10 @@ class ProductOverviewState extends State<ProductOverview> {
           ),
         ),
         Allergens(AllergenService.getListOfAllergens(
-            this.widget.ingredients!.ingredients))
+            this.widget.ingredients!.ingredients)),
+        SizedBox(
+          height: 20,
+        )
       ],
     );
   }

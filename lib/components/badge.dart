@@ -67,7 +67,7 @@ class Badge extends StatelessWidget {
             this.showLabel
                 ? Container(
                     width: 67,
-                    padding: EdgeInsets.only(top: 5),
+                    padding: EdgeInsets.only(top: 4),
                     child: Text(
                       this.badge.name,
                       style: Styles.smallText,
