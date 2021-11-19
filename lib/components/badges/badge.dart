@@ -6,10 +6,17 @@ import 'package:flutter/material.dart';
 
 class Badge extends StatelessWidget {
   @override
-  Badge({required this.badge, required this.showLabel});
+  Badge(
+      {required this.badge,
+      required this.showLabel,
+      this.width = 67,
+      this.height = 67});
 
   final Stamp badge;
   final bool showLabel;
+  final double width;
+  final double height;
+
   List<Widget> getCustomCurvedText(String txt) {
     double textSize = txt.length * 20.0;
     int iteration = (360 / (textSize + 5)).round();
@@ -54,8 +61,8 @@ class Badge extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                height: 67,
-                width: 67,
+                height: height,
+                width: width,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(34.0),
                   child: Image(
@@ -66,7 +73,7 @@ class Badge extends StatelessWidget {
                 )),
             this.showLabel
                 ? Container(
-                    width: 67,
+                    width: width,
                     padding: EdgeInsets.only(top: 4),
                     child: Text(
                       this.badge.name,

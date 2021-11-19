@@ -33,7 +33,7 @@ class CompareHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-        padding: EdgeInsets.only(bottom: 10),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 7),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: buildProductVersus(size)));
