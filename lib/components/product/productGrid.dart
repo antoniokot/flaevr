@@ -66,7 +66,7 @@ class ProductGridState extends State<ProductGrid> {
         shrinkWrap: true,
         physics: this.widget.physics,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: getGridCount(size), childAspectRatio: 1 / 1.35),
+            crossAxisCount: getGridCount(size), childAspectRatio: 0.75),
         itemCount: this.widget.built ? this.widget.products.length : 4,
         itemBuilder: (BuildContext context, int index) {
           if (this.widget.built)
@@ -154,7 +154,7 @@ class ProductGridState extends State<ProductGrid> {
                 },
                 child: ProductCard(
                   product: this.widget.products[index],
-                  heightAspectRatio: new AspectRatio(aspectRatio: 2.3),
+                  heightAspectRatio: new AspectRatio(aspectRatio: 1.4),
                   width: 190,
                 ));
           else

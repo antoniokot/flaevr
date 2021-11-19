@@ -66,7 +66,7 @@ class CompareSearchState extends State<CompareSearch> {
                               itemBuilder: (BuildContext context, int index) =>
                                   ProductCard(
                                     heightAspectRatio:
-                                        new AspectRatio(aspectRatio: 2.3),
+                                        new AspectRatio(aspectRatio: 1.4),
                                     width: 140,
                                     product: snapshot.data![index],
                                   ));

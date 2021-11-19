@@ -41,8 +41,12 @@ class ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
+    double dynamicHeight =
+        (widget.heightAspectRatio.aspectRatio * widget.width) < 220
+            ? 220
+            : (widget.heightAspectRatio.aspectRatio * widget.width);
     return Container(
-      height: (widget.heightAspectRatio.aspectRatio * widget.width),
+      height: dynamicHeight,
       width: widget.width,
       margin: EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -90,47 +94,46 @@ class ProductCardState extends State<ProductCard> {
                       bottomRight: Radius.circular(16)),
                   color: Colors.white),
               width: double.infinity,
-              height: 65,
+              height: dynamicHeight / 3.3,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Flexible(
-                      child: Container(
+                        child: Column(children: [
+                      Container(
                         padding: EdgeInsets.only(top: 8),
                         child: Text(
                           this.widget.product.name!.split(',')[0],
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 13,
+                              fontSize: widget.width > 160 ? 13 : 12,
                               color: Color(0xff3d3d4e),
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 8),
-                      child: Text(
-                        this.widget.product.name!.split(',')[1],
-                        style: TextStyle(
-                            fontSize: 11,
-                            color: Styles.mutedGrey,
-                            fontWeight: FontWeight.normal),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          this.widget.product.name!.split(',')[1],
+                          style: TextStyle(
+                              fontSize: widget.width > 160 ? 11 : 10,
+                              color: Styles.mutedGrey,
+                              fontWeight: FontWeight.w400),
+                        ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(""),
-                        Icon(
+                    ])),
+                    Container(
+                        alignment: Alignment.bottomRight,
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: Icon(
                           Icons.arrow_forward,
                           color: Color(0xff3d3d4e),
-                          size: 16,
-                        )
-                      ],
-                    )
+                          size: widget.width > 160 ? 16 : 15,
+                        ))
                   ],
                 ),
               ))

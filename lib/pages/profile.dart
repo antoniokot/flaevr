@@ -189,7 +189,7 @@ class ProfileState extends State<Profile> {
                                                             heightAspectRatio:
                                                                 new AspectRatio(
                                                                     aspectRatio:
-                                                                        2.3),
+                                                                        1.4),
                                                             width: 140,
                                                             product: snapshot
                                                                 .data![index],
