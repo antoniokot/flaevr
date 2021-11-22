@@ -130,6 +130,7 @@ class ProfileState extends State<Profile> {
                           color: Color(0xFFFF4646),
                           onRefresh: () => refresh(),
                           child: SingleChildScrollView(
+                            controller: ScrollController(),
                             physics: BouncingScrollPhysics(),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -167,6 +168,7 @@ class ProfileState extends State<Profile> {
                                             );
                                           else {
                                             return ListView.builder(
+                                                controller: ScrollController(),
                                                 physics:
                                                     BouncingScrollPhysics(),
                                                 shrinkWrap: true,
@@ -201,6 +203,7 @@ class ProfileState extends State<Profile> {
                                         }
                                         // By default, show a loading skeleton.
                                         return ListView.builder(
+                                            controller: ScrollController(),
                                             physics: BouncingScrollPhysics(),
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,

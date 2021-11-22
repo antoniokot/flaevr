@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class Allergen extends StatelessWidget {
   final String allergen;
   @override
-  Allergen(this.allergen);
+  Allergen(this.allergen, {this.width});
+
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width - 20,
+        width: this.width ?? MediaQuery.of(context).size.width - 20,
         height: 70,
         decoration: BoxDecoration(
             color: Styles.ultraLightMutedGrey,
@@ -36,26 +38,25 @@ class Allergen extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 14),
                   ))),
-              Container(
-                  width: MediaQuery.of(context).size.width - 98,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+              Expanded(
                   child: Container(
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(Utility.capitalize(allergen),
-                            style: Styles.smallTitle),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Este produto contém ou pode conter traços de " +
-                              allergen.toLowerCase(),
-                          style: Styles.smallText,
-                        )
-                      ],
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(Utility.capitalize(allergen),
+                        style: Styles.smallTitle),
+                    SizedBox(
+                      height: 5,
                     ),
-                  ))
+                    Text(
+                      "Este produto contém ou pode conter traços de " +
+                          allergen.toLowerCase(),
+                      style: Styles.smallText,
+                    )
+                  ],
+                ),
+              ))
             ],
           ),
         ));
