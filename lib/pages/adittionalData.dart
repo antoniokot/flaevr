@@ -25,11 +25,17 @@ class AdditionalDataState extends State<AdditionalData> {
     this.user = User.fromJson(await FlutterSession().get("user"));
   }
 
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
   String genderValue = "male";
-  double height = 100;
+  int height = 170;
   double _currentSliderValue = 65;
   double _currentIdealSliderValue = 60;
-  int dropdownValue = 0;
+  String? dropdownValue = "Sedentário";
   int _currentAgeValue = 25;
 
   @override
@@ -53,7 +59,7 @@ class AdditionalDataState extends State<AdditionalData> {
                     "Gênero",
                     style: Styles.mediumTitle,
                   ),
-                  TogglePicker(onSelectGender: (String gender){
+                  TogglePicker(onSelectGender: (String gender) {
                     setState(() {
                       this.genderValue = gender;
                     });
@@ -79,6 +85,28 @@ class AdditionalDataState extends State<AdditionalData> {
                   ),
                   Text(
                     "O cálculo para crianças abaixo de 3 anos não está disponível. Para cálculo de necessidade diária de calorias de pessoas com enfermidades, gestantes, lactantes ou idosos os cálculos também não se aplicam.",
+                    style: Styles.noteText,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15, bottom: 10),
+                    child: Text(
+                      "Sua altura",
+                      style: Styles.mediumTitle,
+                    ),
+                  ),
+                  NumberPicker(
+                    value: height,
+                    minValue: 50,
+                    maxValue: 220,
+                    step: 1,
+                    itemHeight: 50,
+                    axis: Axis.horizontal,
+                    onChanged: (value) => setState(() => height = value),
+                    selectedTextStyle: TextStyle(
+                        color: Color(0xFFFF4646), fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "Caso não saiba exatamente sua altura exata, selecione um número próximo na faixa de mais 10 centímetros ou menos 10 centímetros.",
                     style: Styles.noteText,
                   ),
                   Padding(
@@ -168,18 +196,7 @@ class AdditionalDataState extends State<AdditionalData> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: DropdownButton<String>(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        value: (){
-                          switch(this.dropdownValue) {
-                            case 0:
-                              return "Sedentário";
-                            case 1:
-                              return "Pouco ativo";
-                            case 2:
-                              return "Ativo";
-                            case 3:
-                              return "Muito ativo";
-                          }
-                        }(),
+                        value: dropdownValue,
                         isExpanded: true,
                         underline: Container(),
                         icon: const Icon(
@@ -191,20 +208,7 @@ class AdditionalDataState extends State<AdditionalData> {
                         style: const TextStyle(color: Color(0xff3d3d4e)),
                         onChanged: (String? newValue) {
                           setState(() {
-                            switch(newValue) {
-                              case "Sedentário":
-                                dropdownValue = 0;
-                                break;
-                              case "Pouco ativo":
-                                dropdownValue = 1;
-                                break;
-                              case "Ativo":
-                                dropdownValue = 2;
-                                break;
-                              case "Muito ativo":
-                                dropdownValue = 3;
-                                break;
-                            }
+                            dropdownValue = newValue;
                           });
                         },
                         items: <String>[
@@ -220,30 +224,54 @@ class AdditionalDataState extends State<AdditionalData> {
                         }).toList(),
                       )),
                   Button(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
-                      width: double.infinity,
-                      height: 42,
-                      text: "Adicionar",
-                      textStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                      backgroundColor: Color(0xFFFF4646),
-                      onPressed: widget.onSubmmit ?? () => {
-                        AdditionalInformationService.postNewAdditionalInformation(
-                           context, 
-                           this.user!.id!, 
-                           this._currentAgeValue, 
-                           this.genderValue, 
-                           this.dropdownValue,
-                           this.height, 
-                           this._currentSliderValue, 
-                           this._currentIdealSliderValue
-                        )
-                        // .then();
-                      },
-                      )
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
+                    width: double.infinity,
+                    height: 42,
+                    text: "Adicionar",
+                    textStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                    backgroundColor: Color(0xFFFF4646),
+                    onPressed: () {
+                      print([
+                        this._currentAgeValue,
+                        this.genderValue,
+                        this.dropdownValue,
+                        this.height,
+                        this._currentSliderValue,
+                        this._currentIdealSliderValue
+                      ]);
+                      int propDropValue = 0;
+                      switch (dropdownValue) {
+                        case "Sedentário":
+                          propDropValue = 0;
+                          break;
+                        case "Pouco ativo":
+                          propDropValue = 1;
+                          break;
+                        case "Ativo":
+                          propDropValue = 2;
+                          break;
+                        case "Muito ativo":
+                          propDropValue = 3;
+                          break;
+                      }
+                      AdditionalInformationService.postNewAdditionalInformation(
+                              context,
+                              this.user!.id!,
+                              this._currentAgeValue,
+                              this.genderValue,
+                              propDropValue,
+                              this.height / 100,
+                              this._currentSliderValue,
+                              this._currentIdealSliderValue)
+                          .then((value) => this.widget.onSubmmit != null
+                              ? this.widget.onSubmmit!()
+                              : {});
+                    },
+                  )
                 ],
               )),
         ));

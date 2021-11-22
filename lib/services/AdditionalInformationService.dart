@@ -9,22 +9,22 @@ class AdditionalInformationService {
     try {
       AdditionalInformation? aInformation;
 
-      final response = await http.get(Uri.parse(
-          SharedAssets.apiURL + "/additionalInformations/" + id.toString()));
+      final response = await http.get(Uri.parse(SharedAssets.apiURL +
+          "/additionalInformations/user/" +
+          id.toString()));
 
       if (response.statusCode == 200) {
         var decodeJson = jsonDecode(response.body);
 
         decodeJson.forEach((item) => {
               aInformation = new AdditionalInformation(
-                id: item['idAdditionalInformation'],
                 idUser: item['idUser'],
                 age: item['age'],
-                gender: item['gender'],
+                gender: item['gender'].toString(),
                 af: item['af'],
-                height: item['height'],
-                weight: item['weight'],
-                idealWeight: item['idealWeight'],
+                height: item['height'] + 0.0,
+                weight: item['weight'] + 0.0,
+                idealWeight: item['idealWeight'] + 0.0,
               )
             });
 
@@ -51,13 +51,13 @@ class AdditionalInformationService {
       final response = await http.post(
           Uri.parse(SharedAssets.apiURL + '/additionalInformations/post'),
           body: {
-            "idUser": idUser,
-            "age": age,
+            "idUser": idUser.toString(),
+            "age": age.toString(),
             "gender": gender,
-            "af": af,
-            "height": height,
-            "weight": weight,
-            "idealWeight": idealWeight,
+            "af": af.toString(),
+            "height": height.toString(),
+            "weight": weight.toString(),
+            "idealWeight": idealWeight.toString(),
           });
       return response;
     } catch (e) {

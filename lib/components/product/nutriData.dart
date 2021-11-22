@@ -1,10 +1,15 @@
 import 'package:flaevr/components/charts/dataBar.dart';
 import 'package:flaevr/components/charts/dataBarSubtitle.dart';
+import 'package:flaevr/components/skeleton.dart';
+import 'package:flaevr/models/AdditionalInformation.dart';
 import 'package:flaevr/models/Ingredient.dart';
 import 'package:flaevr/models/NutritionalFacts.dart';
 import 'package:flaevr/models/NutritionalFactsRow.dart';
 import 'package:flaevr/models/NutritionalQuantity.dart';
+import 'package:flaevr/models/User.dart';
+import 'package:flaevr/services/AdditionalInformationService.dart';
 import 'package:flaevr/utils/nutritionalCalculator.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flaevr/utils/warnings.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +20,13 @@ class NutriData extends StatelessWidget {
   NutriData(
       {required this.ingredients,
       required this.nutritionalFacts,
-      required this.dataBarSize});
+      required this.dataBarSize,
+      required this.user});
 
   final NutritionalFacts nutritionalFacts;
   final List<Ingredient> ingredients;
   final double dataBarSize;
+  final User? user;
 
   double lookForItemInNutrients(String key) {
     for (NutritionalFactsRow nutrient in nutritionalFacts.nutrients) {
@@ -33,7 +40,6 @@ class NutriData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double maxCalories = 2000.000;
     const List<Color> colorsList = [
       Color(0xFF3BCCC5),
       Color(0xFFFFF634),
@@ -55,23 +61,72 @@ class NutriData extends StatelessWidget {
                         "Calorias",
                         style: Styles.smallTitle,
                       ),
-                      Text(
-                        maxCalories.toStringAsFixed(1) + " kCal",
-                        style: Styles.smallText.apply(color: Color(0xFFFF4646)),
-                      ),
+                      FutureBuilder<AdditionalInformation?>(
+                        future: AdditionalInformationService
+                            .getAdditionalInformation(this.user!.id ?? 1),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData)
+                            return Text(
+                              NutritionalCalculator.EER(
+                                          snapshot.data!.age,
+                                          snapshot.data!.weight,
+                                          snapshot.data!.height,
+                                          snapshot.data!.af,
+                                          snapshot.data!.gender
+                                              .substring(0, 1)
+                                              .toUpperCase())
+                                      .toStringAsFixed(1) +
+                                  " kCal",
+                              style: Styles.smallText
+                                  .apply(color: Color(0xFFFF4646)),
+                            );
+
+                          return Skeleton(
+                            width: 50,
+                            height: 15,
+                          );
+                        },
+                      )
                     ]),
-                DataBar(
-                  padding: EdgeInsets.only(top: 10),
-                  max: maxCalories,
-                  data: () {
-                    try {
-                      return [lookForItemInNutrients("Valor energético")];
-                    } catch (e) {
-                      return [200.0];
-                    }
-                  }(),
-                  width: dataBarSize,
-                ),
+                FutureBuilder<AdditionalInformation?>(
+                  future: AdditionalInformationService.getAdditionalInformation(
+                      this.user!.id ?? 1),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData)
+                      return DataBar(
+                        padding: EdgeInsets.only(top: 10),
+                        max: NutritionalCalculator.EER(
+                            snapshot.data!.age,
+                            snapshot.data!.weight,
+                            snapshot.data!.height,
+                            snapshot.data!.af,
+                            snapshot.data!.gender
+                                .substring(0, 1)
+                                .toUpperCase()),
+                        data: () {
+                          try {
+                            return [lookForItemInNutrients("Valor energético")];
+                          } catch (e) {
+                            return [200.0];
+                          }
+                        }(),
+                        width: dataBarSize,
+                      );
+
+                    return DataBar(
+                      padding: EdgeInsets.only(top: 10),
+                      max: 2000.0,
+                      data: () {
+                        try {
+                          return [lookForItemInNutrients("Valor energético")];
+                        } catch (e) {
+                          return [200.0];
+                        }
+                      }(),
+                      width: dataBarSize,
+                    );
+                  },
+                )
               ],
             ),
           ),

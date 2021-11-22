@@ -340,6 +340,7 @@ class ProductState extends State<Product> with SingleTickerProviderStateMixin {
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   return NutriData(
+                                      user: this.user,
                                       dataBarSize:
                                           MediaQuery.of(context).size.width -
                                               38,

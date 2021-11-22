@@ -12,6 +12,12 @@ class NutritionalCalculator {
     if (weight < 0 || height < 0 || age < 0)
       throw new Exception("All numeric params in EER must be positive.");
 
+    print(age);
+    print(weight);
+    print(height);
+    print(levelOfActivity);
+    print(gender);
+
     double starter = 0;
     if (age > 18)
       starter = gender == "M" ? 662 : 354;
@@ -35,6 +41,12 @@ class NutritionalCalculator {
 
     int bonus = 0;
     if (age > 3 && age <= 18) bonus = age < 9 ? 20 : 25;
+
+    // print(starter);
+    // print(ageMultiplier);
+    // print(weightMultiplier);
+    // print(heightMultiplier);
+    // print(bonus);
 
     return starter -
         (ageMultiplier * age) +

@@ -1,5 +1,5 @@
 class AdditionalInformation {
-  final int id;
+  final int? id;
   final int idUser;
   final int age;
   final String gender;
@@ -9,7 +9,7 @@ class AdditionalInformation {
   final double idealWeight;
 
   AdditionalInformation({
-    required this.id,
+    this.id,
     required this.idUser,
     required this.age,
     required this.gender,

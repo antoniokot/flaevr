@@ -36,7 +36,7 @@ class Button extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               )),
           child: Text(text, style: textStyle),
-          onPressed: () => onPressed(),
+          onPressed: () => this.onPressed(),
         ),
       ),
     );
