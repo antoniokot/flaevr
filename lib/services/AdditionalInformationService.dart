@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class AdditionalInformationService {
-  Future<AdditionalInformation?> getAdditionalInformation(int id) async {
+  static Future<AdditionalInformation?> getAdditionalInformation(int id) async {
     try {
       AdditionalInformation? aInformation;
 
@@ -38,7 +38,7 @@ class AdditionalInformationService {
     }
   }
 
-  Future<Response> postNewAdditionalInformation(
+  static Future<Response> postNewAdditionalInformation(
       context,
       int idUser,
       int age,

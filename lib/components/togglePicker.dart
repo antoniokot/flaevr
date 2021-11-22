@@ -2,7 +2,9 @@ import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class TogglePicker extends StatefulWidget {
-  TogglePicker({Key? key}) : super(key: key);
+  TogglePicker({Key? key, required this.onSelectGender}) : super(key: key);
+
+  Function(String) onSelectGender;
 
   @override
   TogglePickerState createState() => TogglePickerState();
@@ -57,6 +59,7 @@ class TogglePickerState extends State<TogglePicker> {
                 fColor = normalColor;
                 oColor = normalColor;
               });
+              this.widget.onSelectGender("Male");
             },
             child: Align(
               alignment: Alignment(-1, 0),
@@ -83,6 +86,7 @@ class TogglePickerState extends State<TogglePicker> {
                 mColor = normalColor;
                 oColor = normalColor;
               });
+              this.widget.onSelectGender("Female");
             },
             child: Align(
               alignment: Alignment(0, 0),
@@ -109,6 +113,7 @@ class TogglePickerState extends State<TogglePicker> {
                 fColor = normalColor;
                 mColor = normalColor;
               });
+              this.widget.onSelectGender("Other");
             },
             child: Align(
               alignment: Alignment(1, 0),

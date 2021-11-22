@@ -1,6 +1,8 @@
 import 'package:flaevr/components/button.dart';
 import 'package:flaevr/components/togglePicker.dart';
+import 'package:flaevr/models/User.dart';
 import 'package:flaevr/services/AdditionalInformationService.dart';
+import 'package:flaevr/utils/sessionManager.dart';
 import 'package:flaevr/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -17,9 +19,17 @@ class AdditionalData extends StatefulWidget {
 }
 
 class AdditionalDataState extends State<AdditionalData> {
+  User? user;
+
+  void getUser() async {
+    this.user = User.fromJson(await FlutterSession().get("user"));
+  }
+
+  String genderValue = "male";
+  double height = 100;
   double _currentSliderValue = 65;
   double _currentIdealSliderValue = 60;
-  String dropdownValue = 'Sedentário';
+  int dropdownValue = 0;
   int _currentAgeValue = 25;
 
   @override
@@ -43,11 +53,15 @@ class AdditionalDataState extends State<AdditionalData> {
                     "Gênero",
                     style: Styles.mediumTitle,
                   ),
-                  TogglePicker(),
+                  TogglePicker(onSelectGender: (String gender){
+                    setState(() {
+                      this.genderValue = gender;
+                    });
+                  }),
                   Padding(
                     padding: EdgeInsets.only(top: 15, bottom: 10),
                     child: Text(
-                      "Peso atual",
+                      "Idade atual",
                       style: Styles.mediumTitle,
                     ),
                   ),
@@ -154,7 +168,18 @@ class AdditionalDataState extends State<AdditionalData> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: DropdownButton<String>(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        value: dropdownValue,
+                        value: (){
+                          switch(this.dropdownValue) {
+                            case 0:
+                              return "Sedentário";
+                            case 1:
+                              return "Pouco ativo";
+                            case 2:
+                              return "Ativo";
+                            case 3:
+                              return "Muito ativo";
+                          }
+                        }(),
                         isExpanded: true,
                         underline: Container(),
                         icon: const Icon(
@@ -166,12 +191,25 @@ class AdditionalDataState extends State<AdditionalData> {
                         style: const TextStyle(color: Color(0xff3d3d4e)),
                         onChanged: (String? newValue) {
                           setState(() {
-                            dropdownValue = newValue!;
+                            switch(newValue) {
+                              case "Sedentário":
+                                dropdownValue = 0;
+                                break;
+                              case "Pouco ativo":
+                                dropdownValue = 1;
+                                break;
+                              case "Ativo":
+                                dropdownValue = 2;
+                                break;
+                              case "Muito ativo":
+                                dropdownValue = 3;
+                                break;
+                            }
                           });
                         },
                         items: <String>[
                           'Sedentário',
-                          'Pouco ativo',
+                          'Pouco Ativo',
                           'Ativo',
                           'Muito Ativo'
                         ].map<DropdownMenuItem<String>>((String value) {
@@ -192,10 +230,19 @@ class AdditionalDataState extends State<AdditionalData> {
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                       backgroundColor: Color(0xFFFF4646),
-                      onPressed: widget.onSubmmit ?? () => {}
-//                     AdditionalInformationService.postNewAdditionalInformation(context, 1, this._currentAgeValue, this., this.dropdownValue, height, this._currentSliderValue, this._currentIdealSliderValue).then(
-// widget.onSubmmit ?? () => {}
-//                     ) ,
+                      onPressed: widget.onSubmmit ?? () => {
+                        AdditionalInformationService.postNewAdditionalInformation(
+                           context, 
+                           this.user!.id!, 
+                           this._currentAgeValue, 
+                           this.genderValue, 
+                           this.dropdownValue,
+                           this.height, 
+                           this._currentSliderValue, 
+                           this._currentIdealSliderValue
+                        )
+                        // .then();
+                      },
                       )
                 ],
               )),
