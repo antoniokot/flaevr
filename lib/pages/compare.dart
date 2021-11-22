@@ -1,5 +1,4 @@
 import 'package:flaevr/components/compare/compareBody.dart';
-import 'package:flaevr/components/compare/compareCard.dart';
 import 'package:flaevr/components/compare/compareHeader.dart';
 import 'package:flaevr/components/notFoundCompareCard.dart';
 import 'package:flaevr/components/product/productGrid.dart';
@@ -156,16 +155,18 @@ class CompareState extends State<Compare> {
             child: compareList.length > 0
                 ? RefreshIndicator(
                     color: Color(0xFFFF4646),
-                    child: SingleChildScrollView(
+                    child: ListView(
+                        controller: ScrollController(),
+                        shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
-                        child: Column(children: [
+                        children: [
                           CompareHeader(
                             products: compareList,
                           ),
                           CompareBody(
                             products: compareList,
                           )
-                        ])),
+                        ]),
                     onRefresh: () => refresh())
                 : /*NotFoundCompareCard(),*/ Container(
                     alignment: Alignment.center,
