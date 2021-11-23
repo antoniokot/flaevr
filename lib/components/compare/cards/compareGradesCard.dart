@@ -204,7 +204,7 @@ class CompareGradesCard extends StatelessWidget {
                     style: Styles.mediumTitle,
                   ),
                   Text(
-                    "Veja as notas para a sustentabilidade das embalagens dos produtos",
+                    "Veja as notas para as embalagens dos produtos",
                     style: Styles.noteText,
                   ),
                   Expanded(
@@ -258,6 +258,7 @@ class CompareGradesCard extends StatelessWidget {
             ),
           ])
         : Skeleton(
+            padding: EdgeInsets.symmetric(horizontal: 14),
             width: double.infinity,
             height: 100,
           );

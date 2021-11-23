@@ -13,7 +13,7 @@ class BadgeDetails extends StatelessWidget {
     List<String> req = [
       "Não possuir em sua composição nada de origem animal.",
       "O produto final não pode ser testado em animais.",
-      "Processamento do produto não envolve insumos de origem animal."
+      "Processamento não envolve insumos de origem animal."
     ];
     ret.add(Padding(
       padding: EdgeInsets.only(bottom: 10),

@@ -64,6 +64,7 @@ class AllergenCompareCards extends StatelessWidget {
             return ret;
           }())
         : Skeleton(
+            padding: EdgeInsets.symmetric(horizontal: 14),
             width: double.infinity,
             height: 100,
           );
